@@ -1,0 +1,30 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-silver border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">FoodChainWebShop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-color" [routerLink]="['/']" [ngClass]="{ selectedRoute: selectedRoute === '/' }">Home</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-color" [routerLink]="['/counter']" [ngClass]="{ selectedRoute: selectedRoute === '/counter' }">Counter</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-color" [routerLink]="['/fetch-data']" [ngClass]="{ selectedRoute: selectedRoute === '/fetch-data' }">Fetch data</a>
+          </li>
+          <li>
+            <img class="langIcon point" [ngClass]="{ selectedLang: selectedLang === 'hr' }" src="../../assets/images/hrLangIcon.png" (click)="changeLang('hr')">
+            <img class="langIcon point" [ngClass]="{ selectedLang: selectedLang === 'en' }" src="../../assets/images/enLangIcon.svg.png" (click)="changeLang('en')">
+          </li>
+        </ul>
+      </div>
+      <div>
+      </div>
+    </div>
+  </nav>
+</header>
