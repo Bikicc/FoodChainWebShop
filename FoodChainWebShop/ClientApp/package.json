@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "echo Starting... && ng serve",
     "build": "ng build",
     "build:ssr": "ng run FoodChainWebShop:server:dev",
     "test": "ng test",
@@ -27,6 +27,8 @@
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.3.1",
     "core-js": "^3.3.3",
+    "desandro-classie": "^1.0.1",
+    "font-awesome": "^4.7.0",
     "jquery": "3.4.1",
     "ngx-translate-cache": "^9.0.2",
     "oidc-client": "^1.9.1",

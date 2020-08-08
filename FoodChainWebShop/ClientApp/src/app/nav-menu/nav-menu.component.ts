@@ -44,5 +44,4 @@ export class NavMenuComponent {
     this.selectedLang = selectedLang;
     this.translate.use(selectedLang);
   }
-
 }

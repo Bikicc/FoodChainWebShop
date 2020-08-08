@@ -14,6 +14,7 @@ import { TranslateCacheModule, TranslateCacheSettings, TranslateCacheService } f
         deps: [HttpClient]
       }
     }),
+
     TranslateCacheModule.forRoot({
       cacheService: {
         provide: TranslateCacheService,
@@ -25,6 +26,7 @@ import { TranslateCacheModule, TranslateCacheSettings, TranslateCacheService } f
   ],
   exports: [TranslateModule]
 })
+
 export class I18nModule {
   constructor(translate: TranslateService,
     translateCacheService: TranslateCacheService

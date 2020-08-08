@@ -1,3 +1,4 @@
+import { Config } from './config';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +13,9 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { I18nModule } from './i18n/i18n.module';
+import { FoodMenuService } from './services/foodMenuService';
+import { GlobalVar } from './globalVar';
+import { ErrorHandlerService } from './services/errorHandlerService';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,12 @@ import { I18nModule } from './i18n/i18n.module';
     I18nModule,
     ProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    GlobalVar,
+    FoodMenuService,
+    Config,
+    ErrorHandlerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
