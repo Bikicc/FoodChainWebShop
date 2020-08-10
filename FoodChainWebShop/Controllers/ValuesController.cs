@@ -17,19 +17,19 @@ namespace FoodChainWebShop.Controllers {
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetValues () {
-            var values = await _context.Values.ToListAsync();
+        // [HttpGet]
+        // public async Task<IActionResult> GetValues () {
+        //     // var values = await _context.Values.ToListAsync();
 
-            return Ok (values);
-        }
+        //     // return Ok (values);
+        // }
 
-        [HttpGet ("{id}")] //na ovaj nacin definiramo dodatni parametar
-        public async Task<IActionResult> GetValue (int id) {
-            // var value = _context.Values.FirstOrDefault(x => x.Id == id);
-            var value = await _context.Values.FindAsync(id);
-            return Ok(value);
+        // [HttpGet ("{id}")] //na ovaj nacin definiramo dodatni parametar
+        // public async Task<IActionResult> GetValue (int id) {
+        //     // var value = _context.Values.FirstOrDefault(x => x.Id == id);
+        //     // var value = await _context.Values.FindAsync(id);
+        //     // return Ok(value);
 
-        }
+        // }
     }
 }

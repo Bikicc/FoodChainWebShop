@@ -27,7 +27,7 @@ namespace FoodChainWebShop {
 
             services.AddScoped<IEmailSender, EmailSenderService> ();
 
-            services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
+            services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
 
