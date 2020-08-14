@@ -1,0 +1,15 @@
+<div *ngIf="imgList" class="swiper-container">
+  <div class="swiper-wrapper">
+    <ng-container *ngFor="let img of imgList">
+      <div class="swiper-slide"> <!-- [ngStyle]="{'background-image': 'url(' + img.src +')'}"-->
+        <img src={{img}}>
+      </div>
+    </ng-container>
+
+  </div>
+  <div class="swiper-pagination"></div>
+
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</div>
+

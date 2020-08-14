@@ -16,14 +16,17 @@ import { I18nModule } from './i18n/i18n.module';
 import { FoodMenuService } from './services/foodMenuService';
 import { GlobalVar } from './globalVar';
 import { ErrorHandlerService } from './services/errorHandlerService';
-
+import { RegistrationComponent } from './registration/registration.component';
+import { ImgSliderComponent } from './img-slider/img-slider.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    RegistrationComponent,
+    ImgSliderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -34,6 +37,7 @@ import { ErrorHandlerService } from './services/errorHandlerService';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'registration', component: RegistrationComponent }
     ]),
     I18nModule,
     ProgressSpinnerModule
@@ -46,4 +50,5 @@ import { ErrorHandlerService } from './services/errorHandlerService';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

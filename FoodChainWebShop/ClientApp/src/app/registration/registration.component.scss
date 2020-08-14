@@ -1,0 +1,199 @@
+@import '../../assets/css/button.scss';
+
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FormWrapper {
+  background-color: white;
+  width: 80vw;
+  height: 60vh;
+  border-radius: 40px;
+  background-image: url("../../assets/images/RegistrationFormbckg.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+
+}
+
+img {
+  filter: drop-shadow(5px 5px 1px #e9d5bc);
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.formHeader {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  font-size: 2.5em;
+  line-height: 1.25;
+  font-family: Fantasy;
+  width: 100%;
+  height: 10%;
+  text-align: center;
+  align-items: center;
+  background: linear-gradient(90deg, #fcff9e 0%, var(--orangeColor) 100%);
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+
+.haveAccountLink {
+  font-size: 1.2em;
+  color: var(--goldenColor);
+  cursor: pointer;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.haveAccountLink:hover {
+  border-bottom: 1px solid var(--goldenColor);
+  color: var(--goldenColor);
+}
+
+.signupContent {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dataInput {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
+
+input {
+  width: 100%;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #999;
+  padding: 6px 30px;
+  font-family: Fantasy;
+  background-color: transparent;
+  border-bottom: 1px solid var(--goldenColor);
+  text-align: center;
+  outline: none;
+}
+
+.fa {
+  color: var(--goldenColor);
+}
+
+a {
+  text-transform: uppercase;
+}
+
+// $bg: #f3f8fa;
+// $white: #fff;
+// $black: linear-gradient(90deg, #dfd97f 0%, var(--orangeColor) 100%);
+
+// @mixin transition($property:var(--goldenColor) all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, .076, 1)) {
+//   transition: $property $duration $ease;
+// }
+
+// button {
+//   position: relative;
+//   display: inline-block;
+//   cursor: pointer;
+//   outline: none;
+//   border: 0;
+//   vertical-align: middle;
+//   text-decoration: none;
+//   background: transparent;
+//   padding: 0;
+//   font-size: inherit;
+//   font-family: inherit;
+
+//   &.learn-more {
+//     width: 12rem;
+//     height: auto;
+
+//     .circle {
+//       @include transition(all, 0.45s, cubic-bezier(0.65, 0, .076, 1));
+//       position: relative;
+//       display: block;
+//       margin: 0;
+//       width: 3rem;
+//       height: 3rem;
+//       background: $black;
+//       border-radius: 1.625rem;
+
+//       .icon {
+//         @include transition(all, 0.45s, cubic-bezier(0.65, 0, .076, 1));
+//         position: absolute;
+//         top: 0;
+//         bottom: 0;
+//         margin: auto;
+//         background: $white;
+
+//         &.arrow {
+//           @include transition(all, 0.45s, cubic-bezier(0.65, 0, .076, 1));
+//           left: 0.625rem;
+//           width: 1.125rem;
+//           height: 0.125rem;
+//           background: none;
+
+//           &::before {
+//             position: absolute;
+//             content: '';
+//             top: -0.25rem;
+//             right: 0.0625rem;
+//             width: 0.625rem;
+//             height: 0.625rem;
+//             border-top: 0.125rem solid #fff;
+//             border-right: 0.125rem solid #fff;
+//             transform: rotate(45deg);
+//           }
+//         }
+//       }
+//     }
+
+//     .button-text {
+//       @include transition(all, 0.45s, cubic-bezier(0.65, 0, .076, 1));
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       right: 0;
+//       bottom: 0;
+//       padding: 0.75rem 0;
+//       margin: 0 0 0 1.85rem;
+//       color: $black;
+//       font-weight: 700;
+//       line-height: 1.6;
+//       text-align: center;
+//       text-transform: uppercase;
+//     }
+//   }
+
+//   &:hover {
+//     .circle {
+//       width: 100%;
+
+//       .icon {
+//         &.arrow {
+//           background: $white;
+//           transform: translate(1rem, 0);
+//         }
+//       }
+//     }
+
+//     .button-text {
+//       color: $white;
+//     }
+//   }
+// }
+
+// .buttonContainer {
+//   align-self: center;
+//   justify-self: center;
+// }
+
+// .hideButtonText {
+//   display: none;
+// }

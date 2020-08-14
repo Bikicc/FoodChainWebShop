@@ -1,0 +1,77 @@
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  // background-size: cover;
+  // background-position: center;
+  opacity: 1;
+}
+
+:host ::ng-deep .swiper-pagination-bullet-active {
+  background: var(--goldenColor) !important;
+  border: 2px solid #fff !important;
+  border-radius: 50%;
+  transform: scale(1.25);
+  opacity: 1 !important;
+}
+
+:host ::ng-deep .swiper-pagination-bullet {
+  background: #fff;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  transition: all 0.25s ease;
+  border: 2px solid var(--goldenColor);
+}
+
+:host ::ng-deep .swiper-button-next,
+:host ::ng-deep .swiper-button-prev {
+  color: black;
+  border: 4px solid var(--goldenColor);
+  padding: 25px;
+  border-radius: 30px;
+  background-color: var(--goldenColor);
+  opacity: .5;
+}
+
+:host ::ng-deep .swiper-button-next:hover,
+:host ::ng-deep .swiper-button-prev:hover {
+  opacity: 1;
+}
+
+:host ::ng-deep .swiper-button-next::after {
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+:host ::ng-deep .swiper-button-prev::after {
+  transform: translateX(-3px);
+  opacity: 1;
+}
+
+img {
+  width: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+
+  :host ::ng-deep .swiper-button-next,
+  :host ::ng-deep .swiper-button-prev {
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+  }
+
+  :host ::ng-deep .swiper-button-next::after {
+    font-size: 25px;
+    transform: translateX(-1px);
+  }
+
+  :host ::ng-deep .swiper-button-prev::after {
+    font-size: 25px;
+    transform: translateX(-1px);
+  }
+}

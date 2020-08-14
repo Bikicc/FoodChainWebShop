@@ -1,60 +1,51 @@
-<!-- <header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-silver border-bottom box-shadow mb-3">
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">FoodChainWebShop</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-color" [routerLink]="['/']" [ngClass]="{ selectedRoute: selectedRoute === '/' }">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-color" [routerLink]="['/counter']" [ngClass]="{ selectedRoute: selectedRoute === '/counter' }">Counter</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-color" [routerLink]="['/fetch-data']" [ngClass]="{ selectedRoute: selectedRoute === '/fetch-data' }">Fetch data</a>
-          </li>
-          <li>
-            <img class="langIcon point" [ngClass]="{ selectedLang: selectedLang === 'hr' }" src="../../assets/images/hrLangIcon.png" (click)="changeLang('hr')">
-            <img class="langIcon point" [ngClass]="{ selectedLang: selectedLang === 'en' }" src="../../assets/images/enLangIcon.svg.png" (click)="changeLang('en')">
-          </li>
-        </ul>
-      </div>
-      <div>
-      </div>
-    </div>
+<section class="topMenu">
+  <nav>
+    <ul class="flex fd-r jc-sb">
+      <li>
+        <img src="assets/images/burgerLogo.png" style="width: 100px;">
+      </li>
+      <li>
+        <a href="#">Košarica</a>
+      </li>
+      <li class="usernameWithButton">
+        <div class="flex jc-c buttonContainer">
+          <a href="#" class="btn">Logout</a>
+        </div>
+      </li>
+    </ul>
   </nav>
-</header> -->
+</section>
 
-<div id="circularMenu" class="circular-menu">
+<section class="bottomMenu">
+  <div style="width: 100%;">
+    <div id="circularMenu" class="circular-menu">
 
-  <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
-    <i class="fa fa-plus"></i>
-  </a>
+      <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
+        <i class="fa fa-plus"></i>
+      </a>
 
-  <menu class="items-wrapper">
-    <a href="#" class="menu-item fa fa-facebook"></a>
-    <a href="#" class="menu-item fa fa-twitter"></a>
+      <menu class="items-wrapper">
+        <a href="#" class="menu-item-lang fa fa-facebook"></a>
+        <a href="#" class="menu-item-lang fa fa-twitter"></a>
 
-  </menu>
+      </menu>
 
-</div>
+    </div>
 
 
-<div id="circularMenu1" class="circular-menu circular-menu-left active">
+    <div id="circularMenu1" class="circular-menu circular-menu-left">
 
-  <a class="floating-btn" onclick="document.getElementById('circularMenu1').classList.toggle('active');">
-    <i class="fa fa-bars"></i>
-  </a>
+      <a class="floating-btn" onclick="document.getElementById('circularMenu1').classList.toggle('active');">
+        <i class="fa fa-bars"></i>
+      </a>
 
-  <menu class="items-wrapper">
-    <a href="#" class="menu-item fa fa-home"></a>
-    <a href="#" class="menu-item fa fa-user"></a>
-    <a href="#" class="menu-item fa fa-pie-chart"></a>
-    <a href="#" class="menu-item fa fa-cog"></a>
-  </menu>
+      <menu class="items-wrapper">
+        <a href="#" class="menu-item fa fa-home"></a>
+        <a href="#" class="menu-item fa fa-user"></a>
+        <a href="#" class="menu-item fa fa-pie-chart"></a>
+        <a href="#" class="menu-item fa fa-cog"></a>
+      </menu>
 
-</div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+.btn {
+    text-decoration: none;
+    border: 1px solid var(--goldenColor);
+    position: relative;
+    overflow: hidden;
+    width: 80%;
+    color: #6f6868;
+    text-transform: uppercase;
+  }
+  
+  .btn:hover {
+    box-shadow: 1px 1px 15px 3px #e3c243a3;
+  }
+  
+  .btn:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(241, 231, 83, 0.73), transparent);
+    transition: all 650ms;
+  }
+  
+  .btn:hover:before {
+    left: 100%;
+  }
+  
+  .buttonContainer {
+    width: 50%;
+    align-self: center;
+  }
