@@ -11,6 +11,10 @@
   .btn:hover {
     box-shadow: 1px 1px 15px 3px #e3c243a3;
   }
+
+  .btn:focus {
+    box-shadow: 1px 1px 15px 3px #e3c243a3;
+  }
   
   .btn:before {
     content: "";

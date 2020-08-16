@@ -6,6 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DropdownModule } from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -18,6 +20,8 @@ import { GlobalVar } from './globalVar';
 import { ErrorHandlerService } from './services/errorHandlerService';
 import { RegistrationComponent } from './registration/registration.component';
 import { ImgSliderComponent } from './img-slider/img-slider.component';
+import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,21 +30,26 @@ import { ImgSliderComponent } from './img-slider/img-slider.component';
     CounterComponent,
     FetchDataComponent,
     RegistrationComponent,
-    ImgSliderComponent
+    ImgSliderComponent,
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ButtonModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'registration', component: RegistrationComponent }
+      { path: 'registration', component: RegistrationComponent },
+      { path: 'login', component: LoginComponent }
     ]),
     I18nModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    DropdownModule
   ],
   providers: [
     GlobalVar,

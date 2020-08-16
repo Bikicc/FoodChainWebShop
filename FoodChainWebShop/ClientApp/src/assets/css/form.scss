@@ -1,0 +1,90 @@
+@import './button.scss';
+
+.container {
+  height: calc(100vh - 67px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FormWrapper {
+  background-color: white;
+  width: 80vw;
+  height: 60vh;
+  border-radius: 40px;
+  background-image: url("../../assets/images/RegistrationFormbckg.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+
+}
+
+img {
+  filter: drop-shadow(5px 5px 1px #e9d5bc);
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.formHeader {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  font-size: 2.5em;
+  line-height: 1.25;
+  font-family: Fantasy;
+  width: 100%;
+  height: 10%;
+  text-align: center;
+  align-items: center;
+  background: linear-gradient(90deg, #fcff9e 0%, var(--orangeColor) 100%);
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+
+.haveAccountLink {
+  font-size: 1.2em;
+  color: var(--goldenColor);
+  cursor: pointer;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.haveAccountLink:hover {
+  color: #f5ce3457;
+}
+
+.signupContent {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dataInput {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
+
+input {
+  width: 100%;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #999;
+  padding: 6px 30px;
+  font-family: Fantasy;
+  background-color: transparent;
+  border-bottom: 1px solid var(--goldenColor);
+  text-align: center;
+  outline: none;
+}
+
+.fa {
+  color: var(--goldenColor);
+}
+
+a {
+  text-transform: uppercase;
+}
+

@@ -17,14 +17,21 @@ export class NavMenuComponent {
   selectedRoute: string = null;
   selectedLang: string = null;
   subscription: Subscription[] = [];
+  langs: any[] = [];
+  numberOfProducts: number = 0;
 
   ngOnInit(): void {
     this.selectedLang = this.translate.currentLang;
+    this.setDropDownLangs();
     this.subscription.push(
       this.router.events
         .pipe(filter(Event => Event instanceof NavigationEnd))
         .subscribe((event: any) => {
           this.selectedRoute = event.url;
+          window.scrollTo(0,0);
+          if(document.getElementById("overlayNav").style.width === "100%") {
+            this.closeOverlayNav();
+          }
         }));
   }
 
@@ -43,6 +50,21 @@ export class NavMenuComponent {
   changeLang(selectedLang: string) {
     this.selectedLang = selectedLang;
     this.translate.use(selectedLang);
+  }
+
+  setDropDownLangs() {
+    this.langs = [
+      { label: "English", value: "en" },
+      { label: "Croatian", value: "hr" }
+    ]
+  }
+
+  openOverlayNav() {
+    document.getElementById("overlayNav").style.width = "100%";
+  }
+
+  closeOverlayNav() {
+    document.getElementById("overlayNav").style.width = "0%";
   }
 
 }

@@ -1,51 +1,74 @@
-<section class="topMenu">
-  <nav>
-    <ul class="flex fd-r jc-sb">
-      <li>
-        <img src="assets/images/burgerLogo.png" style="width: 100px;">
-      </li>
-      <li>
-        <a href="#">Košarica</a>
-      </li>
-      <li class="usernameWithButton">
-        <div class="flex jc-c buttonContainer">
-          <a href="#" class="btn">Logout</a>
-        </div>
-      </li>
-    </ul>
-  </nav>
-</section>
+<div class="largeScreen">
+  <section class="topMenu" [ngClass]="{'displayNav': displayOverlayNav}">
+    <nav>
+      <ul class="flex fd-r jc-sb">
+        <li class="logoAndLangChangeContainer">
+          <div class="flex">
+            <a class="logoHomeLink" routerLink="/">
+              <img src="assets/images/burgerLogo.png" style="width: 100px;">
+            </a>
+            <span class="as-c">
+              <p-dropdown [options]="langs" [(ngModel)]="selectedLang">
+              </p-dropdown>
+            </span>
+          </div>
+        </li>
+        <li class="linksContainer jc-c">
+          <a href="#">MENU</a>
+          <a href="#">ABOUT US</a>
+          <a href="#">CONTACT US</a>
+          <a href="#">FAVOURITES</a>
+          <a href="#">ORDER HISTORY</a>
+        </li>
+        <li class="basketAndButtonContainer">
+          <div class="flex jc-c buttonContainer">
+            <img class="basketIcon" src="assets/images/MenuBasket.png">
+            <div class="numberOfProductsInBasket">
+              {{numberOfProducts}}
+            </div>
+            <a routerLink="/login" href="#" class="btn">Login</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </section>
+</div>
 
-<section class="bottomMenu">
-  <div style="width: 100%;">
-    <div id="circularMenu" class="circular-menu">
+<div class="smallScreen">
+  <section class="topMenu">
+    <nav>
+      <ul class="flex fd-r jc-sb">
+        <li class="logoAndLangChangeContainer">
+          <div class="flex">
+            <img class="menuIcon" src="assets/images/MenuIcon.png" (click)="openOverlayNav()">
+            <span class="as-c">
+              <p-dropdown [options]="langs" [(ngModel)]="selectedLang">
+              </p-dropdown>
+            </span>
+          </div>
+        </li>
+        <li class="basketAndButtonContainer">
+          <div class="flex jc-fe buttonContainer">
+            <img class="basketIcon" src="assets/images/MenuBasket.png">
+            <div class="numberOfProductsInBasket">
+              {{numberOfProducts}}
+            </div>
+            <a routerLink="/login" href="#" class="btn">Login</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </section>
+</div>
 
-      <a class="floating-btn" onclick="document.getElementById('circularMenu').classList.toggle('active');">
-        <i class="fa fa-plus"></i>
-      </a>
-
-      <menu class="items-wrapper">
-        <a href="#" class="menu-item-lang fa fa-facebook"></a>
-        <a href="#" class="menu-item-lang fa fa-twitter"></a>
-
-      </menu>
-
-    </div>
-
-
-    <div id="circularMenu1" class="circular-menu circular-menu-left">
-
-      <a class="floating-btn" onclick="document.getElementById('circularMenu1').classList.toggle('active');">
-        <i class="fa fa-bars"></i>
-      </a>
-
-      <menu class="items-wrapper">
-        <a href="#" class="menu-item fa fa-home"></a>
-        <a href="#" class="menu-item fa fa-user"></a>
-        <a href="#" class="menu-item fa fa-pie-chart"></a>
-        <a href="#" class="menu-item fa fa-cog"></a>
-      </menu>
-
-    </div>
+<div id="overlayNav" class="overlayNav">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeOverlayNav()">&times;</a>
+  <div class="overlayNavContent">
+    <a routerLink="/">HOME</a>
+    <a href="#">MENU</a>
+    <a href="#">ABOUT US</a>
+    <a href="#">CONTACT US</a>
+    <a href="#">FAVOURITES</a>
+    <a href="#">ORDER HISTORY</a>
   </div>
-</section>
+</div>

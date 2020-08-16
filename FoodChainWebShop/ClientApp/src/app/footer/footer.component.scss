@@ -1,0 +1,105 @@
+@import '../../assets/css/button.scss';
+
+.footerContainer {
+    border-top: 4px solid var(--goldenColor);
+    width: 100%;
+    padding: 20px 20px 5px 20px;
+}
+
+.footerContentContainer {
+    width: inherit;
+}
+
+.socialMediaContainer {
+    display: flex;
+    width: inherit;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.navContainer {
+    display: flex;
+    width: inherit;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.navItems {
+    color: var(--goldenColor);
+    font-weight: lighter;;
+    font-family: "Times New Roman";
+    padding: 0 15px;
+}
+
+.navItems:hover {
+    color: #f5ce344a;
+    text-decoration: none;
+}
+
+.socialMediaHref {
+    padding: 0 5px;
+}
+
+
+.pb-10 {
+    padding-bottom: 10px;    
+}
+
+.registrationContainer {
+    display: flex;
+    justify-content: center;
+    width: 30%;
+}
+
+.buttonContainer {
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+}
+
+.alreadyHaveAnAccountContainer {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.alreadyHaveAnAccountLink {
+    color: var(--goldenColor);
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.alreadyHaveAnAccountLink:hover {
+    color: #f5ce346b;
+    text-decoration: none;
+}
+
+.copyrightContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.copyrightContent {
+    color: var(--goldenColor);
+    font-style: italic;
+    font-family: Futura;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 450px) {
+    .copyrightContent {
+        font-size: 0.8rem;
+    }
+
+    .navItems {
+        font-size: 0.8rem;
+    }
+}
