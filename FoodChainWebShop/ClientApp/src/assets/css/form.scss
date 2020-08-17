@@ -50,7 +50,8 @@ img {
 }
 
 .haveAccountLink:hover {
-  color: #f5ce3457;
+  color: var(--hoverColor);
+  text-decoration: unset;
 }
 
 .signupContent {

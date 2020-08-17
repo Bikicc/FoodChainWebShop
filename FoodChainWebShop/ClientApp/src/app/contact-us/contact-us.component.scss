@@ -1,0 +1,17 @@
+@import '../../assets/css/divider.scss';
+@import '../../assets/css/button.scss';
+@import '../../assets/css/coverHeader.scss';
+
+.mapWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  width: 70%;
+  box-shadow: 1px 3px 10px var(--goldenColor);
+}
+
+@media only screen and (max-width: 900px) {
+  .mapWrapper {
+      width: 90%;
+  }
+}

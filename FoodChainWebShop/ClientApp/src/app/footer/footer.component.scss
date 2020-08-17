@@ -32,7 +32,7 @@
 }
 
 .navItems:hover {
-    color: #f5ce344a;
+    color: var(--hoverColor);
     text-decoration: none;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .alreadyHaveAnAccountLink:hover {
-    color: #f5ce346b;
+    color: var(--hoverColor);
     text-decoration: none;
 }
 

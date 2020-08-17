@@ -1,0 +1,37 @@
+.coverHeader {
+  height: 40vh;
+  width: 100%;
+  background: url("../../assets/images/c1f86158474bbd71f5bcc81b90e8f3c2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  position: relative;
+}
+
+.coverHeaderContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.coverHeaderHeadline {
+  font-weight: bold;
+  font-size: 50px;
+  font-family: fantasy;
+  color: var(--goldenColor);
+  text-align: center;
+}
+
+.coverHeaderContent {
+  color: #000;
+  font-size: 30px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+

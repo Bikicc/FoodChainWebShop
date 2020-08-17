@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GMapModule } from 'primeng/gmap';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -22,6 +23,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ImgSliderComponent } from './img-slider/img-slider.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +35,9 @@ import { LoginComponent } from './login/login.component';
     RegistrationComponent,
     ImgSliderComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    AboutUsComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,12 +45,15 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ButtonModule,
     BrowserAnimationsModule,
+    GMapModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'registration', component: RegistrationComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'aboutUs', component: AboutUsComponent },
+      { path: 'contactUs', component: ContactUsComponent }
     ]),
     I18nModule,
     ProgressSpinnerModule,

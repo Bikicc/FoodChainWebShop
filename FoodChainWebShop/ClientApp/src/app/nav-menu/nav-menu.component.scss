@@ -130,7 +130,7 @@ img {
 
 .overlayNav a:hover,
 .overlayNav:focus {
-  color: #f5ce345e;
+  color: var(--hoverColor);
 }
 
 .overlayNav .closebtn {
