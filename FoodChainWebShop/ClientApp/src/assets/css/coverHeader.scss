@@ -1,7 +1,7 @@
 .coverHeader {
   height: 40vh;
   width: 100%;
-  background: url("../../assets/images/c1f86158474bbd71f5bcc81b90e8f3c2.jpg");
+  background: url("../../assets/images/coverHeader.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right;
@@ -11,6 +11,7 @@
   align-items: center;
   min-height: 500px;
   position: relative;
+  padding-bottom: 10%;
 }
 
 .coverHeaderContainer {
@@ -18,6 +19,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  // transform: translateY(-50px);
 }
 
 .coverHeaderHeadline {
@@ -35,3 +37,14 @@
 }
 
 
+@media only screen and (max-width: 840px) {
+  .coverHeaderContent {
+    font-size: 18px;
+  }
+
+  .coverHeader {
+    min-height: unset;
+    padding-bottom: unset;
+  }
+
+}

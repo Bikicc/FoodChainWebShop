@@ -18,3 +18,9 @@
   .triangleShapeDivider .shape-fill {
     fill: #000000;
   }
+
+  @media only screen and (max-width: 840px) {
+    .triangleShapeDivider {
+      opacity: 0;
+    }
+  }

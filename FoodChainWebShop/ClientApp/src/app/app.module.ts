@@ -25,6 +25,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { MenuComponent } from './menu/menu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     FooterComponent,
     LoginComponent,
     AboutUsComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,7 +55,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: 'aboutUs', component: AboutUsComponent },
-      { path: 'contactUs', component: ContactUsComponent }
+      { path: 'contactUs', component: ContactUsComponent },
+      { path: 'menu', component: MenuComponent }
     ]),
     I18nModule,
     ProgressSpinnerModule,

@@ -1,5 +1,6 @@
 <div vlass="contactUsWrapper">
-  <!-- Contact us header -->
+
+  <!-- CONTACT US HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
       <h1 class="coverHeaderHeadline">CONTACT US</h1>
@@ -12,12 +13,74 @@
     </div>
   </div>
 
+  <!-- OUR LOCATIONS SECTION -->
   <h1 class="HeadlineText">OUR LOCATIONS</h1>
-  <div class="flex jc-c">
+  <div class="flex">
+    <div class="contactUsTextWrapper">
+      <div class="contactUsTextHeader">
+        ALL OUR LOCATIONS AT YOUR HAND!
+      </div>
+      <div class="contactUsTextContent">
+        We are always ready to welcome you with our great products and cozy atmosfhere.
+      </div>
+      <div class="contactUsTextContent">
+        Find us at these locations and we will make sure your visit stays remembered forever.
+      </div>
+      <div class="contactUsTextContent">
+        You dont know how our restaurants look like? Find one you like the most at our social media.
+      </div>
+      <div class="contactUsTextContent">
+        <a class="socialMediaHref" href="#">
+          <img class="socialMediaImg" style="width: 50px;" src="assets/images/twitterLogo.png">
+        </a>
+        <a class="socialMediaHref" href="#">
+          <img class="socialMediaImg" style="width: 50px;" src="assets/images/instagramLogo.png">
+        </a>
+        <a class="socialMediaHref" href="#">
+          <img class="socialMediaImg" style="width: 50px;" src="assets/images/facebookLogo.png">
+        </a>
+      </div>
+    </div>
     <div class="mapWrapper">
-      <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1XdvqgTGX2-pdcSh5w2sbi5gdH3nnIXwf" height="480"width="100%"></iframe>
+      <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1XdvqgTGX2-pdcSh5w2sbi5gdH3nnIXwf" height="480"
+        width="100%"></iframe>
     </div>
   </div>
 
+  <!-- Contact us form -->
   <h1 class="HeadlineText">CONTACT FORM</h1>
+  <div class="modal">
+    <div class="modal__container">
+      <div class="modal__featured">
+        <div class="modal__circle"></div>
+        <img src="assets/images/login.png" class="modal__product" />
+      </div>
+      <div class="modal__content">
+        <h2>CONTACT US</h2>
+        <form>
+          <ul class="form-list">
+            <li class="form-list__row">
+              <label>Our e-mail</label>
+              <input type="text" [(ngModel)]="ourEmailAdress" name="ourEmail" disabled
+                style="background-color: transparent;">
+            </li>
+            <li class="form-list__row">
+              <label>Your Name</label>
+              <input type="text" name="userName" required="" />
+            </li>
+            <li class="form-list__row">
+              <label>Mail title</label>
+              <input type="text" name="emailTitle" required="" />
+            </li>
+            <li class="form-list__row">
+              <textarea name="emailText" placeholder="Enter your mail here..." rows="3"></textarea>
+            </li>
+            <li>
+              <a href="#" class="btn" routerLink="/menu">SUBMIT</a>
+            </li>
+          </ul>
+        </form>
+      </div> <!-- END: .modal__content -->
+    </div> <!-- END: .modal__container -->
+  </div>
 </div>

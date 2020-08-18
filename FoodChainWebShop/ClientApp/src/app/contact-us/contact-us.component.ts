@@ -6,13 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-us.component.scss']
 })
 export class ContactUsComponent implements OnInit {
-  options: any;
-
-  overlays: any[];
+  ourEmailAdress: string = ''
 
   constructor() { }
 
   ngOnInit() {
+    this.ourEmailAdress = 'fastfoodchain123@gmail.com'
   }
 
 }
