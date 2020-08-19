@@ -59,7 +59,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   getLocation(): Promise<any> {
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=sdasfaf&key=' )
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=sdasfaf&key=' + this.key.apiKey)
       .toPromise()
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
