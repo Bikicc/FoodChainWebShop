@@ -63,7 +63,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       { path: 'contactUs', component: ContactUsComponent },
       { path: 'menu', component: MenuComponent },
       { path: 'favourites', component: FavouritesComponent },
-      { path: 'product/:productName', component: ProductInfoComponent },
+      { path: 'product/:productId/:productName', component: ProductInfoComponent },
       { path: '**', component: PageNotFoundComponent }
     ]),
     I18nModule,

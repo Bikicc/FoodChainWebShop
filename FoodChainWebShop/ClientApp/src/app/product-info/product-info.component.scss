@@ -1,0 +1,125 @@
+@import '../../assets/css/divider.scss';
+@import '../../assets/css/button.scss';
+@import '../../assets/css/coverHeader.scss';
+
+.descriptionWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0 10vw;
+  margin: 5px 0;
+}
+
+.descriptionTextHeader,
+.nutritionValuesTextHeader {
+  color: var(--goldenColor);
+  font-size: 30px;
+  font-weight: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.descriptionTextContent {
+  font-size: 1.5rem;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 0 12%;
+  font-style: italic;
+  margin: 5px 0;
+}
+
+.productImgWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.productImg {
+  width: 20%;
+}
+
+.buttonContainer {
+  width: 40%;
+  margin-top: 20px;
+}
+
+.btn {
+  width: 100%;
+}
+
+.nutritionValuesWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0 10vw;
+  height: 150px;
+  margin-bottom: 50px;
+  background-color: #4343432e;
+  margin-top: 30px;
+}
+
+.nutritionValuesContentWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  height: 100%;
+  align-items: center;
+}
+
+.contentHeader {
+  font-size: 1.4rem;
+  color: var(--goldenColor);
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+
+.contentValue {
+  text-align: center;
+  font-family: fantasy;
+  font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 810px) {
+  .productImg {
+    width: 30%;
+  }
+
+  .descriptionWrapper,
+  .nutritionValuesWrapper {
+    padding: unset;
+  }
+
+  .descriptionTextContent {
+    padding: 0 5vw;
+  }
+
+  .buttonContainer {
+    width: 70%
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .productImg {
+    width: 35%;
+  }
+
+  .descriptionTextHeader,
+  .nutritionValuesTextHeader {
+    font-size: 25px;
+  }
+
+  .descriptionTextContent {
+    padding: 0 5px;
+    font-size: 1.2rem;
+  }
+
+  .contentHeader {
+      font-size: 1.2rem;
+  }
+
+  .contentValue {
+      font-size: 1rem;
+  }
+}

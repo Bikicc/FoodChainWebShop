@@ -98,6 +98,7 @@ export class MenuComponent implements OnInit {
   }
 
   navigateToProduct(productName: string) {
-    this.router.navigateByUrl("product/" + productName);
+    productName = productName.split(' ').join('-');
+    this.router.navigate(["product/" + 1 + "/" + productName]);
   }
 }
