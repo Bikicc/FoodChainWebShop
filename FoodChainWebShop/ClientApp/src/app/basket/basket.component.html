@@ -1,0 +1,102 @@
+<div vlass="basketWrapper">
+
+  <!-- Menu HEADER -->
+  <div class="coverHeader">
+    <div class="coverHeaderContainer">
+      <h1 class="coverHeaderHeadline">BASKET</h1>
+      <h2 class="coverHeaderContent">Check Your products before order placment</h2>
+    </div>
+    <div class="triangleShapeDivider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BASKET SECTION-->
+  <div class="basketWrapper">
+    <div class="ui-g ui-fluid w-100">
+      <div *ngFor="let item of basketItems" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
+        <div class="quantityContainer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="displayOnHover icon icon-tabler icon-tabler-circle-minus"
+            width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#F44336" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" (click)="decreaseQuantity(item)">
+            <path stroke="none" d="M0 0h24v24H0z" />
+            <circle cx="12" cy="12" r="9" />
+            <line x1="9" y1="12" x2="15" y2="12" />
+          </svg>
+
+          <span class="us-none cursor-dft">{{item.quantity}}</span>
+
+          <svg xmlns="http://www.w3.org/2000/svg" class="displayOnHover icon icon-tabler icon-tabler-circle-plus"
+            width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f5ce34" fill="none"
+            stroke-linecap="round" (click)="increaseQuantity(item)" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" />
+            <circle cx="12" cy="12" r="9" />
+            <line x1="9" y1="12" x2="15" y2="12" />
+            <line x1="12" y1="9" x2="12" y2="15" />
+          </svg>
+        </div>
+        <div class="productImage" (click)="navigateToProduct(item.name)">
+          <img class="us-none" src="{{item.img}}" style="width: 100px">
+        </div>
+        <div class="productName us-none" (click)="navigateToProduct(item.name)">
+          {{item.name}}
+        </div>
+        <div class="productPrice us-none" (click)="navigateToProduct(item.name)">
+          {{item.price}}
+        </div>
+        <div class="flex jc-c buttonContainer">
+          <a class="btn btnRemove" (click)="increaseProductInABasketNumber(); addProductToBasket(item)">Remove
+            product</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYOUT SECTION -->
+  <div class="payoutWrapper">
+    <div class="payoutHeader">
+      CHECKOUT
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
+        <div class="contentHeader">
+          Address
+        </div>
+        <div class="contentValue">
+          <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
+            (onAddressChange)="handleAddressChange($event)" />
+        </div>
+      </div>
+      <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
+        <div class="contentHeader">
+          Note
+        </div>
+        <div class="contentValue">
+          <textarea name="emailText" placeholder="Enter your notice here..." rows="1"></textarea>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
+        <div class="contentHeader">
+          Total
+        </div>
+        <div class="contentValue">
+          100kn
+        </div>
+      </div>
+      <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c jc-c">
+        <div class="contentHeader">
+        </div>
+        <div class="contentValue fd-c">
+          <div class="flex jc-c visibleBtn">
+            <a class="btn" style="margin-bottom: 5px;">ORDER</a>
+          </div>
+          <div class="flex jc-c visibleBtn">
+            <a class="btn btnRemove">REMOVE ALL</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

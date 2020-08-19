@@ -1,0 +1,96 @@
+@import '../../assets/css/divider.scss';
+@import '../../assets/css/button.scss';
+@import '../../assets/css/coverHeader.scss';
+@import '../../assets/css/products.scss';
+
+.buttonContainer {
+  width: unset;
+  transition: all .5s ease;
+  opacity: 0;
+}
+
+.btn {
+  width: 100%;
+}
+
+.quantityContainer {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.productWrapper {
+  height: 300px;
+}
+
+.icon-tabler {
+  cursor: pointer;
+}
+
+.displayOnHover {
+  opacity: 0;
+  transition: all .5s ease;
+}
+
+.productWrapper:hover {
+  .displayOnHover {
+    opacity: 1;
+  }
+}
+
+.contentHeader {
+  font-size: 1.4rem;
+  color: var(--goldenColor);
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+
+.payoutWrapper {
+  margin-bottom: 50px;
+  background-color: #4343432e;
+}
+
+.payoutHeader {
+  color: var(--goldenColor);
+  font-size: 30px;
+  font-weight: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 5px 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.contentValue {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-family: fantasy;
+  font-size: 1.2rem;
+}
+
+.visibleBtn {
+  opacity: 1 !important;
+  width: 100%;
+}
+
+input {
+  width: 80%;
+  border: 1px solid var(--goldenColor);
+}
+
+.contentValue textarea {
+  border-color: var(--goldenColor);
+  width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+  .buttonContainer {
+    opacity: 1;
+  }
+
+  input {
+    width: 100%;
+  }
+}

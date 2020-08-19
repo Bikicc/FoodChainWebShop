@@ -22,8 +22,8 @@
         </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-c buttonContainer">
-            <img class="basketIcon" src="assets/images/MenuBasket.png">
-            <div class="numberOfProductsInBasket">
+            <img class="basketIcon" src="assets/images/MenuBasket.png" (click)="navigateToBasket()">
+            <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
             <a routerLink="/login" href="#" class="btn">Login</a>
@@ -49,8 +49,8 @@
         </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-fe buttonContainer">
-            <img class="basketIcon" src="assets/images/MenuBasket.png">
-            <div class="numberOfProductsInBasket">
+            <img class="basketIcon" src="assets/images/MenuBasket.png" (click)="navigateToBasket()">
+            <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
             <a routerLink="/login" href="#" class="btn">Login</a>
@@ -69,7 +69,7 @@
     <a routerLink="/aboutUs">ABOUT US</a>
     <a routerLink="/contactUs">CONTACT US</a>
     <a routerLink="/favourites">FAVOURITES</a>
-    <a href="#">ORDER HISTORY</a>
+    <a routerLink="/orderHistory">ORDER HISTORY</a>
   </div>
 </div>
 

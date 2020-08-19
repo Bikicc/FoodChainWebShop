@@ -29,6 +29,9 @@ import { ComponentCommunicationService } from './services/ComponentCommunication
 import { FavouritesComponent } from './favourites/favourites.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BasketComponent } from './basket/basket.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { OrderHistoryComponent } from './order-history/order-history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MenuComponent,
     FavouritesComponent,
     ProductInfoComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BasketComponent,
+    OrderHistoryComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,6 +58,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ButtonModule,
     BrowserAnimationsModule,
     GMapModule,
+    GooglePlaceModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -64,6 +70,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       { path: 'menu', component: MenuComponent },
       { path: 'favourites', component: FavouritesComponent },
       { path: 'product/:productId/:productName', component: ProductInfoComponent },
+      { path: 'basket', component: BasketComponent },
+      { path: 'orderHistory', component: OrderHistoryComponent },
       { path: '**', component: PageNotFoundComponent }
     ]),
     I18nModule,

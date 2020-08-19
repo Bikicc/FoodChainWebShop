@@ -82,4 +82,8 @@ export class NavMenuComponent {
     this.numberOfProducts++;
   }
 
+  navigateToBasket() {
+    this.router.navigateByUrl("basket");
+  }
+
 }

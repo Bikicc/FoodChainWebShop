@@ -1,0 +1,24 @@
+@import '../../assets/css/divider.scss';
+@import '../../assets/css/button.scss';
+@import '../../assets/css/coverHeader.scss';
+@import '../../assets/css/dropdown.scss';
+@import '../../assets/css/products.scss';
+
+.ordersWrapper {
+    margin-top: 50px;
+}
+
+.orderHeader {
+    background-color: #4343432e;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.orderText {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--goldenColor);
+    font-family: fantasy;
+}

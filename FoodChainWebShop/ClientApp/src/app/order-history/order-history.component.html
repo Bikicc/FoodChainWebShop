@@ -1,0 +1,46 @@
+<div vlass="orderHistoryWrapper">
+
+  <!-- ORDER HISTORY HEADER -->
+  <div class="coverHeader">
+    <div class="coverHeaderContainer">
+      <h1 class="coverHeaderHeadline">ORDER HISTORY</h1>
+      <h2 class="coverHeaderContent">You can find all your orders in one place</h2>
+    </div>
+    <div class="triangleShapeDivider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ORDER HISTORY SECTION-->
+  <div class="ordersWrapper">
+    <div *ngFor="let order of orders">
+      <div class="orderHeader">
+        <div class="orderText">
+          {{order.orderTime}}
+        </div>
+        <div class="orderText">
+          {{order.address}}
+        </div>
+        <div class="orderText">
+          {{order.total}}kn
+        </div>
+      </div>
+      <div class="ui-g ui-fluid w-100">
+        <div *ngFor="let item of order.products" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper" (click)="navigateToProduct(item.name)">
+          <span class="cursot-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}</span>
+          <div class="productImage">
+            <img src="{{item.img}}" style="width: 100px">
+          </div>
+          <div class="productName">
+            {{item.name}}
+          </div>
+          <div class="productPrice">
+            {{item.price}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
