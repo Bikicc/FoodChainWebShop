@@ -1,22 +1,25 @@
 @import '../../assets/css/divider.scss';
 @import '../../assets/css/button.scss';
 @import '../../assets/css/coverHeader.scss';
-@import '../../assets/css/dropdown.scss';
 @import '../../assets/css/products.scss';
 
-
 .buttonContainer {
-  width: unset;
+  width: 70%;
   transition: all .5s ease;
   opacity: 0;
+  margin-bottom: 10px;
 }
 
-.btn {
+.btn, .btnRemove {
   width: 100%;
 }
 
-.btn:hover {
+.btn:hover, .btnRemove:hover {
   box-shadow: unset;
+}
+
+.productWrapper {
+    height: 300px;
 }
 
 @media only screen and (max-width: 1024px) {

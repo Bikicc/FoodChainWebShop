@@ -17,8 +17,8 @@
           <a routerLink="/menu">MENU</a>
           <a routerLink="/aboutUs">ABOUT US</a>
           <a routerLink="/contactUs">CONTACT US</a>
-          <a href="#">FAVOURITES</a>
-          <a href="#">ORDER HISTORY</a>
+          <a routerLink="/favourites">FAVOURITES</a>
+          <a (click)="increaseBasketNumber()">ORDER HISTORY</a>
         </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-c buttonContainer">
@@ -68,7 +68,8 @@
     <a routerLink="/menu">MENU</a>
     <a routerLink="/aboutUs">ABOUT US</a>
     <a routerLink="/contactUs">CONTACT US</a>
-    <a href="#">FAVOURITES</a>
+    <a routerLink="/contactUs">FAVOURITES</a>
     <a href="#">ORDER HISTORY</a>
   </div>
 </div>
+

@@ -13,7 +13,6 @@ import { GMapModule } from 'primeng/gmap';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { I18nModule } from './i18n/i18n.module';
 import { FoodMenuService } from './services/foodMenuService';
@@ -26,12 +25,13 @@ import { LoginComponent } from './login/login.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MenuComponent } from './menu/menu.component';
+import { ComponentCommunicationService } from './services/ComponentCommunicationService';
+import { FavouritesComponent } from './favourites/favourites.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
     FetchDataComponent,
     RegistrationComponent,
     ImgSliderComponent,
@@ -39,7 +39,8 @@ import { MenuComponent } from './menu/menu.component';
     LoginComponent,
     AboutUsComponent,
     ContactUsComponent,
-    MenuComponent
+    MenuComponent,
+    FavouritesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,13 +51,13 @@ import { MenuComponent } from './menu/menu.component';
     GMapModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: 'aboutUs', component: AboutUsComponent },
       { path: 'contactUs', component: ContactUsComponent },
-      { path: 'menu', component: MenuComponent }
+      { path: 'menu', component: MenuComponent },
+      { path: 'favourites', component: FavouritesComponent }
     ]),
     I18nModule,
     ProgressSpinnerModule,
@@ -66,7 +67,8 @@ import { MenuComponent } from './menu/menu.component';
     GlobalVar,
     FoodMenuService,
     Config,
-    ErrorHandlerService
+    ErrorHandlerService,
+    ComponentCommunicationService
   ],
   bootstrap: [AppComponent]
 })

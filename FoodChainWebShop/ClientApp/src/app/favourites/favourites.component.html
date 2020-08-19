@@ -1,14 +1,10 @@
-<div vlass="menuWrapper">
+<div vlass="favouritesWrapper">
 
-  <!-- Menu HEADER -->
+  <!-- FAVOURITES HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">MENU</h1>
-      <h2 class="coverHeaderContent">Check out our fresh and delicious menu</h2>
-      <span class="as-c">
-        <p-dropdown [options]="categories" [(ngModel)]="selectedcategory">
-        </p-dropdown>
-      </span>
+      <h1 class="coverHeaderHeadline">FAVOURITES</h1>
+      <h2 class="coverHeaderContent">Store your favourite products for quick acces</h2>
     </div>
     <div class="triangleShapeDivider">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -17,10 +13,10 @@
     </div>
   </div>
 
-  <!-- MENU SECTION-->
+  <!-- FAVOURITES SECTION-->
   <div class="menuWrapper">
     <div class="ui-g ui-fluid w-100">
-      <div *ngFor="let item of filterProductsBasedOnCategory()" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
+      <div *ngFor="let item of favourites" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
         <div class="productImage">
           <img src="{{item.img}}" style="width: 100px">
         </div>
@@ -31,7 +27,10 @@
           {{item.price}}
         </div>
         <div class="flex jc-c buttonContainer">
-          <a class="btn" (click)="increaseProductInABasketNumber(); addProductToBasket(item)">Add to basket</a>
+          <a class="btn" (click)="addToBsket()">Add to basket</a>
+        </div>
+        <div class="flex jc-c buttonContainer">
+          <a class="btn btnRemove" (click)="removeFromFavourites()">Remove</a>
         </div>
       </div>
     </div>
