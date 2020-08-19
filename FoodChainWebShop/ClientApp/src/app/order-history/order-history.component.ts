@@ -1,3 +1,4 @@
+import { apiKey } from './../apiKey';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ export class OrderHistoryComponent implements OnInit {
 
   orders: any[] = [];
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private key: apiKey) { }
 
   ngOnInit() {
     this.setOrders();
@@ -58,7 +59,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   getLocation(): Promise<any> {
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=sdasfaf&key=AIzaSyA_bO8P0wyGbCoqm4P_3yScdd7mVhVBoqc')
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=sdasfaf&key=' )
       .toPromise()
       .then((response) => console.log(response))
       .catch((error) => console.log(error));

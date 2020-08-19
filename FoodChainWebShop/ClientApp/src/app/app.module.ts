@@ -1,3 +1,4 @@
+import { apiKey } from './apiKey';
 import { Config } from './config';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -83,7 +84,8 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
     FoodMenuService,
     Config,
     ErrorHandlerService,
-    ComponentCommunicationService
+    ComponentCommunicationService,
+    apiKey
   ],
   bootstrap: [AppComponent]
 })

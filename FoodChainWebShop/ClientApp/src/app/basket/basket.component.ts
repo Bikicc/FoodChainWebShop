@@ -8,12 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BasketComponent implements OnInit {
 
   basketItems: any[] = [];
-  formattedAddress: string = '';
-  options = {
-    componentRestrictions : {
-      country: ['HR']
-    }
-  }
+
 
   constructor() { }
 
@@ -48,8 +43,5 @@ export class BasketComponent implements OnInit {
     })
   }
 
-  handleAddressChange(address: any) {
-    this.formattedAddress = address.formatted_address;
-  }
 
 }
