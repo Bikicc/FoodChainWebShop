@@ -21,13 +21,13 @@
   <div class="menuWrapper">
     <div class="ui-g ui-fluid w-100">
       <div *ngFor="let item of filterProductsBasedOnCategory()" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
-        <div class="productImage">
+        <div class="productImage" (click)="navigateToProduct(item.name)">
           <img src="{{item.img}}" style="width: 100px">
         </div>
-        <div class="productName">
+        <div class="productName" (click)="navigateToProduct(item.name)">
           {{item.name}}
         </div>
-        <div class="productPrice">
+        <div class="productPrice" (click)="navigateToProduct(item.name)">
           {{item.price}}
         </div>
         <div class="flex jc-c buttonContainer">

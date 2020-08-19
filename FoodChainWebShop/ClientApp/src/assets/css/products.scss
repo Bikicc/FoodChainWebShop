@@ -36,6 +36,10 @@
     font-size: 1.2rem;
     font-family: fantasy;
     font-weight: bold;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
   }
   
   .productName {
@@ -43,5 +47,16 @@
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
     padding-bottom: 7px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .productImage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
   }
   

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ComponentCommunicationService } from "../services/ComponentCommunicationService";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -15,7 +15,8 @@ export class MenuComponent implements OnInit {
   message: string;
 
   constructor(
-    public dataFromAnotherComponent: ComponentCommunicationService
+    private dataFromAnotherComponent: ComponentCommunicationService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -94,5 +95,9 @@ export class MenuComponent implements OnInit {
 
     // console.log(currProducts);
 
+  }
+
+  navigateToProduct(productName: string) {
+    this.router.navigateByUrl("product/" + productName);
   }
 }

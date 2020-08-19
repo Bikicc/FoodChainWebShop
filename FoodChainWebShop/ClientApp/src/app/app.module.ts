@@ -27,6 +27,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MenuComponent } from './menu/menu.component';
 import { ComponentCommunicationService } from './services/ComponentCommunicationService';
 import { FavouritesComponent } from './favourites/favourites.component';
+import { ProductInfoComponent } from './product-info/product-info.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,9 @@ import { FavouritesComponent } from './favourites/favourites.component';
     AboutUsComponent,
     ContactUsComponent,
     MenuComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    ProductInfoComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,6 +54,7 @@ import { FavouritesComponent } from './favourites/favourites.component';
     BrowserAnimationsModule,
     GMapModule,
     RouterModule.forRoot([
+      { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'registration', component: RegistrationComponent },
@@ -57,7 +62,9 @@ import { FavouritesComponent } from './favourites/favourites.component';
       { path: 'aboutUs', component: AboutUsComponent },
       { path: 'contactUs', component: ContactUsComponent },
       { path: 'menu', component: MenuComponent },
-      { path: 'favourites', component: FavouritesComponent }
+      { path: 'favourites', component: FavouritesComponent },
+      { path: 'product/:productName', component: ProductInfoComponent },
+      { path: '**', component: PageNotFoundComponent }
     ]),
     I18nModule,
     ProgressSpinnerModule,

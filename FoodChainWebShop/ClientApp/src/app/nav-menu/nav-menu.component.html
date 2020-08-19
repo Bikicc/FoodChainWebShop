@@ -4,7 +4,7 @@
       <ul class="flex fd-r jc-sb">
         <li class="logoAndLangChangeContainer">
           <div class="flex">
-            <a class="logoHomeLink" routerLink="/">
+            <a class="logoHomeLink" routerLink="/homepage">
               <img src="assets/images/burgerLogo.png" style="width: 100px;">
             </a>
             <span class="as-c">
@@ -18,7 +18,7 @@
           <a routerLink="/aboutUs">ABOUT US</a>
           <a routerLink="/contactUs">CONTACT US</a>
           <a routerLink="/favourites">FAVOURITES</a>
-          <a (click)="increaseBasketNumber()">ORDER HISTORY</a>
+          <a routerLink="/orderHistory">ORDER HISTORY</a>
         </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-c buttonContainer">
@@ -64,11 +64,11 @@
 <div id="overlayNav" class="overlayNav">
   <a href="javascript:void(0)" class="closebtn" (click)="closeOverlayNav()">&times;</a>
   <div class="overlayNavContent">
-    <a routerLink="/">HOME</a>
+    <a routerLink="/homepage">HOME</a>
     <a routerLink="/menu">MENU</a>
     <a routerLink="/aboutUs">ABOUT US</a>
     <a routerLink="/contactUs">CONTACT US</a>
-    <a routerLink="/contactUs">FAVOURITES</a>
+    <a routerLink="/favourites">FAVOURITES</a>
     <a href="#">ORDER HISTORY</a>
   </div>
 </div>

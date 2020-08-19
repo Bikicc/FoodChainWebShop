@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-favourites',
@@ -9,7 +11,7 @@ export class FavouritesComponent implements OnInit {
 
   favourites: any;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.setFavouritesItems();
@@ -39,6 +41,10 @@ export class FavouritesComponent implements OnInit {
 
   addToBsket() {
     console.log("Add to basket");
+  }
+
+  navigateToProduct(productName: string) {
+    this.router.navigateByUrl("product/" + productName);
   }
 
 }
