@@ -1,9 +1,9 @@
-<div vlass="productInfoWrapper">
+<div *ngIf="productInfo" class="productInfoWrapper">
 
   <!-- PRODUCT INFO HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">{{productName}}</h1>
+      <h1 class="coverHeaderHeadline">{{productInfo.name}}</h1>
       <h2 class="coverHeaderContent">Everything you need to know about product</h2>
     </div>
     <div class="triangleShapeDivider">
@@ -20,21 +20,20 @@
         DESCRIPTION
       </div>
       <div class="descriptionTextContent">
-        Cheesburger is one of our finest products. Loved but everyone it comes fresh from
-        our grill with just right amount of cheese and our fresh ground beef. Loved by
-        everyone this burger is safe choice.
+        {{productInfo.description_Hr}}
       </div>
       <div class="flex jc-c buttonContainer">
         <a class="btn">Add to basket</a>
       </div>
       <div class="flex jc-c buttonContainer">
-        <a class="btn">Add to favourites</a>
+        <a  *ngIf="!isFavourite" class="btn" (click)="addToFavourites()">Add to favourites</a>
+        <a  *ngIf="isFavourite" class="btn" [ngClass]="{'btnRemove': isFavourite}" (click)="removeFromFavourites()">Remove from favourites</a>
       </div>
     </div>
 
     <!-- IMAGE SECTION -->
     <div class="productImgWrapper">
-      <img class="productImg" src="assets/images/login.png">
+      <img class="productImg" src="assets/images/products/{{productInfo.imageName}}">
     </div>
 
     <!-- NUTRITION VALUES -->
@@ -45,18 +44,10 @@
       <div class="nutritionValuesContentWrapper">
         <div class="nutritionValuesContent">
           <div class="contentHeader">
-            Masti
-          </div>
-          <div class="contentValue">
-            10g
-          </div>
-        </div>
-        <div class="nutritionValuesContent">
-          <div class="contentHeader">
             Kalorije
           </div>
           <div class="contentValue">
-            100Kcal
+            {{productInfo.calories}}kcal
           </div>
         </div>
         <div class="nutritionValuesContent">
@@ -64,7 +55,15 @@
             Ugljikohi.
           </div>
           <div class="contentValue">
-            100g
+            {{productInfo.carbs}}g
+          </div>
+        </div>
+        <div class="nutritionValuesContent">
+          <div class="contentHeader">
+            Šečer
+          </div>
+          <div class="contentValue">
+            {{productInfo.sugar}}g
           </div>
         </div>
         <div class="nutritionValuesContent">
@@ -72,7 +71,15 @@
             Proteini
           </div>
           <div class="contentValue">
-            7g
+            {{productInfo.proteins}}
+          </div>
+        </div>
+        <div class="nutritionValuesContent">
+          <div class="contentHeader">
+            Masti
+          </div>
+          <div class="contentValue">
+            {{productInfo.fat}}g
           </div>
         </div>
       </div>

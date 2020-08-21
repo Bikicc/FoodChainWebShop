@@ -5,30 +5,24 @@ import { retry, catchError } from 'rxjs/operators';
 import { Config } from "../config";
 
 @Injectable()
-export class FoodMenuService {
+export class CategoryService {
     constructor(
         private config: Config,
         private http: HttpClient,
         private errorHandler: ErrorHandlerService
     ) { }
 
-    values_SelectAll() {
+    category_SelectAllWithProducts() {
         return this.http
-            .get(this.config.API_URL + 'values5')
+            .get(this.config.API_URL + 'category')
             .pipe(
                 retry(this.config.APIRetryCount),
                 catchError(this.errorHandler.errorHandler));
     }
 
-    postmanTest() {
-        var formData: any = new FormData();
-        formData.append("from", "marijo.bikic123@gmail.com");
-        formData.append("subject", "test api from client");
-        formData.append("content","test post api from client");
-
-
+    category_SelectById(categoryId: number) {
         return this.http
-            .post(this.config.API_URL + 'weatherforecast', formData)
+            .get(this.config.API_URL + 'category/' + categoryId)
             .pipe(
                 retry(this.config.APIRetryCount),
                 catchError(this.errorHandler.errorHandler));

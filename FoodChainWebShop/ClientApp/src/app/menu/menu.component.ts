@@ -1,6 +1,9 @@
+import { Product } from './../interfaces/Product';
+import { Category } from './../interfaces/Category';
+import { CategoryService } from './../services/CategoryService';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ComponentCommunicationService } from "../services/ComponentCommunicationService";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -9,52 +12,49 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
   @Output() myEvent = new EventEmitter();
 
-  categories: any[] = [];
-  selectedcategory: number = null;
-  menuItems: any[] = [];
+  categories: Category[] = [];
+  selectedCategoryId: number = 1;
+  menuItems: Product[] = [];
   message: string;
+  categoriesDropdown: any[] = [];
+  selectedCategory: Category = null;
 
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.setDropdownCategories();
-    this.setMenuItems();
+    this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
+      this.categories = data.categories;
+      this.setDropdownCategories();
+    }, err => {
+      console.log(err);
+    })
   }
 
   setDropdownCategories() {
-    this.categories = [
-      { label: "Burger", value: 1 },
-      { label: "Pizza", value: 2 },
-      { label: "Tortilla", value: 3 },
-      { label: "Dessert", value: 4 },
-      { label: "Drink", value: 5 }];
+    this.categoriesDropdown = this.categories.map(category => {
+      return { label: category.name_Hr, value: category.categoryId }
+    });
 
-    this.selectedcategory = 1;
+    this.filterProductsBasedOnCategory();
   }
 
-  setMenuItems() {
-    this.menuItems = [
-      { name: "Big Tasty", price: "35kn", img: "assets/images/login.png", category: 2 },
-      { name: "McChicken", price: "35kn", img: "assets/images/login.png", category: 2 },
-      { name: "Triple take", price: "35kn", img: "assets/images/login.png", category: 2 },
-      { name: "Nasty jon", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Chiliburger", price: "35kn", img: "assets/images/login.png", category: 5 },
-      { name: "Cesar salad", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Topli sendvič", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Tost", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Cola", price: "35kn", img: "assets/images/login.png", category: 4 },
-      { name: "Fanta", price: "35kn", img: "assets/images/login.png", category: 4 },
-      { name: "Nestea", price: "22kn", img: "assets/images/login.png", category: 4 },
-      { name: "Cheesburger", price: "12kn", img: "assets/images/login.png", category: 1 },
-      { name: "Hamburger", price: "7kn", img: "assets/images/login.png", category: 1 },
-    ]
+
+  getMenuItems() {
+    this.categoryService.category_SelectAllWithProducts().subscribe((data: Category[]) => {
+      this.categories = data;
+      this.setDropdownCategories();
+    }, err => {
+      console.log(err);
+    })
   }
 
   filterProductsBasedOnCategory() {
-    return this.menuItems.filter(item => item.category == this.selectedcategory);
+    this.selectedCategory = this.categories.filter(item => item.categoryId == this.selectedCategoryId)[0];
   }
 
   addToBasket(itemName: string) {
@@ -97,8 +97,8 @@ export class MenuComponent implements OnInit {
 
   }
 
-  navigateToProduct(productName: string) {
+  navigateToProduct(productId: number, productName: string) {
     productName = productName.split(' ').join('-');
-    this.router.navigate(["product/" + 1 + "/" + productName]);
+    this.router.navigate(["product/" + productId + "/" + productName]);
   }
 }

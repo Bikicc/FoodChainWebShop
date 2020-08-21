@@ -1,4 +1,4 @@
-import { FoodMenuService } from './../services/foodMenuService';
+import { ProductService } from '../services/ProductService';
 import { Config } from './../config';
 import { GlobalVar } from './../globalVar';
 import { Component } from '@angular/core';
@@ -15,7 +15,7 @@ export class FetchDataComponent {
   constructor(
     private http: HttpClient,
     private config: Config,
-    private foodMenuService: FoodMenuService) { }
+    private foodMenuService: ProductService) { }
 
   ngOnInit(): void {
     this.http.get<WeatherForecast[]>(this.config.API_URL + 'weatherforecast').subscribe(result => {
@@ -33,13 +33,13 @@ export class FetchDataComponent {
     // })
   }
 
-  sendEmailPostData() {
-    this.foodMenuService.postmanTest().subscribe((data: string[]) => {
-      console.log(data)
-    }, (err: string) => {
-      console.log(err);
-    })
-  }
+  // sendEmailPostData() {
+  //   this.foodMenuService.postmanTest().subscribe((data: string[]) => {
+  //     console.log(data)
+  //   }, (err: string) => {
+  //     console.log(err);
+  //   })
+  // }
 
 }
 

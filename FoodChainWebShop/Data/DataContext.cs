@@ -5,9 +5,9 @@ namespace FoodChainWebShop.Data {
         public DataContext (DbContextOptions<DataContext> options) : base (options) { }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
-            modelBuilder.Entity<OrderProduct>().HasKey (op => new { op.OrderId, op.ProductId });
+            modelBuilder.Entity<OrderProduct> ().HasKey (op => new { op.OrderId, op.ProductId });
 
-            modelBuilder.Entity<Favourite>().HasKey (f => new { f.UserId, f.ProductId });
+            modelBuilder.Entity<Favourite> ().HasKey (f => new { f.UserId, f.ProductId });
         }
 
         public DbSet<Order> Orders { get; set; }
@@ -15,8 +15,6 @@ namespace FoodChainWebShop.Data {
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<Favourite> Favourites { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Discount> Discounts { get; set; }
         public DbSet<Category> Categories { get; set; }
 
     }

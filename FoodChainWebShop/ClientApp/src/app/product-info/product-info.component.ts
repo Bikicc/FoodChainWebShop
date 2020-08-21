@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { FavouritesService } from './../services/FavouritesService';
+import { Product } from '../interfaces/Product';
 
 @Component({
   selector: 'app-product-info',
@@ -8,33 +9,65 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./product-info.component.scss']
 })
 export class ProductInfoComponent implements OnInit {
-  productId: number = null;
-  productName: string = ''
+  productInfo: Product = null;
+  favourites: Product[] = [];
+  isFavourite: boolean = null;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private favouritesService: FavouritesService) { }
 
-  async ngOnInit() {
-    let productInfo = await this.getParams();
-    this.setProductInfo(productInfo);
+  ngOnInit() {
+    this.activatedRoute.data.subscribe((data: { product: Product, favourites: Product[] }) => {
+      this.productInfo = data.product;
+      this.favourites = data.favourites;
+      this.checkIsProductInFavourites();
+    }, err => {
+      console.log(err);
+    });
   }
 
-  getParams() {
-    return new Promise<{}>(resolve => {
-      let productInfo = {
-        id: null,
-        name: null
-      };
+  addToFavourites() {
+    let data = {
+      userId: 3,
+      productId: this.productInfo.productId
+    };
 
-      productInfo.id = Number(this.route.snapshot.params.productId);
-      productInfo.name = this.route.snapshot.params.productName;
-      productInfo.name = productInfo.name.split('-').join(' ');
-      resolve(productInfo);
+    this.favouritesService.postProductToFavourites(data).subscribe(async () => {
+      await this.getFavourites();
+      this.checkIsProductInFavourites();
+      console.log("added to favourites!")
+    }, err => {
+      console.log(err)
     })
   }
 
-  setProductInfo(productInfo: any) {
-    this.productId = productInfo.id;
-    this.productName = productInfo.name
+  checkIsProductInFavourites() {
+    this.isFavourite = this.favourites.some(x => {
+      return x.productId === this.productInfo.productId;
+    });
+  }
+
+  removeFromFavourites() {
+    this.favouritesService.deleteFromFavourites(3, this.productInfo.productId).subscribe(async () => {
+      await this.getFavourites();
+      this.checkIsProductInFavourites();
+    }, err => {
+      console.log(err)
+    })
+  }
+
+  getFavourites() {
+    return new Promise((resolve, reject) => {
+      this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
+        this.favourites = data;
+        this.checkIsProductInFavourites();
+        resolve();
+      }, err => {
+        console.log(err);
+        reject();
+      })
+    })
   }
 }
 

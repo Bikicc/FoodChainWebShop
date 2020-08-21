@@ -1,27 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-
 namespace FoodChainWebShop.Models {
     public class User {
         public int UserId { get; set; }
+
+        [Required]
+        [StringLength (15, ErrorMessage = "{0} must be between {2} and {1}", MinimumLength = 4)]
         public string Username { get; set; }
+
+        [EmailAddress]
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
-
         public ICollection<Order> Orders { get; set; }
         public ICollection<Favourite> Favourites { get; set; }
-        public ICollection<Address> Addresses { get; set; }
 
+        [Required]
+        [StringLength (15, ErrorMessage = "Password must be between {2} and {1}", MinimumLength = 4)]
         [NotMapped]
         public string PasswordPlain {
-            get { return Decrypt (Password); }
             set { Password = Encrypt (value); }
+            get {  return Decrypt(Password); }
         }
 
         private string Encrypt (string clearText) {

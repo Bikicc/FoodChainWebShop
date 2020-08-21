@@ -1,5 +1,7 @@
+import { Product } from './../interfaces/Product';
+import { FavouritesService } from './../services/FavouritesService';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,30 +11,19 @@ import { Router } from '@angular/router';
 })
 export class FavouritesComponent implements OnInit {
 
-  favourites: any;
+  favourites: Product[] = [];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private favouritesService: FavouritesService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.setFavouritesItems();
-  }
-
-  setFavouritesItems() {
-    this.favourites = [
-      { name: "Big Tasty", price: "35kn", img: "assets/images/login.png", category: 2 },
-      { name: "McChicken", price: "35kn", img: "assets/images/login.png", category: 2 },
-      { name: "Triple take", price: "35kn", img: "assets/images/login.png", category: 2 },
-      { name: "Nasty jon", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Chiliburger", price: "35kn", img: "assets/images/login.png", category: 5 },
-      { name: "Cesar salad", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Topli sendvič", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Tost", price: "35kn", img: "assets/images/login.png", category: 3 },
-      { name: "Cola", price: "35kn", img: "assets/images/login.png", category: 4 },
-      { name: "Fanta", price: "35kn", img: "assets/images/login.png", category: 4 },
-      { name: "Nestea", price: "22kn", img: "assets/images/login.png", category: 4 },
-      { name: "Cheesburger", price: "12kn", img: "assets/images/login.png", category: 1 },
-      { name: "Hamburger", price: "7kn", img: "assets/images/login.png", category: 1 },
-    ]
+    this.activatedRoute.data.subscribe((data: { favourites: Product[] }) => {
+      this.favourites = data.favourites;
+    }, err => {
+      console.log(err);
+    });
   }
 
   removeFromFavourites() {
@@ -43,8 +34,25 @@ export class FavouritesComponent implements OnInit {
     console.log("Add to basket");
   }
 
-  navigateToProduct(productName: string) {
-    this.router.navigateByUrl("product/" + productName);
+  navigateToProduct(productName: string, productId: number) {
+    productName = productName.split(' ').join('-');
+    this.router.navigateByUrl("product/" + productId + '/' + productName);
+  }
+
+  getFavourites() {
+    this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
+      this.favourites = data;
+    }, err => {
+      console.log(err)
+    })
+  }
+
+  deleteFromFavourites(favouriteId: number) {
+    this.favouritesService.deleteFromFavourites(3, favouriteId).subscribe(() => {
+      this.getFavourites();
+    }, err => {
+      console.log(err)
+    })
   }
 
 }

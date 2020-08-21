@@ -27,9 +27,12 @@ namespace FoodChainWebShop {
 
             services.AddScoped<IEmailSender, EmailSenderService> ();
 
-            services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews ()
+                .AddNewtonsoftJson (options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles (configuration => {
@@ -48,7 +51,9 @@ namespace FoodChainWebShop {
             }
 
             app.UseCors (
-                options => options.WithOrigins ("http://localhost:4200").AllowAnyMethod ()
+                options => options.WithOrigins ("http://localhost:4200")
+                .AllowAnyMethod ()
+                .AllowAnyHeader ()
             );
             app.UseHttpsRedirection ();
             app.UseStaticFiles ();

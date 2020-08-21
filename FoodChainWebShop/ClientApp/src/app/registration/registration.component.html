@@ -10,30 +10,47 @@
         </div>
         <div class="dataInput">
           <div class="flex">
-            <div class="flex ai-c">
+            <div class="flex ai-c mh-40">
               <i class="fa fa-user" aria-hidden="true"></i>
             </div>
-            <input id="name" type="text" placeholder="Username">
+            <div class="inputWrapper">
+              <input id="name" name="name" type="text" placeholder="Username" [(ngModel)]="userToRegister.Username"
+                [ngClass]="{'errorInput': usernameError}"
+                (focusout)="checkUsername(); checkButton(); checkUsernameTaken()">
+              <span *ngIf="usernameError" class="errorMessage">Username must contain at least 4 characters</span>
+              <span *ngIf="usernameTaken.length > 0" class="errorMessage">{{usernameTaken}} <a
+                  routerLink="/login">login!</a></span>
+            </div>
           </div>
         </div>
         <div class="dataInput">
           <div class="flex">
-            <div class="flex ai-c">
+            <div class="flex ai-c mh-40">
               <i class="fa fa-envelope" aria-hidden="true"></i>
             </div>
-            <input id="name" type="text" placeholder="E-mail">
+            <div class="inputWrapper">
+              <input id="name" type="text" placeholder="E-mail" [(ngModel)]="userToRegister.Email"
+                [ngClass]="{'errorInput': emailError}" (focusout)="checkEmail(); checkButton(); checkEmailTaken()">
+              <span *ngIf="emailError" class="errorMessage">Email not valid!</span>
+              <span *ngIf="emailTaken.length > 0" class="errorMessage">{{emailTaken}} <a
+                  routerLink="/login">login!</a></span>
+            </div>
           </div>
         </div>
         <div class="dataInput">
           <div class="flex">
-            <div class="flex ai-c">
+            <div class="flex ai-c mh-40">
               <i class="fa fa-key" aria-hidden="true"></i>
             </div>
-            <input id="name" type="password" placeholder="Password">
+            <div class="inputWrapper">
+              <input id="name" type="password" placeholder="Password" [ngClass]="{'errorInput': passwordError}"
+                [(ngModel)]="userToRegister.PasswordPlain" (focusout)="checkPassword(); checkButton()">
+              <span *ngIf="passwordError" class="errorMessage">Password must have at least 4 characters</span>
+            </div>
           </div>
         </div>
         <div class="flex jc-c buttonContainer">
-          <a href="#" class="btn">Sign up</a>
+          <a class="btn" (click)="submitForm()" [ngClass]="{'disabledButton': buttonDisabled}">Sign up</a>
         </div>
         <div class="flex jc-c">
           <a routerLink="/login" class="haveAccountLink">I already have an account!</a>

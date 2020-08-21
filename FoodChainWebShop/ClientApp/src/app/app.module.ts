@@ -1,3 +1,5 @@
+import { FavouritesResolverService } from './services/FavouritesResolverService';
+import { FavouritesService } from './services/FavouritesService';
 import { apiKey } from './apiKey';
 import { Config } from './config';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +18,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { I18nModule } from './i18n/i18n.module';
-import { FoodMenuService } from './services/foodMenuService';
+import { ProductService } from './services/ProductService';
 import { GlobalVar } from './globalVar';
 import { ErrorHandlerService } from './services/errorHandlerService';
 import { RegistrationComponent } from './registration/registration.component';
@@ -33,6 +35,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BasketComponent } from './basket/basket.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { OrderHistoryComponent } from './order-history/order-history.component';
+import { CategoryService } from './services/CategoryService';
+import { MenuResolverService } from './services/MenuResolverService';
+import { ProductInfoResolverService } from './services/ProductInfoResolverService';
+import { UserService } from './services/UserService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,9 +74,9 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
       { path: 'login', component: LoginComponent },
       { path: 'aboutUs', component: AboutUsComponent },
       { path: 'contactUs', component: ContactUsComponent },
-      { path: 'menu', component: MenuComponent },
-      { path: 'favourites', component: FavouritesComponent },
-      { path: 'product/:productId/:productName', component: ProductInfoComponent },
+      { path: 'menu', component: MenuComponent, resolve: { categories: MenuResolverService } },
+      { path: 'favourites', component: FavouritesComponent, resolve: { favourites: FavouritesResolverService } },
+      { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },
       { path: 'orderHistory', component: OrderHistoryComponent },
       { path: '**', component: PageNotFoundComponent }
@@ -81,11 +87,14 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
   ],
   providers: [
     GlobalVar,
-    FoodMenuService,
+    ProductService,
     Config,
     ErrorHandlerService,
     ComponentCommunicationService,
-    apiKey
+    apiKey,
+    CategoryService,
+    UserService,
+    FavouritesService
   ],
   bootstrap: [AppComponent]
 })

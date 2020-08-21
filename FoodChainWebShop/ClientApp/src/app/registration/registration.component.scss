@@ -1,2 +1,31 @@
 @import '../../assets/css/form.scss';
 
+.mh-40 {
+    max-height: 40px;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 0.8rem;
+}
+
+.errorInput {
+    border-bottom: 1px solid red;
+}
+
+a:hover {
+    color: #6f6868 !important;
+}
+
+.disabledButton {
+    cursor: default;
+    background-color: #80808078;
+}
+
+.disabledButton:hover {
+    box-shadow: unset;
+}
+
+.disabledButton::before {
+    background: unset;
+}

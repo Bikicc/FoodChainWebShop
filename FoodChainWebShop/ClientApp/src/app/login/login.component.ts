@@ -1,33 +1,31 @@
+import { User } from './../interfaces/User';
 import { Component, OnInit } from '@angular/core';
-import Swiper from 'swiper';
+import { UserService } from './../services/UserService';
+import { Router } from '@angular/router';
+
+// import Swiper from 'swiper';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  timelineSwiper: Swiper
-  constructor() { }
+  userCredentials: User = {
+    Email: '',
+    Username: '',
+    PasswordPlain: ''
+  }
 
-  ngOnInit() {
-     this.timelineSwiper = new Swiper ('.timeline .swiper-container', {
-      direction: 'vertical',
-      loop: false,
-      speed: 1600,
-      pagination: '.swiper-pagination',
-      paginationBulletRender: function (swiper, index, className) {
-        var year = document.querySelectorAll('.swiper-slide')[index].getAttribute('data-year');
-        return '<span class="' + className + '">' + year + '</span>';
-      },
-      paginationClickable: true,
-      nextButton: '.swiper-button-next',
-      prevButton: '.swiper-button-prev',
-      breakpoints: {
-        768: {
-          direction: 'horizontal',
-        }
-      }
-    });
+  constructor(
+    private userService: UserService,
+    private router: Router) { }
+
+  ngOnInit() {}
+
+  loginUser() {
+    this.userService.loginUser(this.userCredentials).subscribe((data) => {
+      this.router.navigate(["homepage"]);
+    }, err => console.log(err))
   }
 
 }

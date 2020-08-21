@@ -8,6 +8,8 @@ namespace FoodChainWebShop.Models {
         public DateTime OrderTime { get; set; }
         public string Note { get; set; }
         public string Address { get; set; }
+
+        public int UserId { get; set; }
         public User User { get; set; }
         public ICollection<OrderProduct> OrderProduct { get; set; }
 

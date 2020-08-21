@@ -16,54 +16,21 @@ namespace FoodChainWebShop.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.6");
 
-            modelBuilder.Entity("FoodChainWebShop.Models.Address", b =>
-                {
-                    b.Property<int>("AddressId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AddressId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("FoodChainWebShop.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Name_En")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name_Hr")
                         .HasColumnType("TEXT");
 
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("FoodChainWebShop.Models.Discount", b =>
-                {
-                    b.Property<int>("DiscountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Percentage")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("price")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("DiscountId");
-
-                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("FoodChainWebShop.Models.Favourite", b =>
@@ -117,7 +84,7 @@ namespace FoodChainWebShop.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Amount")
+                    b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("OrderId", "ProductId");
@@ -142,11 +109,11 @@ namespace FoodChainWebShop.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Description_En")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("DiscountId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Description_Hr")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Fat")
                         .HasColumnType("INTEGER");
@@ -170,8 +137,6 @@ namespace FoodChainWebShop.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("DiscountId");
-
                     b.ToTable("Products");
                 });
 
@@ -187,22 +152,12 @@ namespace FoodChainWebShop.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("FoodChainWebShop.Models.Address", b =>
-                {
-                    b.HasOne("FoodChainWebShop.Models.User", "User")
-                        .WithMany("Addresses")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FoodChainWebShop.Models.Favourite", b =>
@@ -247,10 +202,6 @@ namespace FoodChainWebShop.Migrations
                     b.HasOne("FoodChainWebShop.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("FoodChainWebShop.Models.Discount", "Discount")
-                        .WithMany("Products")
-                        .HasForeignKey("DiscountId");
                 });
 #pragma warning restore 612, 618
         }
