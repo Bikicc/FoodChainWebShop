@@ -1,6 +1,8 @@
+import { OrderService } from './../services/OrderService';
+import { Order } from './../interfaces/Order';
 import { apiKey } from './../apiKey';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -11,57 +13,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderHistoryComponent implements OnInit {
 
-  orders: any[] = [];
+  orders: Order[] = [];
 
-  constructor(private router: Router, private http: HttpClient, private key: apiKey) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private key: apiKey,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.setOrders();
-    this.getLocation();
+    this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
+      this.orders = data.orders;
+      this.formatDateTimeHrv();
+    }, err => {
+      console.log(err);
+    })
   }
 
-  setOrders() {
-    this.orders = [
-      {
-        address: 'Kupreška ulica 88, Split, Croatia', orderTime: '22.08.2018 15:45', total: 145, products: [
-          { name: "Big Tasty", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "McChicken", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "Triple take", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 2 },
-          { name: "Nasty jon", price: "35kn", img: "assets/images/login.png", category: 3, quantity: 2 },
-          { name: "Big Tasty", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "McChicken", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "Triple take", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "Nasty jon", price: "35kn", img: "assets/images/login.png", category: 3, quantity: 1 }
-        ]
-      },
-      {
-        address: 'Kupreška ulica 95, Split, Croatia', orderTime: '22.08.2018 12:45', total: 145, products: [
-          { name: "Big Tasty", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "McChicken", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "Triple take", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "Nasty jon", price: "35kn", img: "assets/images/login.png", category: 3, quantity: 1 }
-        ]
-      },
-      {
-        address: 'Mostarska ulica 88, Split, Croatia', orderTime: '22.08.2018 17:45', total: 145, products: [
-          { name: "Big Tasty", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "McChicken", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "Triple take", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 1 },
-          { name: "Nasty jon", price: "35kn", img: "assets/images/login.png", category: 3, quantity: 1 }
-        ]
-      },
-    ]
-  }
-
-  navigateToProduct(productName: string) {
+  navigateToProduct(productName: string, productId: number) {
     productName = productName.split(' ').join('-');
-    this.router.navigate(["product/" + 1 + "/" + productName]);
+    this.router.navigate(["product/" + productId + "/" + productName]);
   }
 
-  getLocation(): Promise<any> {
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=sdasfaf&key=' + this.key.apiKey)
-      .toPromise()
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+  // getLocation(): Promise<any> {
+  //   return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=sdasfaf&key=' + this.key.apiKey)
+  //     .toPromise()
+  //     .then((response) => console.log(response))
+  //     .catch((error) => console.log(error));
+  // }
+
+  formatDateTimeEng() {
+    this.orders.forEach(order => {
+      order.orderTime = order.orderTime.split("T").join(" ");
+    })
+  }
+
+  formatDateTimeHrv() {
+    this.orders.forEach(order => {
+      let date = order.orderTime.split("T")[0].split("-").reverse().join(".");
+      let time = order.orderTime.split("T")[1];
+      order.orderTime = date + " " + time;
+    })
   }
 }

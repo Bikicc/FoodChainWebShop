@@ -1,3 +1,4 @@
+import { OrderService } from './services/OrderService';
 import { FavouritesResolverService } from './services/FavouritesResolverService';
 import { FavouritesService } from './services/FavouritesService';
 import { apiKey } from './apiKey';
@@ -39,6 +40,7 @@ import { CategoryService } from './services/CategoryService';
 import { MenuResolverService } from './services/MenuResolverService';
 import { ProductInfoResolverService } from './services/ProductInfoResolverService';
 import { UserService } from './services/UserService';
+import { OrderResolverService } from './services/OrderResolverService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +80,7 @@ import { UserService } from './services/UserService';
       { path: 'favourites', component: FavouritesComponent, resolve: { favourites: FavouritesResolverService } },
       { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },
-      { path: 'orderHistory', component: OrderHistoryComponent },
+      { path: 'orderHistory', component: OrderHistoryComponent, resolve: { orders: OrderResolverService } },
       { path: '**', component: PageNotFoundComponent }
     ]),
     I18nModule,
@@ -94,7 +96,8 @@ import { UserService } from './services/UserService';
     apiKey,
     CategoryService,
     UserService,
-    FavouritesService
+    FavouritesService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

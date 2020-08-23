@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using System.Linq;
 using System.Threading.Tasks;
 using FoodChainWebShop.Data;
@@ -30,7 +31,8 @@ namespace FoodChainWebShop.Controllers {
                  productId = p.Product.ProductId, 
                  name = p.Product.Name, 
                  price = p.Product.Price, 
-                 imageName = p.Product.ImageName  })
+                 imageName = p.Product.ImageName,
+                 quantity = p.Quantity})
              }).Where(o => o.UserId == userId).ToListAsync());
 
             return Ok (ord);

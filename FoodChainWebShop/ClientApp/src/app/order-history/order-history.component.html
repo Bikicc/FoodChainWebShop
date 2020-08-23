@@ -24,20 +24,20 @@
           {{order.address}}
         </div>
         <div class="orderText">
-          {{order.total}}kn
+          {{order.price}}kn
         </div>
       </div>
       <div class="ui-g ui-fluid w-100">
-        <div *ngFor="let item of order.products" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper" (click)="navigateToProduct(item.name)">
+        <div *ngFor="let item of order.products" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper" (click)="navigateToProduct(item.name, item.productId)">
           <span class="cursot-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}</span>
           <div class="productImage">
-            <img src="{{item.img}}" style="width: 100px">
+            <img src="assets/images/products/{{item.imageName}}" style="width: 100px">
           </div>
           <div class="productName">
             {{item.name}}
           </div>
           <div class="productPrice">
-            {{item.price}}
+            {{item.price}}kn
           </div>
         </div>
       </div>
