@@ -4,17 +4,22 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class ComponentCommunicationService {
 
-  public numberOfProductsSource = new BehaviorSubject(null);
-  public productsInBasket = new BehaviorSubject(null);
+  public numberOfProductsByOne = new BehaviorSubject(null);
+  public numberOfProductsByMany = new BehaviorSubject(null);
+  public numberOfProductsToZero = new BehaviorSubject(null);
 
   constructor() { }
 
-  changeNumberOfProducts() {
-    this.numberOfProductsSource.next(null);
+  changeNumberOfProductsByOne(increase: boolean) {
+    this.numberOfProductsByOne.next(increase);
   }
 
-  addProductToBaket(product: any) {
-    this.productsInBasket.next(product);
+  changeNumberOfProductsByMany(numberOfProducts: number) {
+    this.numberOfProductsByMany.next(numberOfProducts);
+  }
+
+  changeNumberOfProductsToZero() {
+    this.numberOfProductsToZero.next(null);
   }
 
 }

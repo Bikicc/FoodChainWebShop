@@ -23,7 +23,7 @@
         {{productInfo.description_Hr}}
       </div>
       <div class="flex jc-c buttonContainer">
-        <a class="btn">Add to basket</a>
+        <a class="btn" (click)="addToBasket()">Add to basket</a>
       </div>
       <div class="flex jc-c buttonContainer">
         <a  *ngIf="!isFavourite" class="btn" (click)="addToFavourites()">Add to favourites</a>

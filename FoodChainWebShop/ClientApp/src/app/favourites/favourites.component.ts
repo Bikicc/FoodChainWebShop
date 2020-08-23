@@ -1,7 +1,9 @@
+import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
 import { FavouritesService } from './../services/FavouritesService';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 
 
 @Component({
@@ -16,7 +18,10 @@ export class FavouritesComponent implements OnInit {
   constructor(
     private router: Router,
     private favouritesService: FavouritesService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private basketService: BasketService,
+    private dataFromAnotherComponent: ComponentCommunicationService,
+    ) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe((data: { favourites: Product[] }) => {
@@ -53,6 +58,11 @@ export class FavouritesComponent implements OnInit {
     }, err => {
       console.log(err)
     })
+  }
+
+  addToBasket(product: Product) {
+    this.basketService.addProductToBasket(product);
+    this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
   }
 
 }

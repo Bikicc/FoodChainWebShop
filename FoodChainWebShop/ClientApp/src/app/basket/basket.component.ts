@@ -1,4 +1,7 @@
+import { BasketService } from './../services/BasketService';
+import { Product } from './../interfaces/Product';
 import { Component, OnInit } from '@angular/core';
+import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 
 @Component({
   selector: 'app-basket',
@@ -7,41 +10,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasketComponent implements OnInit {
 
-  basketItems: any[] = [];
+  basketItems: Product[] = [];
 
 
-  constructor() { }
+  constructor(
+    private basketService: BasketService,
+    private dataFromAnotherComponent: ComponentCommunicationService) { }
 
   ngOnInit() {
-    this.setBasketItems();
+    this.basketItems = this.basketService.getProductsFromBasket();
   }
 
-  setBasketItems() {
-    this.basketItems = [
-      { name: "Big Tasty", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 2 },
-      { name: "McChicken", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 2 },
-      { name: "Triple take", price: "35kn", img: "assets/images/login.png", category: 2, quantity: 2 },
-      { name: "Nasty jon", price: "35kn", img: "assets/images/login.png", category: 3, quantity: 2 },
-    ]
+  increaseQuantity(productId: number) {
+    this.basketItems = this.basketService.increaseProductQuantity(productId);
+    this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
   }
 
-  increaseQuantity(product: any) {
-    this.basketItems.forEach(item => {
-      if (item.name === product.name) {
-        item.quantity++;
-      }
-    })
+  decreaseQuantity(productId: number) {
+    this.basketItems = this.basketService.decraseProductQuantity(productId);
+    this.dataFromAnotherComponent.changeNumberOfProductsByOne(false);
   }
 
-  decreaseQuantity(product: any) {
-    this.basketItems.forEach((item, index, object) => {
-      if (item.name === product.name && item.quantity === 1) {
-        object.splice(index, 1);
-      } else if (item.name === product.name && item.quantity !== 1) {
-        item.quantity--;
-      }
-    })
+  removeProductFromBasket(product: Product) {
+    this.basketItems = this.basketService.removeProductFromBasket(product.productId);
+    this.dataFromAnotherComponent.changeNumberOfProductsByMany(product.quantity);
   }
 
-
+  removeAllProductsFromBasket() {
+    this.basketItems = this.basketService.removeAllProductsFromBasket();
+    this.dataFromAnotherComponent.changeNumberOfProductsToZero();
+  }
 }

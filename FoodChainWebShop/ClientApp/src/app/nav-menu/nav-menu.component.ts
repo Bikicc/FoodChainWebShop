@@ -1,3 +1,4 @@
+import { BasketService } from './../services/BasketService';
 import { Router, NavigationEnd } from '@angular/router';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,7 +15,8 @@ export class NavMenuComponent {
   constructor(
     private translate: TranslateService,
     private router: Router,
-    private dataFromAnotherComponent: ComponentCommunicationService) { }
+    private dataFromAnotherComponent: ComponentCommunicationService,
+    private basketService: BasketService) { }
 
   isExpanded = false;
   selectedRoute: string = null;
@@ -27,6 +29,7 @@ export class NavMenuComponent {
   ngOnInit(): void {
     this.selectedLang = this.translate.currentLang;
     this.setDropDownLangs();
+    this.numberOfProducts = this.basketService.getNumberOfProductsInBasket();
     this.subscription.push(
       this.router.events
         .pipe(filter(Event => Event instanceof NavigationEnd))
@@ -37,13 +40,22 @@ export class NavMenuComponent {
             this.closeOverlayNav();
           }
         }));
-    this.subscription.push(
-      this.dataFromAnotherComponent.numberOfProductsSource
-        .pipe(skip(1))
-        .subscribe(() => this.increaseBasketNumber())) //() => this.numberOfProducts === null ? this.numberOfProducts = 0 : this.increaseBasketNumber()
 
-    // this.subscription.push(
-    //   this.dataFromAnotherComponent.productsInBasket.subscribe((product) => console.log(product)));
+    this.subscription.push(
+      this.dataFromAnotherComponent.numberOfProductsByOne
+        .pipe(skip(1))
+        .subscribe((increase: boolean) => increase ? this.increaseBasketNumber() : this.decreaseBasketNumber()));
+
+    this.subscription.push(
+      this.dataFromAnotherComponent.numberOfProductsByMany
+        .pipe(skip(1))
+        .subscribe((numberOfProducts: number) => this.decreaseBasketNumberByMany(numberOfProducts)));
+
+    this.subscription.push(
+      this.dataFromAnotherComponent.numberOfProductsToZero
+        .pipe(skip(1))
+        .subscribe(() => this.setBasketNumberToZero()))
+
   }
 
   ngOnDestroy(): void {
@@ -82,8 +94,20 @@ export class NavMenuComponent {
     this.numberOfProducts++;
   }
 
+  decreaseBasketNumber() {
+    this.numberOfProducts--;
+  }
+
   navigateToBasket() {
     this.router.navigateByUrl("basket");
+  }
+
+  decreaseBasketNumberByMany(numberToRemove: number) {
+    this.numberOfProducts = this.numberOfProducts - numberToRemove;
+  }
+
+  setBasketNumberToZero() {
+    this.numberOfProducts = 0;
   }
 
 }
