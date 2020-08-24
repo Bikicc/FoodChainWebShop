@@ -42,6 +42,7 @@ import { ProductInfoResolverService } from './services/ProductInfoResolverServic
 import { UserService } from './services/UserService';
 import { OrderResolverService } from './services/OrderResolverService';
 import { BasketService } from './services/BasketService';
+import { EmailService } from './services/EmailService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,7 +100,8 @@ import { BasketService } from './services/BasketService';
     UserService,
     FavouritesService,
     OrderService,
-    BasketService
+    BasketService,
+    EmailService
   ],
   bootstrap: [AppComponent]
 })

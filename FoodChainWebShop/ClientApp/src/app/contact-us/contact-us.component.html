@@ -65,18 +65,23 @@
                 style="background-color: transparent;">
             </li>
             <li class="form-list__row">
-              <label>Your Name</label>
-              <input type="text" name="userName" required="" />
+              <label>Your e-mail</label>
+              <input type="text" name="userEmail" [(ngModel)]="emailData.from"  (focusout)="checkEmail(); checkButton()" [ngClass]="{'errorInput': emailError}"/>
+              <span *ngIf="emailError" class="errorMessage">Email not valid!</span>
             </li>
             <li class="form-list__row">
-              <label>Mail title</label>
-              <input type="text" name="emailTitle" required="" />
+              <label>Subject</label>
+              <input type="text" name="emailSubject" [(ngModel)]="emailData.subject"  (focusout)="checkSubject(); checkButton()"
+                [ngClass]="{'errorInput': subjectError}" />
+              <span *ngIf="subjectError" class="errorMessage">Please enter subject of the mail!</span>
             </li>
             <li class="form-list__row">
-              <textarea name="emailText" placeholder="Enter your mail here..." rows="3"></textarea>
+              <textarea name="emailContent" placeholder="Enter mail content here..." rows="3"
+                [(ngModel)]="emailData.content" (focusout)="checkContent(); checkButton()" [ngClass]="{'textAreaError': contentError}"></textarea>
+              <span *ngIf="contentError" class="errorMessage">Please enter email content!</span>
             </li>
             <li>
-              <a href="#" class="btn" routerLink="/menu">SUBMIT</a>
+              <a class="btn" (click)="sendEmail()" [ngClass]="{'disabledButton': buttonDisabled}">SEND</a>
             </li>
           </ul>
         </form>

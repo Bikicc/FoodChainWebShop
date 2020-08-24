@@ -19,15 +19,15 @@ input {
   letter-spacing: .5px;
   border: 0;
   border-bottom: 2px solid #f0f0f0;
+  border-color: #fbcf34;
 }
 
-input:valid {
-  border-color: #24cf5f;
-}
+// input:valid {
+//   border-color: #24cf5f;
+// }
 
 input:focus {
   outline: none;
-  border-color: #fbcf34;
 }
 
 .form-list {
@@ -154,8 +154,38 @@ input:focus {
   width: 100%;
 }
 
+.errorMessage {
+    color: red;
+    font-size: 0.8rem;
+}
+
+.errorInput {
+  border-bottom: 1px solid red;
+}
+
+.textAreaError {
+  border: 1px solid red !important;
+}
+
+a:hover {
+  color: #6f6868 !important;
+}
+
 .coverHeaderContainer {
   transform: unset;
+}
+
+.disabledButton {
+  cursor: default;
+  background-color: #80808078;
+}
+
+.disabledButton:hover {
+  box-shadow: unset;
+}
+
+.disabledButton::before {
+  background: unset;
 }
 
 @media only screen and (max-width: 970px) {

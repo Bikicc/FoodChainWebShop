@@ -33,14 +33,6 @@ export class FetchDataComponent {
     // })
   }
 
-  // sendEmailPostData() {
-  //   this.foodMenuService.postmanTest().subscribe((data: string[]) => {
-  //     console.log(data)
-  //   }, (err: string) => {
-  //     console.log(err);
-  //   })
-  // }
-
 }
 
 interface WeatherForecast {
