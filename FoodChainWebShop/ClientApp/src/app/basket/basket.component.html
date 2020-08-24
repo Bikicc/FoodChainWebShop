@@ -26,9 +26,9 @@
               <circle cx="12" cy="12" r="9" />
               <line x1="9" y1="12" x2="15" y2="12" />
             </svg>
-  
+
             <span class="us-none cursor-dft">{{item.quantity}}</span>
-  
+
             <svg xmlns="http://www.w3.org/2000/svg" class="displayOnHover icon icon-tabler icon-tabler-circle-plus"
               width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f5ce34" fill="none"
               stroke-linecap="round" (click)="increaseQuantity(item.productId)" stroke-linejoin="round">
@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-  
+
     <!-- PAYOUT SECTION -->
     <div class="payoutWrapper">
       <div class="payoutHeader">
@@ -66,15 +66,18 @@
             Address
           </div>
           <div class="contentValue">
-            <input/>
-          </div>
+            <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
+              (onAddressChange)="handleAddressChange($event)" [(ngModel)]="orderDetails.address" 
+              [ngClass]="{'errorInput': addressError}" (focusout)="addressError = false"/>
+            </div>
+            <span *ngIf="addressError" class="errorMessage">Address not valid!</span>
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
           <div class="contentHeader">
             Note
           </div>
           <div class="contentValue">
-            <textarea name="emailText" placeholder="Enter your notice here..." rows="1"></textarea>
+            <textarea name="emailText" placeholder="Enter your notice here..." rows="1" [(ngModel)]="orderDetails.note"></textarea>
           </div>
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
@@ -82,7 +85,7 @@
             Total
           </div>
           <div class="contentValue">
-            100kn
+            {{totalAmountToPay}}kn
           </div>
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c jc-c">
@@ -90,7 +93,7 @@
           </div>
           <div class="contentValue fd-c">
             <div class="flex jc-c visibleBtn">
-              <a class="btn" style="margin-bottom: 5px;">ORDER</a>
+              <a class="btn" style="margin-bottom: 5px;" (click)="makeAnOrder()">ORDER</a>
             </div>
             <div class="flex jc-c visibleBtn">
               <a class="btn btnRemove" (click)="removeAllProductsFromBasket()">REMOVE ALL</a>
@@ -110,4 +113,3 @@
     </div>
   </div>
 </ng-template>
-

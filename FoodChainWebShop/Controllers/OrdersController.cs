@@ -1,4 +1,3 @@
-using System.Reflection.Emit;
 using System.Linq;
 using System.Threading.Tasks;
 using FoodChainWebShop.Data;
@@ -19,21 +18,22 @@ namespace FoodChainWebShop.Controllers {
         public async Task<IActionResult> GetOrders (int userId) {
 
             var ord = await (_context.Orders
-             .Select(order => new {
-                 OrderId = order.OrderId,
-                 Price = order.Price,
-                 OrderTime = order.OrderTime,
-                 Note = order.Note,
-                 Address = order.Address,
-                 UserId = order.UserId,
-                 Products = order.OrderProduct.Where(op => op.OrderId == order.OrderId)
-             .Select(p => new {
-                 productId = p.Product.ProductId, 
-                 name = p.Product.Name, 
-                 price = p.Product.Price, 
-                 imageName = p.Product.ImageName,
-                 quantity = p.Quantity})
-             }).Where(o => o.UserId == userId).ToListAsync());
+                .Select (order => new {
+                    OrderId = order.OrderId,
+                        Price = order.Price,
+                        OrderTime = order.OrderTime,
+                        Note = order.Note,
+                        Address = order.Address,
+                        UserId = order.UserId,
+                        Products = order.OrderProduct.Where (op => op.OrderId == order.OrderId)
+                        .Select (p => new {
+                            productId = p.Product.ProductId,
+                                name = p.Product.Name,
+                                price = p.Product.Price,
+                                imageName = p.Product.ImageName,
+                                quantity = p.Quantity
+                        })
+                }).Where (o => o.UserId == userId).ToListAsync ());
 
             return Ok (ord);
         }
@@ -41,6 +41,11 @@ namespace FoodChainWebShop.Controllers {
         [Route ("api/orders/order")]
         [HttpPost]
         public async Task<IActionResult> postOrders ([FromBody] Order order) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest (ModelState);
+            }
+
             _context.Orders.Add (order);
             await _context.SaveChangesAsync ();
 
@@ -50,6 +55,11 @@ namespace FoodChainWebShop.Controllers {
         [Route ("api/orders/orderProducts")]
         [HttpPost]
         public async Task<IActionResult> postOrderProducts ([FromBody] OrderProduct orderProduct) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest (ModelState);
+            }
+            
             _context.OrderProducts.Add (orderProduct);
             await _context.SaveChangesAsync ();
 

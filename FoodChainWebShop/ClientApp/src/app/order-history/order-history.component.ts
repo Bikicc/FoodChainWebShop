@@ -17,15 +17,13 @@ export class OrderHistoryComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
-    private key: apiKey,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
       this.orders = data.orders;
-      this.formatDateTimeHrv();
+      this.formatDateTimeEng();
     }, err => {
       console.log(err);
     })
@@ -36,23 +34,16 @@ export class OrderHistoryComponent implements OnInit {
     this.router.navigate(["product/" + productId + "/" + productName]);
   }
 
-  // getLocation(): Promise<any> {
-  //   return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=sdasfaf&key=' + this.key.apiKey)
-  //     .toPromise()
-  //     .then((response) => console.log(response))
-  //     .catch((error) => console.log(error));
-  // }
-
   formatDateTimeEng() {
     this.orders.forEach(order => {
-      order.orderTime = order.orderTime.split("T").join(" ");
+      order.orderTime = order.orderTime.split("T").join(" ").split(".")[0];
     })
   }
 
   formatDateTimeHrv() {
     this.orders.forEach(order => {
       let date = order.orderTime.split("T")[0].split("-").reverse().join(".");
-      let time = order.orderTime.split("T")[1];
+      let time = order.orderTime.split("T")[1].split(".")[0];
       order.orderTime = date + " " + time;
     })
   }
