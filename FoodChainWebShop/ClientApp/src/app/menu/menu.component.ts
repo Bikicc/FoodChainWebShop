@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
 import { Category } from './../interfaces/Category';
@@ -25,22 +26,30 @@ export class MenuComponent implements OnInit {
     private router: Router,
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
-    private basketService: BasketService
+    private basketService: BasketService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
       this.categories = data.categories;
       this.setDropdownCategories();
+      this.translate.onLangChange.subscribe(() => this.setDropdownCategories());
     }, err => {
       console.log(err);
     })
   }
 
   setDropdownCategories() {
-    this.categoriesDropdown = this.categories.map(category => {
-      return { label: category.name_Hr, value: category.categoryId }
-    });
+    if (this.translate.currentLang === 'hr') {
+      this.categoriesDropdown = this.categories.map(category => {
+        return { label: category.name_Hr, value: category.categoryId }
+      });
+    } else {
+      this.categoriesDropdown = this.categories.map(category => {
+        return { label: category.name_En, value: category.categoryId }
+      });
+    }
 
     this.filterProductsBasedOnCategory();
   }

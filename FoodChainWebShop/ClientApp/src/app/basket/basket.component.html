@@ -3,8 +3,8 @@
   <!-- Menu HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">BASKET</h1>
-      <h2 class="coverHeaderContent">Check Your products before order placment</h2>
+      <h1 class="coverHeaderHeadline">{{'KOSARICA' | translate}}</h1>
+      <h2 class="coverHeaderContent">{{'KOSARICA_HEADER' | translate}}</h2>
     </div>
     <div class="triangleShapeDivider">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -48,8 +48,7 @@
             {{item.price}}kn
           </div>
           <div class="flex jc-c buttonContainer">
-            <a class="btn btnRemove" (click)="removeProductFromBasket(item)">Remove
-              product</a>
+            <a class="btn btnRemove" (click)="removeProductFromBasket(item)">{{'UKLONITE_PRODUKT' | translate}}</a>
           </div>
         </div>
       </div>
@@ -58,23 +57,23 @@
     <!-- PAYOUT SECTION -->
     <div class="payoutWrapper">
       <div class="payoutHeader">
-        CHECKOUT
+        {{'NARUCITE' | translate}}
       </div>
       <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
           <div class="contentHeader">
-            Address
+            {{'ADRESA' | translate}}
           </div>
           <div class="contentValue">
             <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
               (onAddressChange)="handleAddressChange($event)" [(ngModel)]="orderDetails.address" 
               [ngClass]="{'errorInput': addressError}" (focusout)="addressError = false"/>
             </div>
-            <span *ngIf="addressError" class="errorMessage">Address not valid!</span>
+            <span *ngIf="addressError" class="errorMessage">{{'ADRESA_ERROR' | translate}}</span>
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
           <div class="contentHeader">
-            Note
+            {{'ZABILJESKA' | translate}}
           </div>
           <div class="contentValue">
             <textarea name="emailText" placeholder="Enter your notice here..." rows="1" [(ngModel)]="orderDetails.note"></textarea>
@@ -82,7 +81,7 @@
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
           <div class="contentHeader">
-            Total
+            {{'UKUPNO' | translate}}
           </div>
           <div class="contentValue">
             {{totalAmountToPay}}kn
@@ -93,10 +92,10 @@
           </div>
           <div class="contentValue fd-c">
             <div class="flex jc-c visibleBtn">
-              <a class="btn" style="margin-bottom: 5px;" (click)="makeAnOrder()">ORDER</a>
+              <a class="btn" style="margin-bottom: 5px;" (click)="makeAnOrder()">{{'NARUCI' | translate}}</a>
             </div>
             <div class="flex jc-c visibleBtn">
-              <a class="btn btnRemove" (click)="removeAllProductsFromBasket()">REMOVE ALL</a>
+              <a class="btn btnRemove" (click)="removeAllProductsFromBasket()">{{'UKLONITE_SVE' | translate}}</a>
             </div>
           </div>
         </div>
@@ -109,7 +108,7 @@
   <div class="emptyBasket">
     <img src="assets/images/empty_cart.png">
     <div class="emptyBasketText">
-      Your basket is empty!
+      {{'KOSARICA_PRAZNA' | translate}}
     </div>
   </div>
 </ng-template>

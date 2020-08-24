@@ -1,3 +1,4 @@
+import { EmailService } from './../services/EmailService';
 import { OrderService } from './../services/OrderService';
 import { Order } from './../interfaces/Order';
 import { BasketService } from './../services/BasketService';
@@ -30,7 +31,8 @@ export class BasketComponent implements OnInit {
     private dataFromAnotherComponent: ComponentCommunicationService,
     private http: HttpClient,
     private key: apiKey,
-    private orderService: OrderService) { }
+    private orderService: OrderService,
+    private emailService: EmailService) { }
 
   ngOnInit() {
     this.basketItems = this.basketService.getProductsFromBasket();
@@ -103,6 +105,7 @@ export class BasketComponent implements OnInit {
         forkJoin(multipleApiCalls).subscribe(() => {
           this.removeAllProductsFromBasket();
           this.orderDetails = {} as Order;
+          this.emailService.sendEmail({from: 'fastFood@gmail.com', content:"Your order is received", subject: "Order successfully received"})
         }, err => {
           console.log(err);
         })

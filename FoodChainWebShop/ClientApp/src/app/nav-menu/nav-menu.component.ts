@@ -70,9 +70,8 @@ export class NavMenuComponent {
     this.isExpanded = !this.isExpanded;
   }
 
-  changeLang(selectedLang: string) {
-    this.selectedLang = selectedLang;
-    this.translate.use(selectedLang);
+  changeLang() {
+    this.translate.use(this.selectedLang);
   }
 
   setDropDownLangs() {

@@ -3,8 +3,8 @@
   <!-- FAVOURITES HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">FAVOURITES</h1>
-      <h2 class="coverHeaderContent">Store your favourite products for quick acces</h2>
+      <h1 class="coverHeaderHeadline">{{'FAVORITI' | translate}}</h1>
+      <h2 class="coverHeaderContent">{{'FAVORITI_HEADER' | translate}}</h2>
     </div>
     <div class="triangleShapeDivider">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -27,10 +27,10 @@
           {{item.price}}
         </div>
         <div class="flex jc-c buttonContainer">
-          <a class="btn" (click)="addToBasket(item)">Add to basket</a>
+          <a class="btn" (click)="addToBasket(item)">{{'DODAJ_U_KOSARICU' | translate}}</a>
         </div>
         <div class="flex jc-c buttonContainer">
-          <a class="btn btnRemove" (click)="deleteFromFavourites(item.productId)">Remove</a>
+          <a class="btn btnRemove" (click)="deleteFromFavourites(item.productId)">{{'UKLONI' | translate}}</a>
         </div>
       </div>
     </div>

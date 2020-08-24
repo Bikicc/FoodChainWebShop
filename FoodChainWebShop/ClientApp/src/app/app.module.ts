@@ -17,7 +17,6 @@ import { GMapModule } from 'primeng/gmap';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { I18nModule } from './i18n/i18n.module';
 import { ProductService } from './services/ProductService';
 import { GlobalVar } from './globalVar';
@@ -48,7 +47,6 @@ import { EmailService } from './services/EmailService';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    FetchDataComponent,
     RegistrationComponent,
     ImgSliderComponent,
     FooterComponent,
@@ -73,7 +71,6 @@ import { EmailService } from './services/EmailService';
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: 'aboutUs', component: AboutUsComponent },

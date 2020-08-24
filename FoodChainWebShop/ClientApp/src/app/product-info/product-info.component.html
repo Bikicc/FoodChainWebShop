@@ -4,7 +4,7 @@
   <div class="coverHeader">
     <div class="coverHeaderContainer">
       <h1 class="coverHeaderHeadline">{{productInfo.name}}</h1>
-      <h2 class="coverHeaderContent">Everything you need to know about product</h2>
+      <h2 class="coverHeaderContent">{{'INFORMACIJE_O_PRODUKTU_HEADER' | translate}}</h2>
     </div>
     <div class="triangleShapeDivider">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -17,17 +17,23 @@
   <div class="flex fd-c">
     <div class="descriptionWrapper">
       <div class="descriptionTextHeader">
-        DESCRIPTION
+        {{'INFORMACIJE_O_PRODUKTU_01' | translate}}
       </div>
       <div class="descriptionTextContent">
-        {{productInfo.description_Hr}}
+        <span *ngIf="selectedLang === 'hr'">
+          {{productInfo.description_Hr}}
+        </span>
+        <span *ngIf="selectedLang === 'en'">
+          {{productInfo.description_En}}
+        </span>
       </div>
       <div class="flex jc-c buttonContainer">
-        <a class="btn" (click)="addToBasket()">Add to basket</a>
+        <a class="btn" (click)="addToBasket()">{{'DODAJ_U_KOSARICU' | translate}}</a>
       </div>
       <div class="flex jc-c buttonContainer">
-        <a  *ngIf="!isFavourite" class="btn" (click)="addToFavourites()">Add to favourites</a>
-        <a  *ngIf="isFavourite" class="btn" [ngClass]="{'btnRemove': isFavourite}" (click)="removeFromFavourites()">Remove from favourites</a>
+        <a *ngIf="!isFavourite" class="btn" (click)="addToFavourites()">{{'DODAJ_U_FAVORITE' | translate}}</a>
+        <a *ngIf="isFavourite" class="btn" [ngClass]="{'btnRemove': isFavourite}"
+          (click)="removeFromFavourites()">{{'UKLONI_IZ_FAVORITE' | translate}}</a>
       </div>
     </div>
 
@@ -39,12 +45,12 @@
     <!-- NUTRITION VALUES -->
     <div class="nutritionValuesWrapper">
       <div class="nutritionValuesTextHeader">
-        NUTRITION VALUES
+        {{'INFORMACIJE_O_PRODUKTU_02' | translate}}
       </div>
       <div class="nutritionValuesContentWrapper">
         <div class="nutritionValuesContent">
           <div class="contentHeader">
-            Kalorije
+            {{'INFORMACIJE_O_PRODUKTU_03' | translate}}
           </div>
           <div class="contentValue">
             {{productInfo.calories}}kcal
@@ -52,7 +58,7 @@
         </div>
         <div class="nutritionValuesContent">
           <div class="contentHeader">
-            Ugljikohi.
+            {{'INFORMACIJE_O_PRODUKTU_04' | translate}}
           </div>
           <div class="contentValue">
             {{productInfo.carbs}}g
@@ -60,7 +66,7 @@
         </div>
         <div class="nutritionValuesContent">
           <div class="contentHeader">
-            Šečer
+            {{'INFORMACIJE_O_PRODUKTU_05' | translate}}
           </div>
           <div class="contentValue">
             {{productInfo.sugar}}g
@@ -68,7 +74,7 @@
         </div>
         <div class="nutritionValuesContent">
           <div class="contentHeader">
-            Proteini
+            {{'INFORMACIJE_O_PRODUKTU_06' | translate}}
           </div>
           <div class="contentValue">
             {{productInfo.proteins}}
@@ -76,7 +82,7 @@
         </div>
         <div class="nutritionValuesContent">
           <div class="contentHeader">
-            Masti
+            {{'INFORMACIJE_O_PRODUKTU_07' | translate}}
           </div>
           <div class="contentValue">
             {{productInfo.fat}}g

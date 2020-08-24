@@ -3,8 +3,8 @@
   <!-- Menu HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">MENU</h1>
-      <h2 class="coverHeaderContent">Check out our fresh and delicious menu</h2>
+      <h1 class="coverHeaderHeadline">{{'MENI' | translate}}</h1>
+      <h2 class="coverHeaderContent">{{'MENI_HEADER' | translate}}</h2>
       <span class="as-c">
         <p-dropdown [options]="categoriesDropdown" [(ngModel)]="selectedCategoryId"
           (onChange)="filterProductsBasedOnCategory()">
@@ -33,7 +33,7 @@
           {{product.price}}
         </div>
         <div class="flex jc-c buttonContainer">
-          <a class="btn" (click)="increaseProductInABasketNumber(); addProductToBasket(product)">Add to basket</a>
+          <a class="btn" (click)="increaseProductInABasketNumber(); addProductToBasket(product)">{{'DODAJ_U_KOSARICU' | translate}}</a>
         </div>
       </div>
     </div>

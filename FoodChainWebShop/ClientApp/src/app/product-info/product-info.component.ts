@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { BasketService } from './../services/BasketService';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -14,12 +15,14 @@ export class ProductInfoComponent implements OnInit {
   productInfo: Product = null;
   favourites: Product[] = [];
   isFavourite: boolean = null;
+  selectedLang: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private favouritesService: FavouritesService,
     private basketService: BasketService,
-    private dataFromAnotherComponent: ComponentCommunicationService
+    private dataFromAnotherComponent: ComponentCommunicationService,
+    private translate: TranslateService
     ) { }
 
   ngOnInit() {
@@ -30,6 +33,9 @@ export class ProductInfoComponent implements OnInit {
     }, err => {
       console.log(err);
     });
+
+    this.selectedLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe(() => this.selectedLang = this.translate.currentLang);
   }
 
   addToFavourites() {

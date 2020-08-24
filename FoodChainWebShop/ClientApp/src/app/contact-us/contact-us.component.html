@@ -3,8 +3,8 @@
   <!-- CONTACT US HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">CONTACT US</h1>
-      <h2 class="coverHeaderContent">Have request or complient? Feel free to contact us!</h2>
+      <h1 class="coverHeaderHeadline">{{'KONTAKTIRAJTE_NAS' | translate}}</h1>
+      <h2 class="coverHeaderContent">{{'KONTAKTIRAJTE_NAS_HEADER' | translate}}</h2>
     </div>
     <div class="triangleShapeDivider">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -14,20 +14,20 @@
   </div>
 
   <!-- OUR LOCATIONS SECTION -->
-  <h1 class="HeadlineText">OUR LOCATIONS</h1>
+  <h1 class="HeadlineText">{{'NASE_LOKACIJE' | translate}}</h1>
   <div class="flex">
     <div class="contactUsTextWrapper">
       <div class="contactUsTextHeader">
-        ALL OUR LOCATIONS AT YOUR HAND!
+        {{'KONTAKTIRAJTE_NAS_01' | translate}}
       </div>
       <div class="contactUsTextContent">
-        We are always ready to welcome you with our great products and cozy atmosfhere.
+        {{'KONTAKTIRAJTE_NAS_02' | translate}}
       </div>
       <div class="contactUsTextContent">
-        Find us at these locations and we will make sure your visit stays remembered forever.
+        {{'KONTAKTIRAJTE_NAS_03' | translate}}
       </div>
       <div class="contactUsTextContent">
-        You dont know how our restaurants look like? Find one you like the most at our social media.
+        {{'KONTAKTIRAJTE_NAS_04' | translate}}
       </div>
       <div class="contactUsTextContent">
         <a class="socialMediaHref" href="#">
@@ -48,7 +48,7 @@
   </div>
 
   <!-- Contact us form -->
-  <h1 class="HeadlineText">CONTACT FORM</h1>
+  <h1 class="HeadlineText">{{'KONTAKTIRAJTE_NAS_05' |translate}}</h1>
   <div class="modal">
     <div class="modal__container">
       <div class="modal__featured">
@@ -56,32 +56,32 @@
         <img src="assets/images/login.png" class="modal__product" />
       </div>
       <div class="modal__content">
-        <h2>CONTACT US</h2>
+        <h2>{{'KONTAKTIRAJTE_NAS' | translate}}</h2>
         <form>
           <ul class="form-list">
             <li class="form-list__row">
-              <label>Our e-mail</label>
+              <label>{{'KONTAKTIRAJTE_NAS_06' | translate}}</label>
               <input type="text" [(ngModel)]="ourEmailAdress" name="ourEmail" disabled
                 style="background-color: transparent;">
             </li>
             <li class="form-list__row">
-              <label>Your e-mail</label>
+              <label>{{'KONTAKTIRAJTE_NAS_07' | translate}}</label>
               <input type="text" name="userEmail" [(ngModel)]="emailData.from"  (focusout)="checkEmail(); checkButton()" [ngClass]="{'errorInput': emailError}"/>
-              <span *ngIf="emailError" class="errorMessage">Email not valid!</span>
+              <span *ngIf="emailError" class="errorMessage">{{'EMAIL_ERROR' | translate}}</span>
             </li>
             <li class="form-list__row">
-              <label>Subject</label>
+              <label>{{'KONTAKTIRAJTE_NAS_08' | translate}}</label>
               <input type="text" name="emailSubject" [(ngModel)]="emailData.subject"  (focusout)="checkSubject(); checkButton()"
                 [ngClass]="{'errorInput': subjectError}" />
-              <span *ngIf="subjectError" class="errorMessage">Please enter subject of the mail!</span>
+              <span *ngIf="subjectError" class="errorMessage">{{'SUBJECT_ERROR' | translate}}</span>
             </li>
             <li class="form-list__row">
-              <textarea name="emailContent" placeholder="Enter mail content here..." rows="3"
+              <textarea name="emailContent" placeholder="{{'KONTAKTIRAJTE_NAS_09' | translate}}" rows="3"
                 [(ngModel)]="emailData.content" (focusout)="checkContent(); checkButton()" [ngClass]="{'textAreaError': contentError}"></textarea>
-              <span *ngIf="contentError" class="errorMessage">Please enter email content!</span>
+              <span *ngIf="contentError" class="errorMessage">{{'CONTENT_ERROR' | translate}}</span>
             </li>
             <li>
-              <a class="btn" (click)="sendEmail()" [ngClass]="{'disabledButton': buttonDisabled}">SEND</a>
+              <a class="btn" (click)="sendEmail()" [ngClass]="{'disabledButton': buttonDisabled}">{{'POSALJI' | translate}}</a>
             </li>
           </ul>
         </form>

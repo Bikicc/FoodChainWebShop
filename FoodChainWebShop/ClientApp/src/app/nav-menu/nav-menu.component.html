@@ -8,17 +8,17 @@
               <img src="assets/images/burgerLogo.png" style="width: 100px;">
             </a>
             <span class="as-c">
-              <p-dropdown [options]="langs" [(ngModel)]="selectedLang">
+              <p-dropdown [options]="langs" [(ngModel)]="selectedLang" (onChange)="changeLang()">
               </p-dropdown>
             </span>
           </div>
         </li>
         <li class="linksContainer jc-c">
-          <a routerLink="/menu">MENU</a>
-          <a routerLink="/aboutUs">ABOUT US</a>
-          <a routerLink="/contactUs">CONTACT US</a>
-          <a routerLink="/favourites">FAVOURITES</a>
-          <a routerLink="/orderHistory">ORDER HISTORY</a>
+          <a routerLink="/menu">{{'MENI' | translate}}</a>
+          <a routerLink="/aboutUs">{{'O_NAMA' | translate}}</a>
+          <a routerLink="/contactUs">{{'KONTAKTIRAJTE_NAS' | translate}}</a>
+          <a routerLink="/favourites">{{'FAVORITI' | translate}}</a>
+          <a routerLink="/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
         </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-c buttonContainer">
@@ -26,7 +26,7 @@
             <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
-            <a routerLink="/login" href="#" class="btn">Login</a>
+            <a routerLink="/login" href="#" class="btn">{{'PRIJAVA' | translate}}</a>
           </div>
         </li>
       </ul>

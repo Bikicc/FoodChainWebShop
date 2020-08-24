@@ -1,7 +1,7 @@
 <div class="container">
   <div class="FormWrapper">
     <div class="formHeader">
-      LOGIN
+      {{'PRIJAVA' | translate}}
     </div>
     <div class="ui-g ui-fluid h-90">
       <section class="ui-g-12 ui-lg-6 ui-md-12 ui-sm-12 signupContent">
@@ -13,7 +13,7 @@
             <div class="flex ai-c">
               <i class="fa fa-user" aria-hidden="true"></i>
             </div>
-            <input id="name" type="text" placeholder="Username" [(ngModel)]="userCredentials.Username">
+            <input id="name" type="text" placeholder="{{'KORISNICKO_IME' | translate}}" [(ngModel)]="userCredentials.Username">
           </div>
         </div>
         <div class="dataInput">
@@ -21,14 +21,14 @@
             <div class="flex ai-c">
               <i class="fa fa-key" aria-hidden="true"></i>
             </div>
-            <input id="name" type="password" placeholder="Password" [(ngModel)]="userCredentials.PasswordPlain">
+            <input id="name" type="password" placeholder="{{'LOZINKA' | translate}}" [(ngModel)]="userCredentials.PasswordPlain">
           </div>
         </div>
         <div class="flex jc-c buttonContainer">
-          <a class="btn" (click)="loginUser()">LOGIN</a>
+          <a class="btn" (click)="loginUser()">{{'PRIJAVA' | translate}}</a>
         </div>
         <div class="flex jc-c">
-          <a routerLink="/registration" class="haveAccountLink">Don't have an account? Sign up here!</a>
+          <a routerLink="/registration" class="haveAccountLink">{{'NEMATE_RACUN' | translate}}</a>
         </div>
       </section>
     </div>

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { OrderService } from './../services/OrderService';
 import { Order } from './../interfaces/Order';
 import { apiKey } from './../apiKey';
@@ -14,16 +15,19 @@ import { Component, OnInit } from '@angular/core';
 export class OrderHistoryComponent implements OnInit {
 
   orders: Order[] = [];
+  ordersUnformatted: Order[] = [];
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
-      this.orders = data.orders;
-      this.formatDateTimeEng();
+      this.ordersUnformatted = data.orders;
+      this.formatDate();
+      this.translate.onLangChange.subscribe(() => this.formatDate());
     }, err => {
       console.log(err);
     })
@@ -46,5 +50,10 @@ export class OrderHistoryComponent implements OnInit {
       let time = order.orderTime.split("T")[1].split(".")[0];
       order.orderTime = date + " " + time;
     })
+  }
+
+  formatDate() {
+    this.orders = JSON.parse(JSON.stringify(this.ordersUnformatted));
+    this.translate.currentLang === 'hr' ? this.formatDateTimeHrv() : this.formatDateTimeEng();
   }
 }
