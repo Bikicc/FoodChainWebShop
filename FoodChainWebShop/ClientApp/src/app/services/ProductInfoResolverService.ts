@@ -1,4 +1,3 @@
-import { FavouritesService } from './FavouritesService';
 import { ProductService } from './ProductService';
 import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot } from "@angular/router";
@@ -13,8 +12,7 @@ import { empty } from 'rxjs';
 
 export class ProductInfoResolverService implements Resolve<any> {
     constructor(
-        private productService: ProductService,
-        private favouritesService: FavouritesService) { }
+        private productService: ProductService) { }
 
     resolve(route: ActivatedRouteSnapshot) {
         return this.productService.products_SelectById(Number(route.params.productId)).pipe(

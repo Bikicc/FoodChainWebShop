@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './interceptors/ErrorInterceptor';
 import { MessageService } from 'primeng/api';
 import { OrderService } from './services/OrderService';
 import { FavouritesResolverService } from './services/FavouritesResolverService';
@@ -45,6 +46,7 @@ import { OrderResolverService } from './services/OrderResolverService';
 import { BasketService } from './services/BasketService';
 import { EmailService } from './services/EmailService';
 import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
+import { JwtInterceptor } from './interceptors/JwtInterceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,7 +106,9 @@ import { ToastMessagesComponent } from './toast-messages/toast-messages.componen
     OrderService,
     BasketService,
     EmailService,
-    MessageService
+    MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

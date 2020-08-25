@@ -7,7 +7,7 @@ export class ComponentCommunicationService {
   public numberOfProductsByOne = new BehaviorSubject(null);
   public numberOfProductsByMany = new BehaviorSubject(null);
   public numberOfProductsToZero = new BehaviorSubject(null);
-
+  public userLoginStatusSource = new BehaviorSubject(false);
   constructor() { }
 
   changeNumberOfProductsByOne(increase: boolean) {
@@ -20,6 +20,10 @@ export class ComponentCommunicationService {
 
   changeNumberOfProductsToZero() {
     this.numberOfProductsToZero.next(null);
+  }
+
+  userLoginStatus(loggedIn: boolean) {
+    this.userLoginStatusSource.next(loggedIn);
   }
 
 }

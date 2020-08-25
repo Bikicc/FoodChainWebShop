@@ -5,6 +5,7 @@ import { UserService } from './../services/UserService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 
 // import Swiper from 'swiper';
 @Component({
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private translate : TranslateService) { }
+    private translate : TranslateService,
+    private dataFromAnotherComponent: ComponentCommunicationService ) { }
 
   ngOnInit() { }
 
@@ -48,7 +50,9 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this.subscription.push(this.userService.loginUser(this.userCredentials).subscribe((data) => {
       this.wrongCredentials = false;
+      localStorage.setItem('user', JSON.stringify(data));
       this.router.navigate(["homepage"]);
+      this.dataFromAnotherComponent.userLoginStatus(true);
     }, err => this.wrongCredentials = true));
   }
 

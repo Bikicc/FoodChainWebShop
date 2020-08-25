@@ -88,7 +88,9 @@
     "UKLONI_IZ_FAVORITE": "Remove from favourites",
     "USERNAME_ERROR": "Username must contain at least 4 characters!",
     "PASSWORD_ERROR": "Password must contain at least 4 characters!",
-    "IMAM_RACUN_REGISTRACIJA": "I already have an account!"
+    "IMAM_RACUN_REGISTRACIJA": "I already have an account!",
+    "ODJAVA": "LOGOUT"
+
 
 
 

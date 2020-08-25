@@ -26,7 +26,8 @@
             <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
-            <a routerLink="/login" href="#" class="btn">{{'PRIJAVA' | translate}}</a>
+            <a *ngIf="!userLoginStatus" routerLink="/login" class="btn">{{'PRIJAVA' | translate}}</a>
+            <a *ngIf="userLoginStatus"  (click)="logOutUser()" class="btn">ODJAVA</a>
           </div>
         </li>
       </ul>

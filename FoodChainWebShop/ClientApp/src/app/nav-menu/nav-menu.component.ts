@@ -1,3 +1,4 @@
+import { UserService } from './../services/UserService';
 import { BasketService } from './../services/BasketService';
 import { Router, NavigationEnd } from '@angular/router';
 import { Component } from '@angular/core';
@@ -16,7 +17,8 @@ export class NavMenuComponent {
     private translate: TranslateService,
     private router: Router,
     private dataFromAnotherComponent: ComponentCommunicationService,
-    private basketService: BasketService) { }
+    private basketService: BasketService,
+    private userService: UserService) { }
 
   isExpanded = false;
   selectedRoute: string = null;
@@ -25,6 +27,7 @@ export class NavMenuComponent {
   langs: any[] = [];
   numberOfProducts: number = 0;
   message: string;
+  userLoginStatus: boolean = false;
 
   ngOnInit(): void {
     this.selectedLang = this.translate.currentLang;
@@ -54,7 +57,12 @@ export class NavMenuComponent {
     this.subscription.push(
       this.dataFromAnotherComponent.numberOfProductsToZero
         .pipe(skip(1))
-        .subscribe(() => this.setBasketNumberToZero()))
+        .subscribe(() => this.setBasketNumberToZero()));
+
+    this.subscription.push(
+      this.dataFromAnotherComponent.userLoginStatusSource
+        .pipe(skip(1))
+        .subscribe((status: boolean) => this.setUserLoginStatus(status)))
 
   }
 
@@ -109,4 +117,11 @@ export class NavMenuComponent {
     this.numberOfProducts = 0;
   }
 
+  setUserLoginStatus(logedIn: boolean) {
+    this.userLoginStatus = logedIn;
+  }
+
+  logOutUser() {
+    this.userService.logOutUser();
+  }
 }

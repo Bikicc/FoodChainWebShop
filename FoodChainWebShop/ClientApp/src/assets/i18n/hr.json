@@ -88,7 +88,8 @@
     "UKLONI_IZ_FAVORITE": "Ukloni iz favorita",
     "USERNAME_ERROR": "Korisničko ime mora sadržavati barem 4 karaktera!",
     "PASSWORD_ERROR": "Lozinka mora sadržavati barem 4 karaktera!",
-    "IMAM_RACUN_REGISTRACIJA": "Imam korisnički račun!"
+    "IMAM_RACUN_REGISTRACIJA": "Imam korisnički račun!",
+    "ODJAVA": "ODJAVA"
 
 
 }
