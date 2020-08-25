@@ -30,7 +30,7 @@
     "core-js": "^3.3.3",
     "desandro-classie": "^1.0.1",
     "font-awesome": "^4.7.0",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "ngx-google-places-autocomplete": "^2.0.4",
     "ngx-translate-cache": "^9.0.2",
     "oidc-client": "^1.9.1",
