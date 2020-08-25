@@ -1,10 +1,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FoodChainWebShop.Data;
+using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 namespace FoodChainWebShop.Controllers {
     [ApiController]
     public class OrdersController : ControllerBase {
@@ -15,6 +15,7 @@ namespace FoodChainWebShop.Controllers {
 
         [Route ("api/orders/getOrders/{userId}")]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetOrders (int userId) {
 
             var ord = await (_context.Orders
@@ -40,6 +41,7 @@ namespace FoodChainWebShop.Controllers {
 
         [Route ("api/orders/order")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> postOrders ([FromBody] Order order) {
 
             if (!ModelState.IsValid) {
@@ -54,12 +56,13 @@ namespace FoodChainWebShop.Controllers {
 
         [Route ("api/orders/orderProducts")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> postOrderProducts ([FromBody] OrderProduct orderProduct) {
 
             if (!ModelState.IsValid) {
                 return BadRequest (ModelState);
             }
-            
+
             _context.OrderProducts.Add (orderProduct);
             await _context.SaveChangesAsync ();
 

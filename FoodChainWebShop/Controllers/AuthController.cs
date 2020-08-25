@@ -1,16 +1,17 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FoodChainWebShop.Data;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using FoodChainWebShop.authService;
 namespace FoodChainWebShop.Controllers {
     public class AuthController : ControllerBase {
         private readonly DataContext _context;
-        public AuthController (DataContext context) {
+        private IAuthService _userService;
+        public AuthController (DataContext context, IAuthService userService) {
             this._context = context;
+            this._userService = userService;
         }
 
         [Route ("api/auth/createUser")]
@@ -40,16 +41,17 @@ namespace FoodChainWebShop.Controllers {
         [HttpPost]
         public async Task<IActionResult> loginUser ([FromBody] User user) {
 
-            var us = await (from u in this._context.Users
-            where u.Username == user.Username && u.Password == user.Password
-            select (new { UserId = u.UserId, Email = u.Email, Username = u.Username }))
-            .FirstOrDefaultAsync();
+            var us = await (from u in this._context.Users where u.Username == user.Username && u.Password == user.Password select u) //(new { UserId = u.UserId, Email = u.Email, Username = u.Username })
+                .FirstOrDefaultAsync ();
 
             if (us == null) {
                 return NotFound ();
             }
 
+            us.Token = _userService.generateJwtToken(us);
+
             return Ok (us);
         }
+
     }
 }

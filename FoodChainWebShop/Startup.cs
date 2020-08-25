@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FoodChainWebShop.HelperClasses;
+using FoodChainWebShop.authService;
 
 namespace FoodChainWebShop {
     public class Startup {
@@ -25,7 +27,11 @@ namespace FoodChainWebShop {
                 .Get<EmailConfiguration> ();
             services.AddSingleton (emailConfig);
 
+            services.Configure<AppSettings> (Configuration.GetSection ("AppSettings"));
+
             services.AddScoped<IEmailSender, EmailSenderService> ();
+
+            services.AddScoped<IAuthService, AuthService> ();
 
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 
@@ -55,6 +61,9 @@ namespace FoodChainWebShop {
                 .AllowAnyMethod ()
                 .AllowAnyHeader ()
             );
+            
+            app.UseMiddleware<JwtMiddleware>();
+
             app.UseHttpsRedirection ();
             app.UseStaticFiles ();
             if (!env.IsDevelopment ()) {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-
+using Newtonsoft.Json;
 namespace FoodChainWebShop.Models {
     public class User {
         public int UserId { get; set; }
@@ -16,8 +16,14 @@ namespace FoodChainWebShop.Models {
 
         [EmailAddress]
         public string Email { get; set; }
+
+        [JsonIgnore]
         public string Password { get; set; }
+
+        [JsonIgnore] //Mozda triba izbacit
         public ICollection<Order> Orders { get; set; }
+
+        [JsonIgnore] //Mozda triba izbacit
         public ICollection<Favourite> Favourites { get; set; }
 
         [Required]
@@ -25,8 +31,11 @@ namespace FoodChainWebShop.Models {
         [NotMapped]
         public string PasswordPlain {
             set { Password = Encrypt (value); }
-            get {  return Decrypt(Password); }
+            // get { return Decrypt (Password); }
         }
+
+        [NotMapped]
+        public string Token { get; set; }
 
         private string Encrypt (string clearText) {
             string EncryptionKey = "MAKV2SPBNI99212";

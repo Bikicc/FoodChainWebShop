@@ -18,7 +18,7 @@ namespace FoodChainWebShop.Controllers {
 
             return Ok (categories);
         }
-
+        
         [HttpGet ("{id}")]
         public async Task<IActionResult> GetCategory (int id) {
             var category = await _context.Categories.SingleOrDefaultAsync (x => x.CategoryId == id);
