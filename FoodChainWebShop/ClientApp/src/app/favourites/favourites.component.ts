@@ -4,6 +4,7 @@ import { FavouritesService } from './../services/FavouritesService';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { ComponentCommunicationService } from '../services/ComponentCommunicatio
 export class FavouritesComponent implements OnInit {
 
   favourites: Product[] = [];
+  subscription: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -24,19 +26,15 @@ export class FavouritesComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe((data: { favourites: Product[] }) => {
+   this.subscription.push(this.activatedRoute.data.subscribe((data: { favourites: Product[] }) => {
       this.favourites = data.favourites;
     }, err => {
       console.log(err);
-    });
+    }));
   }
 
-  removeFromFavourites() {
-    console.log("remove from favourites");
-  }
-
-  addToBsket() {
-    console.log("Add to basket");
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   navigateToProduct(productName: string, productId: number) {
@@ -45,19 +43,19 @@ export class FavouritesComponent implements OnInit {
   }
 
   getFavourites() {
-    this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
+   this.subscription.push(this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
       this.favourites = data;
     }, err => {
       console.log(err)
-    })
+    }));
   }
 
   deleteFromFavourites(favouriteId: number) {
-    this.favouritesService.deleteFromFavourites(3, favouriteId).subscribe(() => {
+   this.subscription.push(this.favouritesService.deleteFromFavourites(3, favouriteId).subscribe(() => {
       this.getFavourites();
     }, err => {
       console.log(err)
-    })
+    }));
   }
 
   addToBasket(product: Product) {

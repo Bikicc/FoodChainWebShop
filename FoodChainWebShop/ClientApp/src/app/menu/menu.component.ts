@@ -6,6 +6,7 @@ import { CategoryService } from './../services/CategoryService';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ComponentCommunicationService } from "../services/ComponentCommunicationService";
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -20,6 +21,8 @@ export class MenuComponent implements OnInit {
   message: string;
   categoriesDropdown: any[] = [];
   selectedCategory: Category = null;
+  subscription: Subscription[] = [];
+
 
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
@@ -31,13 +34,17 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
+    this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
       this.categories = data.categories;
       this.setDropdownCategories();
       this.translate.onLangChange.subscribe(() => this.setDropdownCategories());
     }, err => {
       console.log(err);
-    })
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   setDropdownCategories() {
@@ -56,12 +63,12 @@ export class MenuComponent implements OnInit {
 
 
   getMenuItems() {
-    this.categoryService.category_SelectAllWithProducts().subscribe((data: Category[]) => {
+    this.subscription.push(this.categoryService.category_SelectAllWithProducts().subscribe((data: Category[]) => {
       this.categories = data;
       this.setDropdownCategories();
     }, err => {
       console.log(err);
-    })
+    }));
   }
 
   filterProductsBasedOnCategory() {

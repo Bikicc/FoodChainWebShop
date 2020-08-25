@@ -1,7 +1,10 @@
+import { TranslateService } from '@ngx-translate/core';
 import { User } from './../interfaces/User';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from './../services/UserService';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 // import Swiper from 'swiper';
 @Component({
@@ -10,24 +13,43 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+
   userCredentials: User = {
     Email: '',
     Username: '',
     PasswordPlain: ''
   }
   wrongCredentials: boolean = false;
+  subscription: Subscription[] = [];
 
   constructor(
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private translate : TranslateService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
+  }
+
+  ngAfterViewInit(): void {
+    this.subscription.push(this.route.queryParams
+      .subscribe(params => {   
+        if (params['fromRegistration']) {
+          this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess("Vaš račun je uspješno kreiran!") : this.toastMessages.saveChangesSuccess("Your account has been created!");
+        } 
+      }));
+  }
 
   loginUser() {
-    this.userService.loginUser(this.userCredentials).subscribe((data) => {
+    this.subscription.push(this.userService.loginUser(this.userCredentials).subscribe((data) => {
       this.wrongCredentials = false;
       this.router.navigate(["homepage"]);
-    }, err => this.wrongCredentials = true)
+    }, err => this.wrongCredentials = true));
   }
 
   resetWrongCredentials() {

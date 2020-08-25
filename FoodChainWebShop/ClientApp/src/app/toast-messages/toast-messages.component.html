@@ -1,0 +1,38 @@
+<p-toast [style]="{ width: '25em'}" position="bottom-left" key="saveChangesSuccess">
+  <ng-template let-message pTemplate="message">
+    <div class="toastContentContainer">
+      <div class="leftBorderContainerSuccess">
+        <i class="toastIcon fa fa-check-circle"></i>
+      </div>
+      <div class="MessageContainer">
+        <p class="toastMessage">{{message.summary}}</p>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<p-toast [style]="{ width: '25em'}" position="bottom-left" key="saveChangesFailed">
+  <ng-template let-message pTemplate="message">
+    <div class="toastContentContainer">
+      <div class="leftBorderContainerError">
+        <i class="toastIcon fa fa-times-circle"></i>
+      </div>
+      <div class="MessageContainer">
+        <p class="toastMessage">{{message.summary}}</p>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<p-toast [style]="{ width: '25em'}" position="bottom-left" key="warningToast">
+  <ng-template let-message pTemplate="message">
+    <div class="toastContentContainer">
+      <div class="leftBorderContainerWarn">
+        <i class="toastIcon fa fa-exclamation-triangle"></i>
+      </div>
+      <div class="MessageContainer">
+        <p class="toastMessage">{{message.summary}}</p>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

@@ -1,7 +1,9 @@
+import { TranslateService } from '@ngx-translate/core';
 import { EmailService } from './../services/EmailService';
 import { Email } from './../interfaces/Email';
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/ProductService';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-contact-us',
@@ -9,6 +11,9 @@ import { ProductService } from '../services/ProductService';
   styleUrls: ['./contact-us.component.scss']
 })
 export class ContactUsComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+  
   ourEmailAdress: string = '';
   emailData: Email = {
     from: '',
@@ -20,28 +25,38 @@ export class ContactUsComponent implements OnInit {
   contentError: boolean = false;
   emailError: boolean = false;
   loading: boolean = false;
+  subscription: Subscription[] = [];
 
 
-  constructor(private emailService: EmailService) { }
+
+  constructor(
+    private emailService: EmailService,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.ourEmailAdress = 'fastfoodchain123@gmail.com'
   }
 
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
+  }
+
   sendEmail() {
     if (!this.buttonDisabled) {
       this.loading = true;
-      this.emailService.sendEmail(this.emailData).subscribe((data: string[]) => {
+     this.subscription.push(this.emailService.sendEmail(this.emailData).subscribe(() => {
         this.emailData = {
           from: '',
           subject: '',
           content: ''
         } as Email;
         this.loading = false;
+        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Vaš E-mail je poslan!') : this.toastMessages.saveChangesSuccess('Your E-mail has been sent!');
       }, (err: string) => {
         this.loading = false;
+        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesSuccess('Error has occured! Please try again.');
         console.log(err);
-      })
+      }));
     }
   }
 

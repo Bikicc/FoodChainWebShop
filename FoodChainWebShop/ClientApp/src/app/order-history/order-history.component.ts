@@ -5,6 +5,7 @@ import { apiKey } from './../apiKey';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class OrderHistoryComponent implements OnInit {
 
   orders: Order[] = [];
   ordersUnformatted: Order[] = [];
+  subscription: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -24,13 +26,17 @@ export class OrderHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
+   this.subscription.push(this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
       this.ordersUnformatted = data.orders;
       this.formatDate();
-      this.translate.onLangChange.subscribe(() => this.formatDate());
+      this.subscription.push(this.translate.onLangChange.subscribe(() => this.formatDate()));
     }, err => {
       console.log(err);
-    })
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   navigateToProduct(productName: string, productId: number) {

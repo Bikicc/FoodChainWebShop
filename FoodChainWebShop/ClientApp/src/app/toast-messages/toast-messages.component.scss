@@ -1,0 +1,59 @@
+:host::ng-deep .ui-toast .ui-toast-message-content {
+  padding: unset !important;
+}
+
+.toastIcon {
+  font-size: 2em;
+  padding: 15px 7px 15px;
+}
+
+.toastContentContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftBorderContainerSuccess {
+  display: flex;
+  flex-basis: 10%;
+  align-items: center;
+  color: white;
+  background-color: #00c100;;
+}
+
+.leftBorderContainerError {
+  display: flex;
+  flex-basis: 10%;
+  align-items: center;
+  color: white;
+  background-color: rgb(172, 24, 24);
+}
+
+.leftBorderContainerWarn {
+  display: flex;
+  flex-basis: 10%;
+  align-items: center;
+  color: white;
+  background-color: #ffcc00;
+}
+
+.MessageContainer {
+  display: flex;
+  flex-basis: 90%;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #fcff9e 0%, var(--orangeColor) 100%);
+  text-transform: uppercase;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  line-height: 1.2;
+  color: black;
+}
+
+:host::ng-deep .ui-toast .ui-toast-message {
+  border-radius: 13px;
+}
+
+.toastMessage {
+  margin: 0.5em;
+  font-size: 1.3em;
+}

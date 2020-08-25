@@ -3,14 +3,14 @@ import { User } from './../interfaces/User';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
-
+export class RegistrationComponent implements OnInit {  
   userToRegister: User = { Username: '', Email: '', PasswordPlain: '' };
   usernameError: boolean = false;
   passwordError: boolean = false;
@@ -19,14 +19,17 @@ export class RegistrationComponent implements OnInit {
   usernameTaken: string = '';
   emailTaken: string = '';
   loading: boolean = false;
+  subscription: Subscription[] = [];
 
   constructor(
     private userService: UserService,
     private router: Router,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
 
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   checkUsername() {
@@ -61,9 +64,9 @@ export class RegistrationComponent implements OnInit {
   submitForm() {
     if (!this.buttonDisabled) {
       this.loading = true;
-      this.userService.registerUser(this.userToRegister).subscribe(() => {
+     this.subscription.push(this.userService.registerUser(this.userToRegister).subscribe(() => {
         this.loading = false;
-        this.router.navigate(["login"]);
+        this.router.navigate(["login"], {queryParams: {fromRegistration: true}});
       }, (err: HttpErrorResponse) => {
         if (err.error.errorId === 1) {
           this.usernameTaken = err.error.errorMessage;
@@ -74,7 +77,7 @@ export class RegistrationComponent implements OnInit {
           this.emailTaken = err.error.errorMessage;
           return;
         }
-      })
+      }));
     }
   }
 

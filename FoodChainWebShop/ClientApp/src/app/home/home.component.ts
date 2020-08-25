@@ -7,13 +7,13 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   Images: string[];
-  
+
   constructor(
-    globalVar: GlobalVar
-  ) { 
+    globalVar: GlobalVar) {
     this.Images = globalVar.homeSlideimages
   }
 
   ngOnInit(): void {
   }
+
 }

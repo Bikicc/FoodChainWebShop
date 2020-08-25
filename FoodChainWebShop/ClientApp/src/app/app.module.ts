@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { OrderService } from './services/OrderService';
 import { FavouritesResolverService } from './services/FavouritesResolverService';
 import { FavouritesService } from './services/FavouritesService';
@@ -13,6 +14,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GMapModule } from 'primeng/gmap';
+import { ToastModule } from 'primeng/toast';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -42,6 +44,7 @@ import { UserService } from './services/UserService';
 import { OrderResolverService } from './services/OrderResolverService';
 import { BasketService } from './services/BasketService';
 import { EmailService } from './services/EmailService';
+import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +61,8 @@ import { EmailService } from './services/EmailService';
     ProductInfoComponent,
     PageNotFoundComponent,
     BasketComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    ToastMessagesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -68,6 +72,7 @@ import { EmailService } from './services/EmailService';
     BrowserAnimationsModule,
     GMapModule,
     GooglePlaceModule,
+    ToastModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -98,7 +103,8 @@ import { EmailService } from './services/EmailService';
     FavouritesService,
     OrderService,
     BasketService,
-    EmailService
+    EmailService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

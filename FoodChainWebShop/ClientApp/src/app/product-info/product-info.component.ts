@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FavouritesService } from './../services/FavouritesService';
 import { Product } from '../interfaces/Product';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-product-info',
@@ -16,6 +17,7 @@ export class ProductInfoComponent implements OnInit {
   favourites: Product[] = [];
   isFavourite: boolean = null;
   selectedLang: string = '';
+  subscription: Subscription[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,16 +28,20 @@ export class ProductInfoComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe((data: { product: Product, favourites: Product[] }) => {
+    this.subscription.push(this.activatedRoute.data.subscribe((data: { product: Product, favourites: Product[] }) => {
       this.productInfo = data.product;
       this.favourites = data.favourites;
       this.checkIsProductInFavourites();
     }, err => {
       console.log(err);
-    });
+    }));
 
     this.selectedLang = this.translate.currentLang;
-    this.translate.onLangChange.subscribe(() => this.selectedLang = this.translate.currentLang);
+    this.subscription.push(this.translate.onLangChange.subscribe(() => this.selectedLang = this.translate.currentLang));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   addToFavourites() {
@@ -44,13 +50,13 @@ export class ProductInfoComponent implements OnInit {
       productId: this.productInfo.productId
     };
 
-    this.favouritesService.postProductToFavourites(data).subscribe(async () => {
+   this.subscription.push(this.favouritesService.postProductToFavourites(data).subscribe(async () => {
       await this.getFavourites();
       this.checkIsProductInFavourites();
       console.log("added to favourites!")
     }, err => {
       console.log(err)
-    })
+    }));
   }
 
   checkIsProductInFavourites() {
@@ -60,24 +66,24 @@ export class ProductInfoComponent implements OnInit {
   }
 
   removeFromFavourites() {
-    this.favouritesService.deleteFromFavourites(3, this.productInfo.productId).subscribe(async () => {
+    this.subscription.push(this.favouritesService.deleteFromFavourites(3, this.productInfo.productId).subscribe(async () => {
       await this.getFavourites();
       this.checkIsProductInFavourites();
     }, err => {
       console.log(err)
-    })
+    }));
   }
 
   getFavourites() {
     return new Promise((resolve, reject) => {
-      this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
+     this.subscription.push(this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
         this.favourites = data;
         this.checkIsProductInFavourites();
         resolve();
       }, err => {
         console.log(err);
         reject();
-      })
+      }));
     })
   }
 

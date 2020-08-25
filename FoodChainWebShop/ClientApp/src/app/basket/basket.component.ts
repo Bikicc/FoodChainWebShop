@@ -1,12 +1,15 @@
+import { TranslateService } from '@ngx-translate/core';
 import { OrderService } from './../services/OrderService';
 import { Order } from './../interfaces/Order';
 import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 import { HttpClient } from '@angular/common/http';
 import { apiKey } from '../apiKey';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
+import { ToastMessagesComponent } from './../toast-messages/toast-messages.component';
+
 
 @Component({
   selector: 'app-basket',
@@ -14,6 +17,8 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
 
   basketItems: Product[] = [];
   totalAmountToPay: number = 0;
@@ -25,17 +30,24 @@ export class BasketComponent implements OnInit {
   orderDetails: Order = {} as Order;
   addressError: boolean = false;
   loading: boolean = false;
+  subscription: Subscription[] = [];
+
 
   constructor(
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
     private http: HttpClient,
     private key: apiKey,
-    private orderService: OrderService) { }
+    private orderService: OrderService,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.basketItems = this.basketService.getProductsFromBasket();
     this.getTotalAmountToPay();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   increaseQuantity(productId: number) {
@@ -95,25 +107,28 @@ export class BasketComponent implements OnInit {
       this.orderDetails.userId = 3;
       this.orderDetails.orderTime = (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))).toISOString().slice(0, -1);
 
-      this.orderService.postOrder(this.orderDetails).subscribe((data: any) => {
+      this.subscription.push(this.orderService.postOrder(this.orderDetails).subscribe((data: any) => {
         const multipleApiCalls = [];
 
         this.basketItems.forEach((item: Product) => {
           multipleApiCalls.push(this.orderService.postOrderProducts({ ProductId: item.productId, OrderId: data.orderId, Quantity: item.quantity }));
         });
 
-        forkJoin(multipleApiCalls).subscribe(() => {
+        this.subscription.push(forkJoin(multipleApiCalls).subscribe(() => {
           this.removeAllProductsFromBasket();
           this.orderDetails = {} as Order;
           this.loading = false;
+          this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Narudžba je zaprimljena!') : this.toastMessages.saveChangesSuccess('Order has been received!');
         }, err => {
           this.loading = false;
+          this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesSuccess('Error has occured! Please try again.');
           console.log(err);
-        })
+        }));
       }, err => {
         this.loading = false;
+        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesSuccess('Error has occured! Please try again.');
         console.log(err);
-      });
+      }));
     } else {
       this.addressError = true;
     }
