@@ -2,6 +2,8 @@
 @import '../../assets/css/button.scss';
 @import '../../assets/css/coverHeader.scss';
 @import '../../assets/css/products.scss';
+@import '../../assets/css/loader.css';
+
 
 .buttonContainer {
   width: unset;
@@ -48,6 +50,7 @@
 .payoutWrapper {
   margin-bottom: 50px;
   background-color: #4343432e;
+  position: relative;
 }
 
 .payoutHeader {
@@ -106,6 +109,13 @@ input {
 
 .errorInput {
   border: 1px solid red;
+}
+
+.center-page {
+  height: unset;
+  position: absolute;
+  top: 30%;
+  width: 100%;
 }
 
 @media only screen and (max-width: 1024px) {

@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   buttonDisabled: boolean = true;
   usernameTaken: string = '';
   emailTaken: string = '';
+  loading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -59,7 +60,9 @@ export class RegistrationComponent implements OnInit {
 
   submitForm() {
     if (!this.buttonDisabled) {
+      this.loading = true;
       this.userService.registerUser(this.userToRegister).subscribe(() => {
+        this.loading = false;
         this.router.navigate(["login"]);
       }, (err: HttpErrorResponse) => {
         if (err.error.errorId === 1) {

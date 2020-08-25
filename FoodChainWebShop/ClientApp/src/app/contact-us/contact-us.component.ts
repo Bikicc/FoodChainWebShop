@@ -19,6 +19,7 @@ export class ContactUsComponent implements OnInit {
   subjectError: boolean = false;
   contentError: boolean = false;
   emailError: boolean = false;
+  loading: boolean = false;
 
 
   constructor(private emailService: EmailService) { }
@@ -29,14 +30,16 @@ export class ContactUsComponent implements OnInit {
 
   sendEmail() {
     if (!this.buttonDisabled) {
+      this.loading = true;
       this.emailService.sendEmail(this.emailData).subscribe((data: string[]) => {
         this.emailData = {
           from: '',
           subject: '',
           content: ''
         } as Email;
-
+        this.loading = false;
       }, (err: string) => {
+        this.loading = false;
         console.log(err);
       })
     }

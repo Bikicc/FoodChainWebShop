@@ -1,4 +1,6 @@
 @import '../../assets/css/form.scss';
+@import '../../assets/css/loader.css';
+
 
 .mh-40 {
     max-height: 40px;
@@ -29,3 +31,18 @@
 .disabledButton::before {
     background: unset;
 }
+
+.center-page {
+    height: unset;
+    width: unset;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+@media only screen and (max-width: 1240px) {
+    .center-page {
+        left: 45%;
+    }
+}
+

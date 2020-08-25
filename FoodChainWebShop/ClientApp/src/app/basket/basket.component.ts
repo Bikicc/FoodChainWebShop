@@ -1,4 +1,3 @@
-import { EmailService } from './../services/EmailService';
 import { OrderService } from './../services/OrderService';
 import { Order } from './../interfaces/Order';
 import { BasketService } from './../services/BasketService';
@@ -18,21 +17,21 @@ export class BasketComponent implements OnInit {
 
   basketItems: Product[] = [];
   totalAmountToPay: number = 0;
-  // options = {
-  //   componentRestrictions: {
-  //     country: ['HR']
-  //   }
-  // }
+  options = {
+    componentRestrictions: {
+      country: ['HR']
+    }
+  }
   orderDetails: Order = {} as Order;
   addressError: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
     private http: HttpClient,
     private key: apiKey,
-    private orderService: OrderService,
-    private emailService: EmailService) { }
+    private orderService: OrderService) { }
 
   ngOnInit() {
     this.basketItems = this.basketService.getProductsFromBasket();
@@ -79,10 +78,10 @@ export class BasketComponent implements OnInit {
       .catch((error) => console.log(error));
   }
 
-  // handleAddressChange(address: any) {
-  //   this.orderDetails.address = address.formatted_address;
-  //   this.addressError = false;
-  // }
+  handleAddressChange(address: any) {
+    this.orderDetails.address = address.formatted_address;
+    this.addressError = false;
+  }
 
   async makeAnOrder() {
     let addressValid: boolean;
@@ -91,6 +90,7 @@ export class BasketComponent implements OnInit {
     });
 
     if (addressValid) {
+      this.loading = true;
       this.orderDetails.price = this.totalAmountToPay;
       this.orderDetails.userId = 3;
       this.orderDetails.orderTime = (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))).toISOString().slice(0, -1);
@@ -105,11 +105,13 @@ export class BasketComponent implements OnInit {
         forkJoin(multipleApiCalls).subscribe(() => {
           this.removeAllProductsFromBasket();
           this.orderDetails = {} as Order;
-          this.emailService.sendEmail({from: 'fastFood@gmail.com', content:"Your order is received", subject: "Order successfully received"})
+          this.loading = false;
         }, err => {
+          this.loading = false;
           console.log(err);
         })
       }, err => {
+        this.loading = false;
         console.log(err);
       });
     } else {

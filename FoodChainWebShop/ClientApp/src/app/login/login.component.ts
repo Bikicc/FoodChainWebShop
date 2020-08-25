@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     Username: '',
     PasswordPlain: ''
   }
+  wrongCredentials: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -24,8 +25,13 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     this.userService.loginUser(this.userCredentials).subscribe((data) => {
+      this.wrongCredentials = false;
       this.router.navigate(["homepage"]);
-    }, err => console.log(err))
+    }, err => this.wrongCredentials = true)
+  }
+
+  resetWrongCredentials() {
+    this.wrongCredentials = false;
   }
 
 }

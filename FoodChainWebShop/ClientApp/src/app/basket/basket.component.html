@@ -66,17 +66,18 @@
           </div>
           <div class="contentValue">
             <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
-              (onAddressChange)="handleAddressChange($event)" [(ngModel)]="orderDetails.address" 
-              [ngClass]="{'errorInput': addressError}" (focusout)="addressError = false"/>
-            </div>
-            <span *ngIf="addressError" class="errorMessage">{{'ADRESA_ERROR' | translate}}</span>
+              (onAddressChange)="handleAddressChange($event)" [(ngModel)]="orderDetails.address"
+              [ngClass]="{'errorInput': addressError}" (focusout)="addressError = false" />
+          </div>
+          <span *ngIf="addressError" class="errorMessage">{{'ADRESA_ERROR' | translate}}</span>
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
           <div class="contentHeader">
             {{'ZABILJESKA' | translate}}
           </div>
           <div class="contentValue">
-            <textarea name="emailText" placeholder="Enter your notice here..." rows="1" [(ngModel)]="orderDetails.note"></textarea>
+            <textarea name="emailText" placeholder="Enter your notice here..." rows="1"
+              [(ngModel)]="orderDetails.note"></textarea>
           </div>
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
@@ -98,6 +99,20 @@
               <a class="btn btnRemove" (click)="removeAllProductsFromBasket()">{{'UKLONITE_SVE' | translate}}</a>
             </div>
           </div>
+        </div>
+      </div>
+      <!-- Loader -->
+      <div class="center-page" *ngIf="loading">
+        <div class="sk-cube-grid">
+          <div class="sk-cube sk-cube1"></div>
+          <div class="sk-cube sk-cube2"></div>
+          <div class="sk-cube sk-cube3"></div>
+          <div class="sk-cube sk-cube4"></div>
+          <div class="sk-cube sk-cube5"></div>
+          <div class="sk-cube sk-cube6"></div>
+          <div class="sk-cube sk-cube7"></div>
+          <div class="sk-cube sk-cube8"></div>
+          <div class="sk-cube sk-cube9"></div>
         </div>
       </div>
     </div>

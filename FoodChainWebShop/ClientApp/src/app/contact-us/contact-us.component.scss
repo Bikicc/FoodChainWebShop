@@ -1,6 +1,7 @@
 @import '../../assets/css/divider.scss';
 @import '../../assets/css/button.scss';
 @import '../../assets/css/coverHeader.scss';
+@import '../../assets/css/loader.css';
 
 .mapWrapper {
   display: flex;
@@ -22,9 +23,10 @@ input {
   border-color: #fbcf34;
 }
 
-// input:valid {
-//   border-color: #24cf5f;
-// }
+.center-page {
+  position: absolute;
+  height: unset;
+}
 
 input:focus {
   outline: none;
