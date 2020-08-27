@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {  
-  userToRegister: User = { Username: '', Email: '', PasswordPlain: '' };
+  userToRegister: User = { Username: '', email: '', PasswordPlain: '' };
   usernameError: boolean = false;
   passwordError: boolean = false;
   emailError: boolean = false;
@@ -50,7 +50,7 @@ export class RegistrationComponent implements OnInit {
 
   checkEmail() {
     const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    this.emailError = reg.test(String(this.userToRegister.Email).toLowerCase()) ? false : true;
+    this.emailError = reg.test(String(this.userToRegister.email).toLowerCase()) ? false : true;
   }
 
   checkButton() {
@@ -68,13 +68,16 @@ export class RegistrationComponent implements OnInit {
         this.loading = false;
         this.router.navigate(["login"], {queryParams: {fromRegistration: true}});
       }, (err: HttpErrorResponse) => {
+        console.log(err.status)
         if (err.error.errorId === 1) {
           this.usernameTaken = err.error.errorMessage;
+          this.loading = false;
           return;
         }
 
         if (err.error.errorId === 2) {
           this.emailTaken = err.error.errorMessage;
+          this.loading = false;
           return;
         }
       }));

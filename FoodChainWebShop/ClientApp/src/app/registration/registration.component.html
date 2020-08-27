@@ -29,7 +29,7 @@
               <i class="fa fa-envelope" aria-hidden="true"></i>
             </div>
             <div class="inputWrapper">
-              <input id="name" type="text" placeholder="E-mail" [(ngModel)]="userToRegister.Email"
+              <input id="name" type="text" placeholder="E-mail" [(ngModel)]="userToRegister.email"
                 [ngClass]="{'errorInput': emailError}" (focusout)="checkEmail(); checkButton(); checkEmailTaken()">
               <span *ngIf="emailError" class="errorMessage">{{'EMAIL_ERROR' | translate}}</span>
               <span *ngIf="emailTaken.length > 0" class="errorMessage">{{emailTaken}} <a

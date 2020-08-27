@@ -1,3 +1,4 @@
+import { User } from './../interfaces/User';
 import { TranslateService } from '@ngx-translate/core';
 import { BasketService } from './../services/BasketService';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +19,7 @@ export class ProductInfoComponent implements OnInit {
   isFavourite: boolean = null;
   selectedLang: string = '';
   subscription: Subscription[] = [];
+  user: User = {} as User;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -36,6 +38,7 @@ export class ProductInfoComponent implements OnInit {
       console.log(err);
     }));
 
+    this.user = JSON.parse(localStorage.getItem("user"));
     this.selectedLang = this.translate.currentLang;
     this.subscription.push(this.translate.onLangChange.subscribe(() => this.selectedLang = this.translate.currentLang));
   }
@@ -46,14 +49,13 @@ export class ProductInfoComponent implements OnInit {
 
   addToFavourites() {
     let data = {
-      userId: 3,
+      userId: this.user.userId,
       productId: this.productInfo.productId
     };
 
    this.subscription.push(this.favouritesService.postProductToFavourites(data).subscribe(async () => {
       await this.getFavourites();
       this.checkIsProductInFavourites();
-      console.log("added to favourites!")
     }, err => {
       console.log(err)
     }));
@@ -66,7 +68,7 @@ export class ProductInfoComponent implements OnInit {
   }
 
   removeFromFavourites() {
-    this.subscription.push(this.favouritesService.deleteFromFavourites(3, this.productInfo.productId).subscribe(async () => {
+    this.subscription.push(this.favouritesService.deleteFromFavourites(this.user.userId, this.productInfo.productId).subscribe(async () => {
       await this.getFavourites();
       this.checkIsProductInFavourites();
     }, err => {
@@ -76,7 +78,7 @@ export class ProductInfoComponent implements OnInit {
 
   getFavourites() {
     return new Promise((resolve, reject) => {
-     this.subscription.push(this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
+     this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
         this.favourites = data;
         this.checkIsProductInFavourites();
         resolve();

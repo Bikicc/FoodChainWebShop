@@ -20,10 +20,10 @@ namespace FoodChainWebShop.Models {
         [JsonIgnore]
         public string Password { get; set; }
 
-        [JsonIgnore] //Mozda triba izbacit
+        [JsonIgnore] 
         public ICollection<Order> Orders { get; set; }
 
-        [JsonIgnore] //Mozda triba izbacit
+        [JsonIgnore] 
         public ICollection<Favourite> Favourites { get; set; }
 
         [Required]

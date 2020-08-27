@@ -23,7 +23,7 @@ namespace FoodChainWebShop.authService {
             this._context = context;
         }
         public string generateJwtToken (User user) {
-            // generate token that is valid for 7 days
+            // Generiranje tokena koji je validan 7 dana
             var tokenHandler = new JwtSecurityTokenHandler ();
             var key = Encoding.ASCII.GetBytes (_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor {

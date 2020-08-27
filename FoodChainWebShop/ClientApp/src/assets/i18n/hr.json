@@ -3,20 +3,20 @@
     "O_NAMA_HEADER": "Sve što trebate znati o nama i našoj povijesti!",
     "O_NAMA_01": "O našim restoranima",
     "O_NAMA_02": "Zadovoljavamo klijente od prvoga dana",
-    "O_NAMA_03": "Kvalitetni i opuštajući restorani vođeni od strane nagrađivanih profesionalaca, smješteni preko cijelog balkana dizajnirani s elegancijom modernog interijera. Opustite se pored ugodnog kamina preko zimskih večeri ili uživajte u vanjskom eksterijeru preko sunčanih ljetnih dana. Dnevni jelovnik, sve svježe pripremljen u našoj čistoj kuhinji, uključuje hamburgere, pite, odreske, ribu i još mnogo toga po povoljnoj cijeni. Povoljno mjesto, brza dostava, svježa hrana i ugodna atmosfera garantirat će izvrstan obrok za sve prigode. ",
+    "O_NAMA_03": "Kvalitetni i opuštajući restorani vođeni od strane nagrađivanih profesionalaca, smješteni preko cijelog balkana dizajnirani s elegancijom modernog interijera. Opustite se pored ugodnog kamina preko zimskih večeri ili uživajte u vanjskom eksterijeru preko sunčanih ljetnih dana. Dnevni jelovnik, sve svježe pripremljeno u našoj čistoj kuhinji, uključuje hamburgere, pite, odreske, ribu i još mnogo toga po povoljnoj cijeni. Pristupačna mjesta, brza dostava, svježa hrana i ugodna atmosfera garantirat će izvrstan obrok za sve prigode. ",
     "O_NAMA_04": "UVIJEK NA RASPOLAGANJU SAMO ZA VAS",
-    "O_NAMA_05": "Naši restorani otvoreni su 24 sata dnevno, u svim dijelovima grada svakodnevno besplatno. Otvoreno primamo sve ideje i primjedbe na naš e-mail.",
+    "O_NAMA_05": "Naši restorani otvoreni su 24 sata dnevno, dostava u svim dijelovima grada 24/7 besplatno. Otvoreno primamo sve ideje i primjedbe na naš e-mail.",
     "O_NAMA_06": "BRZO I SVJEŽE",
-    "O_NAMA_07": "Mi poslužujemo svježu i prirodnu hranu. Naši kuhari uživaju u najboljim proizvodima za najbolje kupce.",
+    "O_NAMA_07": "Mi poslužujemo svježu i prirodnu hranu. Naši kuhari osiguravaju najbolje proizvode za najbolje kupce.",
     "O_NAMA_08": "NAŠA POVIJEST",
     "O_NAMA_09": "PRVI RESTORAN",
     "O_NAMA_10": "Prvi smo restoran otvorili 2. veljače. Naš prvi restoran nalazio se u Splitu, Hrvatska. U tom trenutku smo se sastojali od 4 zaposlenika, njihova imena su Filip Bikić, Marin Tomić, Branko Radić i Karlo Rešetar.",
     "O_NAMA_11": "EKSPANZIJA",
     "O_NAMA_12": "Dvije godine nakon otvaranja prvog restorana u Splitu, Hrvatska, posao smo proširili na Zagreb. Bila je to godina poznatog burgera „Triple take“ koji je sve naše kupce obradovao posebnim i jedinstvenim ukusom. Te smo godine postali brend.",
     "O_NAMA_13": "POSTAJEMO MEĐUNARODNI",
-    "O_NAMA_14": "7. lipnja otvorili smo svoj prvi restoran izvan Hrvatske. Odlučili smo se naseliti u Bugarskoj, Sofiji. Tog dana napisana je povijest i puni su trbušnjaci puni. Naš se brend proširio na čitav Balkan s poznatim pogonskim sustavom i 24/7 dostavnom službom.",
+    "O_NAMA_14": "7. lipnja otvorili smo svoj prvi restoran izvan Hrvatske. Odlučili smo se smjestiti u Bugarskoj, Sofiji. Toga dana napisana je povijest. Naš se brend proširio na čitav Balkan s novim sustavom 24/7 dostave.",
     "O_NAMA_15": "ZLATNA GODINA",
-    "O_NAMA_16": "Danas imamo više od 5 restorana u tri balkanske zemlje i poznati smo i svjetski prihvatljiv brend. Imamo širok izbor proizvoda i jedinstven sustav dostave i posluživanja hrane za naše kupce.",
+    "O_NAMA_16": "Danas imamo više od 5 restorana preko tri balkanske zemlje i poznati smo i svjetski prihvatljiv brend. Imamo širok izbor proizvoda, jedinstven sustav dostave i posluživanja hrane za naše kupce.",
 
     "KOSARICA": "KOŠARICA",
     "KOSARICA_HEADER": "Provjerite vaše proizvode prije postavljanja narudžbe",
@@ -36,10 +36,10 @@
     "FAVORITI": "FAVORITI",
     "FAVORITI_HEADER": "Pohranite svoje najomiljenije proizvode za bržu pristupačnost",
 
-    "POCETNA_01": "Najbolji proizvodi od najboljeg mesa i svježeg povrća. Najbolja raznolikost hrane po ukusu svakog. Pronađite najukusniji jelovnik i zadovoljite glad.",
+    "POCETNA_01": "Najbolji proizvodi od najboljeg mesa i svježeg povrća. Najbolja raznolikost hrane po svačjem ukusu. Pronađite najukusniju kombinaciju i zadovoljite vašu glad.",
     "POCETNA_02":"Dugoročni obiteljski restorani s najboljom hranom napravljenom od najboljih sastojaka. Posluživanje 100% autentične hrane po najboljoj cijeni.",
     "POCETNA_03":"Saznajte više o nama",
-    "POCETNA_04":"Besplatna dostava na kućnom pragu 24/7. Služba za korisnike je uvijek dostupna za vaše zahtjeve. Svaki je prijedlog dobrodošao i možete ga poslati e-mailom.",
+    "POCETNA_04":"Besplatna dostava na kućnu adresu 24/7. Služba za korisnike je uvijek dostupna za vaše zahtjeve i primjedbe. Svaki prijedlog je dobrodošao i možete ga poslati e-mailom.",
     "POCETNA_05":"Kontaktirajte nas ovjde",
     "POCETNA_06":"Pronađite nas na platformama društvenih medija. Pogledajte najnovija ažuriranja i fotografije naših proizvoda. Ostanite u trendu uz svoju omiljenu brzu hranu.",
 
@@ -89,7 +89,8 @@
     "USERNAME_ERROR": "Korisničko ime mora sadržavati barem 4 karaktera!",
     "PASSWORD_ERROR": "Lozinka mora sadržavati barem 4 karaktera!",
     "IMAM_RACUN_REGISTRACIJA": "Imam korisnički račun!",
-    "ODJAVA": "ODJAVA"
-
+    "ODJAVA": "ODJAVA",
+    "NO_FAVOURITES": "NEMATE FAVORITA!",
+    "NO_ORDERS": "NEMATE NARUDŽBI!"
 
 }

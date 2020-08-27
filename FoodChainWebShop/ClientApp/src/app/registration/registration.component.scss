@@ -26,6 +26,7 @@
 
 .disabledButton:hover {
     box-shadow: unset;
+    color: #6f6868 !important;
 }
 
 .disabledButton::before {
@@ -38,6 +39,10 @@
     position: absolute;
     top: 50%;
     left: 50%;
+}
+
+a:hover {
+    color: black;
 }
 
 @media only screen and (max-width: 1240px) {

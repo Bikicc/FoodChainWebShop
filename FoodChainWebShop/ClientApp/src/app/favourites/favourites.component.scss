@@ -22,12 +22,36 @@
     height: 300px;
 }
 
+.noFavourites {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noFavouritesText {
+  font-size: 50px;
+  color: var(--goldenColor);
+  font-weight: bold;
+  font-family: fantasy;
+  margin-bottom: 20px;
+}
+
+.coverHeaderContainer {
+  transform: unset;
+}
+
 @media only screen and (max-width: 1024px) {
   .buttonContainer {
     opacity: 1;
   }
 }
 
-.coverHeaderContainer {
-  transform: unset;
+@media only screen and (max-width: 650px) {
+  img {
+    width: 70%;
+  }
+
+  .noFavouritesText {
+    font-size: 30px;
+  }
 }

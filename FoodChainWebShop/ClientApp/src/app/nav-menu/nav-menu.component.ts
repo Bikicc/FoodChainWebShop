@@ -64,6 +64,10 @@ export class NavMenuComponent {
         .pipe(skip(1))
         .subscribe((status: boolean) => this.setUserLoginStatus(status)))
 
+    if(JSON.parse(localStorage.getItem("user")) || null) {
+      this.userLoginStatus = true;
+    }
+
   }
 
   ngOnDestroy(): void {

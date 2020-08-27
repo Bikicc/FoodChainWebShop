@@ -7,7 +7,6 @@ import { ToastMessagesComponent } from '../toast-messages/toast-messages.compone
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 
-// import Swiper from 'swiper';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit {
   toastMessages: ToastMessagesComponent;
 
   userCredentials: User = {
-    Email: '',
+    email: '',
     Username: '',
     PasswordPlain: ''
   }
@@ -32,7 +31,11 @@ export class LoginComponent implements OnInit {
     private translate : TranslateService,
     private dataFromAnotherComponent: ComponentCommunicationService ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    if (JSON.parse(localStorage.getItem("user") || null)) {
+      this.router.navigate(["homepage"]);
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscription.forEach(sub => sub.unsubscribe());

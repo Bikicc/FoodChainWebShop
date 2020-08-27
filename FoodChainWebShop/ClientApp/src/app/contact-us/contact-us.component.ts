@@ -1,3 +1,4 @@
+import { User } from './../interfaces/User';
 import { TranslateService } from '@ngx-translate/core';
 import { EmailService } from './../services/EmailService';
 import { Email } from './../interfaces/Email';
@@ -26,7 +27,7 @@ export class ContactUsComponent implements OnInit {
   emailError: boolean = false;
   loading: boolean = false;
   subscription: Subscription[] = [];
-
+  user: User = {} as User;
 
 
   constructor(
@@ -34,7 +35,12 @@ export class ContactUsComponent implements OnInit {
     private translate: TranslateService) { }
 
   ngOnInit() {
-    this.ourEmailAdress = 'fastfoodchain123@gmail.com'
+    this.ourEmailAdress = 'fastfoodchain123@gmail.com';
+    if (JSON.parse(localStorage.getItem("user")) || null) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.emailData.from = this.user.email;
+    }
+
   }
 
   ngOnDestroy(): void {
@@ -45,11 +51,20 @@ export class ContactUsComponent implements OnInit {
     if (!this.buttonDisabled) {
       this.loading = true;
      this.subscription.push(this.emailService.sendEmail(this.emailData).subscribe(() => {
+      if (JSON.parse(localStorage.getItem("user")) || null) {
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.emailData = {
+          from: this.user.email,
+          subject: '',
+          content: ''
+        } as Email;
+      } else {
         this.emailData = {
           from: '',
           subject: '',
           content: ''
         } as Email;
+      }
         this.loading = false;
         this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Vaš E-mail je poslan!') : this.toastMessages.saveChangesSuccess('Your E-mail has been sent!');
       }, (err: string) => {

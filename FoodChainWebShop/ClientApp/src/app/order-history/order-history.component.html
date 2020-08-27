@@ -14,7 +14,7 @@
   </div>
 
   <!-- ORDER HISTORY SECTION-->
-  <div class="ordersWrapper">
+  <div *ngIf="orders.length > 0; else noOrders" class="ordersWrapper">
     <div *ngFor="let order of orders">
       <div class="orderHeader">
         <div class="orderText">
@@ -47,3 +47,13 @@
     </div>
   </div>
 </div>
+
+<ng-template #noOrders>
+  <div class="noOrders">
+    <img src="assets/images/NoOrders.png">
+    <div class="noOrdersText">
+      {{'NO_ORDERS' | translate}}
+    </div>
+  </div>
+</ng-template>
+

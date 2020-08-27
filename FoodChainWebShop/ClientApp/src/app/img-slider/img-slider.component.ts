@@ -16,7 +16,6 @@ export class ImgSliderComponent implements OnInit {
     this.swiper = new Swiper('.swiper-container', {
       spaceBetween: 0,
       centeredSlides: true,
-      // loop: true,
       slidesPerView: 1,
       autoplay: {
         delay: 8000,

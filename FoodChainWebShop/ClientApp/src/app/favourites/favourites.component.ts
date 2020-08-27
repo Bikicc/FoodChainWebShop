@@ -1,3 +1,4 @@
+import { User } from './../interfaces/User';
 import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
 import { FavouritesService } from './../services/FavouritesService';
@@ -16,6 +17,7 @@ export class FavouritesComponent implements OnInit {
 
   favourites: Product[] = [];
   subscription: Subscription[] = [];
+  user: User = {} as User;
 
   constructor(
     private router: Router,
@@ -31,6 +33,7 @@ export class FavouritesComponent implements OnInit {
     }, err => {
       console.log(err);
     }));
+    this.user = JSON.parse(localStorage.getItem("user"));
   }
 
   ngOnDestroy(): void {
@@ -43,7 +46,7 @@ export class FavouritesComponent implements OnInit {
   }
 
   getFavourites() {
-   this.subscription.push(this.favouritesService.getFavouritesForUser(3).subscribe((data: Product[]) => {
+   this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
       this.favourites = data;
     }, err => {
       console.log(err)
@@ -51,7 +54,7 @@ export class FavouritesComponent implements OnInit {
   }
 
   deleteFromFavourites(favouriteId: number) {
-   this.subscription.push(this.favouritesService.deleteFromFavourites(3, favouriteId).subscribe(() => {
+   this.subscription.push(this.favouritesService.deleteFromFavourites(this.user.userId, favouriteId).subscribe(() => {
       this.getFavourites();
     }, err => {
       console.log(err)

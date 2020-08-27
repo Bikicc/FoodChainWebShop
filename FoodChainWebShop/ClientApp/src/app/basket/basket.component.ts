@@ -1,3 +1,4 @@
+import { User } from './../interfaces/User';
 import { TranslateService } from '@ngx-translate/core';
 import { OrderService } from './../services/OrderService';
 import { Order } from './../interfaces/Order';
@@ -102,9 +103,12 @@ export class BasketComponent implements OnInit {
     });
 
     if (addressValid) {
-      this.loading = true;
       this.orderDetails.price = this.totalAmountToPay;
-      this.orderDetails.userId = 3;
+      let user: User = JSON.parse(localStorage.getItem("user") || null);
+      if (user) {
+        this.orderDetails.userId = user.userId;
+        this.loading = true;
+      }
       this.orderDetails.orderTime = (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))).toISOString().slice(0, -1);
 
       this.subscription.push(this.orderService.postOrder(this.orderDetails).subscribe((data: any) => {
@@ -121,12 +125,12 @@ export class BasketComponent implements OnInit {
           this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Narudžba je zaprimljena!') : this.toastMessages.saveChangesSuccess('Order has been received!');
         }, err => {
           this.loading = false;
-          this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesSuccess('Error has occured! Please try again.');
+          this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
           console.log(err);
         }));
       }, err => {
         this.loading = false;
-        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesSuccess('Error has occured! Please try again.');
+        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
         console.log(err);
       }));
     } else {

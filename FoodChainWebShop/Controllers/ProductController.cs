@@ -19,7 +19,7 @@ namespace FoodChainWebShop.Controllers {
             return Ok (products);
         }
 
-        [HttpGet ("{id}")] //na ovaj nacin definiramo dodatni parametar
+        [HttpGet ("{id}")]
         public async Task<IActionResult> GetProduct (int id) {
 
             var product = await _context.Products.SingleOrDefaultAsync (x => x.ProductId == id);
