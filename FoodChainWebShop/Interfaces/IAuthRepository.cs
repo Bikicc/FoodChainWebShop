@@ -1,6 +1,7 @@
 using FoodChainWebShop.Models;
 using System.Threading.Tasks;
 using FoodChainWebShop.HelperClasses;
+
 namespace FoodChainWebShop.Interfaces
 {
     public interface IAuthRepository

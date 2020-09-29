@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using FoodChainWebShop.EmailService;
 using Microsoft.AspNetCore.Mvc;
-
+using FoodChainWebShop.Interfaces;
 namespace FoodChainWebShop.Controllers {
 
     [ApiController]

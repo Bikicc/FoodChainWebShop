@@ -1,5 +1,10 @@
+using FoodChainWebShop.authService;
 using FoodChainWebShop.Data;
 using FoodChainWebShop.EmailService;
+using FoodChainWebShop.HelperClasses;
+using FoodChainWebShop.Interfaces;
+using FoodChainWebShop.Repositories;
+using FoodChainWebShop.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -7,10 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FoodChainWebShop.HelperClasses;
-using FoodChainWebShop.authService;
-using FoodChainWebShop.Repositories;
-using FoodChainWebShop.Interfaces;
 namespace FoodChainWebShop {
     public class Startup {
         public Startup (IConfiguration configuration) {
@@ -33,9 +34,11 @@ namespace FoodChainWebShop {
             //Services
             services.AddScoped<IEmailSender, EmailSenderService> ();
             services.AddScoped<IAuthService, AuthService> ();
+            services.AddScoped<ICategoryService, CategoryService> ();
 
             //Repositories
             services.AddScoped<IAuthRepository, AuthRepository> ();
+            services.AddScoped<ICategoryRepository, CategoryRepository> ();
 
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 
@@ -65,8 +68,8 @@ namespace FoodChainWebShop {
                 .AllowAnyMethod ()
                 .AllowAnyHeader ()
             );
-            
-            app.UseMiddleware<JwtMiddleware>();
+
+            app.UseMiddleware<JwtMiddleware> ();
 
             app.UseHttpsRedirection ();
             app.UseStaticFiles ();

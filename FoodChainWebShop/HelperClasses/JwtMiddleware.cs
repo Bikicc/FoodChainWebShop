@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FoodChainWebShop.authService;
+using FoodChainWebShop.Interfaces;
 
 
 namespace FoodChainWebShop.HelperClasses {
@@ -28,7 +28,7 @@ namespace FoodChainWebShop.HelperClasses {
             await _next (context);
         }
 
-        private void attachUserToContext (HttpContext context, IAuthService userService, string token) {
+        private async void attachUserToContext (HttpContext context, IAuthService userService, string token) {
             try {
                 var tokenHandler = new JwtSecurityTokenHandler ();
                 var key = Encoding.ASCII.GetBytes (_appSettings.Secret);
@@ -43,7 +43,7 @@ namespace FoodChainWebShop.HelperClasses {
                 var jwtToken = (JwtSecurityToken) validatedToken;
                 var userId = int.Parse (jwtToken.Claims.First (x => x.Type == "id").Value);
 
-                context.Items["User"] = userService.getById (userId);
+                context.Items["User"] = await userService.getById (userId);
             } catch {
 
             }

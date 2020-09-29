@@ -35,8 +35,8 @@ namespace FoodChainWebShop.authService {
             return tokenHandler.WriteToken (token);
         }
 
-        public Task<User> getById (int id) {
-            return _authRepository.getById(id);
+        public async Task<User> getById (int id) {
+            return await _authRepository.getById(id);
         }
 
         public async Task<User> getUser (User user) {

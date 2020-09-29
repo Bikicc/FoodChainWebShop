@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using FoodChainWebShop.authService;
+using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using FoodChainWebShop.HelperClasses;
@@ -30,7 +30,7 @@ namespace FoodChainWebShop.Controllers {
         [HttpPost]
         public async Task<IActionResult> loginUser ([FromBody] User user) {
 
-            var us = await _userService.getUser (user);
+            User us = await _userService.getUser (user);
 
             if (us == null) {
                 return NotFound ();

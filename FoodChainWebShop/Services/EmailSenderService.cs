@@ -1,6 +1,7 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using System.Threading.Tasks;
+using FoodChainWebShop.Interfaces;
 
 namespace FoodChainWebShop.EmailService {
     public class EmailSenderService : IEmailSender {
