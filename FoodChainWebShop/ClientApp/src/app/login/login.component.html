@@ -1,41 +1,41 @@
 <div class="container">
-  <div class="FormWrapper">
-    <div class="formHeader">
-      {{'PRIJAVA' | translate}}
-    </div>
-    <div class="ui-g ui-fluid h-90">
-      <section class="ui-g-12 ui-lg-6 ui-md-12 ui-sm-12 signupContent">
-        <div class="logoContainer flex jc-c">
-          <img src="../../assets/images/burgerLogo.png">
-        </div>
-        <div class="dataInput">
-          <div class="flex">
-            <div class="flex ai-c">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </div>
-            <input id="name" type="text" placeholder="{{'KORISNICKO_IME' | translate}}" [(ngModel)]="userCredentials.Username" (focusout)="resetWrongCredentials();" [ngClass]="{'invalidCredentials': wrongCredentials}">
+    <div class="FormWrapper"  (keyup.enter)="loginUser()">
+      <div class="formHeader">
+        {{'PRIJAVA' | translate}}
+      </div>
+      <div class="ui-g ui-fluid h-90">
+        <section class="ui-g-12 ui-lg-6 ui-md-12 ui-sm-12 signupContent">
+          <div class="logoContainer flex jc-c">
+            <img src="../../assets/images/burgerLogo.png">
           </div>
-        </div>
-        <div class="dataInput">
-          <div class="flex">
-            <div class="flex ai-c">
-              <i class="fa fa-key" aria-hidden="true"></i>
-            </div>
-            <div class="flex fd-c">
-              <input id="name" type="password" placeholder="{{'LOZINKA' | translate}}" [(ngModel)]="userCredentials.PasswordPlain" (focusout)="resetWrongCredentials();" [ngClass]="{'invalidCredentials': wrongCredentials}">
-              <div *ngIf="wrongCredentials" class="error">Invalid credentials!</div>
+          <div class="dataInput">
+            <div class="flex">
+              <div class="flex ai-c">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </div>
+              <input id="name" type="text" placeholder="{{'KORISNICKO_IME' | translate}}" [(ngModel)]="userCredentials.Username" (focusout)="resetWrongCredentials();" [ngClass]="{'invalidCredentials': wrongCredentials}">
             </div>
           </div>
-        </div>
-        <div class="flex jc-c buttonContainer">
-          <a class="btn" (click)="loginUser()">{{'PRIJAVA' | translate}}</a>
-        </div>
-        <div class="flex jc-c">
-          <a routerLink="/registration" class="haveAccountLink">{{'NEMATE_RACUN' | translate}}</a>
-        </div>
-      </section>
+          <div class="dataInput">
+            <div class="flex">
+              <div class="flex ai-c">
+                <i class="fa fa-key" aria-hidden="true"></i>
+              </div>
+              <div class="flex fd-c">
+                <input id="name" type="password" placeholder="{{'LOZINKA' | translate}}" [(ngModel)]="userCredentials.PasswordPlain" (focusout)="resetWrongCredentials();" [ngClass]="{'invalidCredentials': wrongCredentials}">
+                <div *ngIf="wrongCredentials" class="error">Invalid credentials!</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex jc-c buttonContainer">
+            <a class="btn" (click)="loginUser()">{{'PRIJAVA' | translate}}</a>
+          </div>
+          <div class="flex jc-c">
+            <a routerLink="/registration" class="haveAccountLink">{{'NEMATE_RACUN' | translate}}</a>
+          </div>
+        </section>
+      </div>
     </div>
-  </div>
 </div>
 
 <app-toast-messages></app-toast-messages>

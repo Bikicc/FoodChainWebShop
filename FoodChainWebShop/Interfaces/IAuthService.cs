@@ -1,11 +1,12 @@
+using System.Threading.Tasks;
 using FoodChainWebShop.Models;
-
-namespace FoodChainWebShop.authService
-{
-    public interface IAuthService
-    {
-        string generateJwtToken(User user);
-        User GetById(int id);
-    } 
+using FoodChainWebShop.HelperClasses;
+namespace FoodChainWebShop.authService {
+    public interface IAuthService {
+        string generateJwtToken (User user);
+        Task<User> getUser (User user);
+        Task<User> getById (int id);
+        Task<errorMessage> createUser (User user);
+    }
 
 }

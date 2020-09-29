@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { OrderService } from './services/OrderService';
 import { FavouritesResolverService } from './services/FavouritesResolverService';
 import { FavouritesService } from './services/FavouritesService';
-import { apiKey } from './apiKey';
+import { ApiKey } from '../apiKey';
 import { Config } from './config';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -99,7 +99,7 @@ import { JwtInterceptor } from './interceptors/JwtInterceptor';
     Config,
     ErrorHandlerService,
     ComponentCommunicationService,
-    apiKey,
+    ApiKey,
     CategoryService,
     UserService,
     FavouritesService,

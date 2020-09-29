@@ -1,7 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { OrderService } from './../services/OrderService';
 import { Order } from './../interfaces/Order';
-import { apiKey } from './../apiKey';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';

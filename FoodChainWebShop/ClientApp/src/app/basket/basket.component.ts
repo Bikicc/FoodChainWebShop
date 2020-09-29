@@ -7,7 +7,7 @@ import { Product } from './../interfaces/Product';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 import { HttpClient } from '@angular/common/http';
-import { apiKey } from '../apiKey';
+import { ApiKey } from '../../apiKey';
 import { forkJoin, Subscription } from 'rxjs';
 import { ToastMessagesComponent } from './../toast-messages/toast-messages.component';
 
@@ -38,7 +38,7 @@ export class BasketComponent implements OnInit {
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
     private http: HttpClient,
-    private key: apiKey,
+    private key: ApiKey,
     private orderService: OrderService,
     private translate: TranslateService) { }
 

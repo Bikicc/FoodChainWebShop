@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.authService;
-
+using FoodChainWebShop.Repositories;
+using FoodChainWebShop.Interfaces;
 namespace FoodChainWebShop {
     public class Startup {
         public Startup (IConfiguration configuration) {
@@ -29,9 +30,12 @@ namespace FoodChainWebShop {
 
             services.Configure<AppSettings> (Configuration.GetSection ("AppSettings"));
 
+            //Services
             services.AddScoped<IEmailSender, EmailSenderService> ();
-
             services.AddScoped<IAuthService, AuthService> ();
+
+            //Repositories
+            services.AddScoped<IAuthRepository, AuthRepository> ();
 
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 

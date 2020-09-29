@@ -70,13 +70,13 @@ export class RegistrationComponent implements OnInit {
       }, (err: HttpErrorResponse) => {
         console.log(err.status)
         if (err.error.errorId === 1) {
-          this.usernameTaken = err.error.errorMessage;
+          this.usernameTaken = err.error.message;
           this.loading = false;
           return;
         }
 
         if (err.error.errorId === 2) {
-          this.emailTaken = err.error.errorMessage;
+          this.emailTaken = err.error.message;
           this.loading = false;
           return;
         }

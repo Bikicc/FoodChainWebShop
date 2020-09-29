@@ -1,26 +1,25 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using FoodChainWebShop.Data;
 using FoodChainWebShop.HelperClasses;
+using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using FoodChainWebShop.Data;
 
 namespace FoodChainWebShop.authService {
 
     public class AuthService : IAuthService {
         private readonly AppSettings _appSettings;
-        private readonly DataContext _context;
-
+        private readonly IAuthRepository _authRepository;
         public AuthService () { }
 
-        public AuthService (IOptions<AppSettings> appSettings, DataContext context) {
+        public AuthService (IOptions<AppSettings> appSettings, DataContext context, IAuthRepository authRepository) {
             this._appSettings = appSettings.Value;
-            this._context = context;
+            this._authRepository = authRepository;
         }
         public string generateJwtToken (User user) {
             // Generiranje tokena koji je validan 7 dana
@@ -36,8 +35,16 @@ namespace FoodChainWebShop.authService {
             return tokenHandler.WriteToken (token);
         }
 
-        public User GetById (int id) {
-            return _context.Users.FirstOrDefault (x => x.UserId == id);
+        public Task<User> getById (int id) {
+            return _authRepository.getById(id);
+        }
+
+        public async Task<User> getUser (User user) {
+            return await _authRepository.getUser (user);
+        }
+
+        public async Task<errorMessage> createUser (User user) {
+            return await _authRepository.createUser(user);
         }
     }
 }

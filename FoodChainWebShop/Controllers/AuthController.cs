@@ -1,16 +1,12 @@
-using System.Linq;
 using System.Threading.Tasks;
-using FoodChainWebShop.Data;
+using FoodChainWebShop.authService;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using FoodChainWebShop.authService;
+using FoodChainWebShop.HelperClasses;
 namespace FoodChainWebShop.Controllers {
     public class AuthController : ControllerBase {
-        private readonly DataContext _context;
         private IAuthService _userService;
-        public AuthController (DataContext context, IAuthService userService) {
-            this._context = context;
+        public AuthController (IAuthService userService) {
             this._userService = userService;
         }
 
@@ -22,33 +18,25 @@ namespace FoodChainWebShop.Controllers {
                 return BadRequest (ModelState);
             }
 
-            if (_context.Users.Where (x => x.Username == user.Username).Any ()) {
-                var usernameTaken = new { errorId = 1, errorMessage = "Username already taken!" };
-                return BadRequest (usernameTaken);
+            errorMessage error = await _userService.createUser(user);
+            if (error != null) {
+                return BadRequest(error);
+            } else {
+                return Ok();
             }
-
-            if (_context.Users.Where (x => x.Email == user.Email).Any ()) {
-                var emailTake = new { errorId = 2, errorMessage = "Email already taken!" };
-                return BadRequest (emailTake);
-            }
-
-            _context.Users.Add (user);
-            await _context.SaveChangesAsync ();
-            return Ok ();
         }
 
         [Route ("api/auth/loginUser")]
         [HttpPost]
         public async Task<IActionResult> loginUser ([FromBody] User user) {
 
-            var us = await (from u in this._context.Users where u.Username == user.Username && u.Password == user.Password select u) //(new { UserId = u.UserId, Email = u.Email, Username = u.Username })
-                .FirstOrDefaultAsync ();
+            var us = await _userService.getUser (user);
 
             if (us == null) {
                 return NotFound ();
             }
 
-            us.Token = _userService.generateJwtToken(us);
+            us.Token = _userService.generateJwtToken (us);
 
             return Ok (us);
         }
