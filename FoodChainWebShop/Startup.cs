@@ -35,10 +35,11 @@ namespace FoodChainWebShop {
             services.AddScoped<IEmailSender, EmailSenderService> ();
             services.AddScoped<IAuthService, AuthService> ();
             services.AddScoped<ICategoryService, CategoryService> ();
-
+            services.AddScoped<IFavouritesService, FavouritesService> ();
             //Repositories
             services.AddScoped<IAuthRepository, AuthRepository> ();
             services.AddScoped<ICategoryRepository, CategoryRepository> ();
+            services.AddScoped<IFavouritesRepository, FavouritesRepository> ();
 
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 
