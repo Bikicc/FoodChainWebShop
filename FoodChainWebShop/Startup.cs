@@ -37,12 +37,14 @@ namespace FoodChainWebShop {
             services.AddScoped<ICategoryService, CategoryService> ();
             services.AddScoped<IFavouritesService, FavouritesService> ();
             services.AddScoped<IProductService, ProductService> ();
+            services.AddScoped<IOrdersService, OrdersService> ();
 
             //Repositories
             services.AddScoped<IAuthRepository, AuthRepository> ();
             services.AddScoped<ICategoryRepository, CategoryRepository> ();
             services.AddScoped<IFavouritesRepository, FavouritesRepository> ();
             services.AddScoped<IProductRepository, ProductRepository> ();
+            services.AddScoped<IOrdersRepository, OrdersRepository> ();
 
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 

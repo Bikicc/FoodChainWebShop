@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodChainWebShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200820102237_initialCommit")]
-    partial class initialCommit
+    [Migration("20201001165354_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,6 +57,7 @@ namespace FoodChainWebShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Note")
@@ -68,7 +69,7 @@ namespace FoodChainWebShop.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("OrderId");
@@ -108,7 +109,7 @@ namespace FoodChainWebShop.Migrations
                     b.Property<int>("Carbs")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description_En")
@@ -124,12 +125,16 @@ namespace FoodChainWebShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
                     b.Property<int>("Proteins")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RestaurantId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Sugar")
@@ -139,7 +144,80 @@ namespace FoodChainWebShop.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("RestaurantId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("FoodChainWebShop.Models.Restaurant", b =>
+                {
+                    b.Property<int>("RestaurantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("imageName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("minOrderPrice")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("mobileNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RestaurantId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Restaurants");
+                });
+
+            modelBuilder.Entity("FoodChainWebShop.Models.RestaurantReview", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("comment")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("rating")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "RestaurantId");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("RestaurantReviews");
+                });
+
+            modelBuilder.Entity("FoodChainWebShop.Models.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("FoodChainWebShop.Models.User", b =>
@@ -148,16 +226,29 @@ namespace FoodChainWebShop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("mobileNumber")
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -181,7 +272,9 @@ namespace FoodChainWebShop.Migrations
                 {
                     b.HasOne("FoodChainWebShop.Models.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FoodChainWebShop.Models.OrderProduct", b =>
@@ -203,7 +296,42 @@ namespace FoodChainWebShop.Migrations
                 {
                     b.HasOne("FoodChainWebShop.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoodChainWebShop.Models.Restaurant", "Restaurant")
+                        .WithMany("Products")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FoodChainWebShop.Models.Restaurant", b =>
+                {
+                    b.HasOne("FoodChainWebShop.Models.User", "User")
+                        .WithMany("Restaurants")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FoodChainWebShop.Models.RestaurantReview", b =>
+                {
+                    b.HasOne("FoodChainWebShop.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FoodChainWebShop.Models.User", b =>
+                {
+                    b.HasOne("FoodChainWebShop.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

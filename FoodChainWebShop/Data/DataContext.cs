@@ -8,6 +8,9 @@ namespace FoodChainWebShop.Data {
             modelBuilder.Entity<OrderProduct> ().HasKey (op => new { op.OrderId, op.ProductId });
 
             modelBuilder.Entity<Favourite> ().HasKey (f => new { f.UserId, f.ProductId });
+
+            modelBuilder.Entity<RestaurantReview> ().HasKey (rr => new { rr.UserId, rr.RestaurantId });
+
         }
 
         public DbSet<Order> Orders { get; set; }
@@ -16,6 +19,9 @@ namespace FoodChainWebShop.Data {
         public DbSet<Favourite> Favourites { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<RestaurantReview> RestaurantReviews { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
     }
 }

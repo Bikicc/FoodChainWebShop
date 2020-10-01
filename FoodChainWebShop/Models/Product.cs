@@ -1,10 +1,13 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
+using System.ComponentModel.DataAnnotations;
 namespace FoodChainWebShop.Models {
     public class Product {
         public int ProductId { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public double Price { get; set; }
         public string Description_En { get; set; }
         public string Description_Hr { get; set; }
@@ -14,8 +17,14 @@ namespace FoodChainWebShop.Models {
         public int Sugar { get; set; }
         public int Fat { get; set; }
         public string ImageName { get; set; }
+
+        [Required]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
+        [Required]
+        public int RestaurantId { get; set; }
+        public Restaurant Restaurant { get; set; }
         public ICollection<OrderProduct> OrderProduct { get; set; }
         public ICollection<Favourite> Favourites { get; set; }
 
