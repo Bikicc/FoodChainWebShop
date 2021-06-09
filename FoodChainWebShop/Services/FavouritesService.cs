@@ -11,7 +11,7 @@ namespace FoodChainWebShop.Services {
             this._favouritesRepo = repo;
         }
 
-        public async Task<ICollection<FavouriteProduct>> getFavourites (int userId) {
+        public async Task<ICollection<Favourite>> getFavourites (int userId) {
             return await _favouritesRepo.getFavourites(userId);
         }
 

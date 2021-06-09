@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodChainWebShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201001165354_initial-migration")]
-    partial class initialmigration
+    [Migration("20210607165513_productPriceATM")]
+    partial class productPriceATM
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,9 @@ namespace FoodChainWebShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductPriceATM")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
@@ -163,6 +166,9 @@ namespace FoodChainWebShop.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("RestaurantTypeId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
@@ -178,6 +184,8 @@ namespace FoodChainWebShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("RestaurantId");
+
+                    b.HasIndex("RestaurantTypeId");
 
                     b.HasIndex("UserId");
 
@@ -203,6 +211,23 @@ namespace FoodChainWebShop.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantReviews");
+                });
+
+            modelBuilder.Entity("FoodChainWebShop.Models.RestaurantType", b =>
+                {
+                    b.Property<int>("RestaurantTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name_En")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name_Hr")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RestaurantTypeId");
+
+                    b.ToTable("RestaurantTypes");
                 });
 
             modelBuilder.Entity("FoodChainWebShop.Models.Role", b =>
@@ -309,6 +334,12 @@ namespace FoodChainWebShop.Migrations
 
             modelBuilder.Entity("FoodChainWebShop.Models.Restaurant", b =>
                 {
+                    b.HasOne("FoodChainWebShop.Models.RestaurantType", "RestaurantType")
+                        .WithMany("Restaurants")
+                        .HasForeignKey("RestaurantTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FoodChainWebShop.Models.User", "User")
                         .WithMany("Restaurants")
                         .HasForeignKey("UserId")

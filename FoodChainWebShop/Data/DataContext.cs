@@ -22,6 +22,7 @@ namespace FoodChainWebShop.Data {
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<RestaurantReview> RestaurantReviews { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<RestaurantType> RestaurantTypes { get; set; }
 
     }
 }

@@ -12,6 +12,9 @@ namespace FoodChainWebShop.Models {
 
         [Required]
         public int Quantity { get; set; }
+       
+        [Required]
+        public double ProductPriceATM { get; set; }
 
     }
 }

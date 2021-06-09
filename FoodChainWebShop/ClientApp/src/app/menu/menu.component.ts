@@ -36,6 +36,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
       this.categories = data.categories;
+      console.log(this.categories)
       this.setDropdownCategories();
       this.translate.onLangChange.subscribe(() => this.setDropdownCategories());
     }, err => {

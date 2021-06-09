@@ -24,10 +24,16 @@ namespace FoodChainWebShop.Models {
 
         [Required]
         public int UserId { get; set; }
+
+        [JsonIgnore]
         public User User { get; set; }
 
         [JsonIgnore]
         public ICollection<Product> Products { get; set; }
+
+        [Required]
+        public int RestaurantTypeId { get; set; }
+        public RestaurantType RestaurantType { get; set; }
 
     }
 }

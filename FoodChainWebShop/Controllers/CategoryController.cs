@@ -13,6 +13,7 @@ namespace FoodChainWebShop.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> GetCategories () {
+            
             return Ok (await _categoryService.getCategories());
         }
         

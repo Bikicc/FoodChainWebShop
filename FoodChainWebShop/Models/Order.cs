@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using Newtonsoft.Json;
 
 namespace FoodChainWebShop.Models {
     public class Order {
@@ -19,6 +19,8 @@ namespace FoodChainWebShop.Models {
 
         [Required]
         public int UserId { get; set; }
+
+        [JsonIgnore]
         public User User { get; set; }
         public ICollection<OrderProduct> OrderProduct { get; set; }
 

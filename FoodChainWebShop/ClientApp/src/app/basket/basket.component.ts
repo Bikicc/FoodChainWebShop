@@ -115,7 +115,7 @@ export class BasketComponent implements OnInit {
         const multipleApiCalls = [];
 
         this.basketItems.forEach((item: Product) => {
-          multipleApiCalls.push(this.orderService.postOrderProducts({ ProductId: item.productId, OrderId: data.orderId, Quantity: item.quantity }));
+          multipleApiCalls.push(this.orderService.postOrderProducts({ ProductId: item.productId, OrderId: data.orderId, Quantity: item.quantity, ProductPriceATM: item.price }));
         });
 
         this.subscription.push(forkJoin(multipleApiCalls).subscribe(() => {

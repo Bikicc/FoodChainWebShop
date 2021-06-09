@@ -1,13 +1,12 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FoodChainWebShop.Interfaces;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FoodChainWebShop.HelperClasses {
     public class JwtMiddleware {
@@ -44,9 +43,9 @@ namespace FoodChainWebShop.HelperClasses {
                 var userId = int.Parse (jwtToken.Claims.First (x => x.Type == "id").Value);
 
                 context.Items["User"] = await userService.getById (userId);
-            } catch {
-
-            }
+            } catch(Exception e) {
+                Console.WriteLine($"Exception: {e}");
+            } 
         }
     }
 }

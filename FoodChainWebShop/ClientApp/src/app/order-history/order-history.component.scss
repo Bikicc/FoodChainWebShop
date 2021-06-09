@@ -42,6 +42,23 @@ img {
   width: 30%;
 }
 
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.priceChangeWarnText {
+  color: #656663;
+  text-decoration: underline;
+  font-style: oblique;
+}
+
+a {
+  margin-bottom: 5px;
+}
 @media only screen and (max-width: 650px) {
     img {
       width: 40%;

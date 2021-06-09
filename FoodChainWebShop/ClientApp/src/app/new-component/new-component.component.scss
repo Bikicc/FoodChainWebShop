@@ -1,0 +1,13 @@
+.mainContainer {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    background-image: url("../../assets/images/Attack-On-Titan.mp4");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: calc(100vh - 50px);
+}
+
+video {
+    object-fit: fill;
+}

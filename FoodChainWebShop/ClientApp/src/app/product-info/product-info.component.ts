@@ -81,7 +81,7 @@ export class ProductInfoComponent implements OnInit {
      this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
         this.favourites = data;
         this.checkIsProductInFavourites();
-        resolve();
+        resolve(null);
       }, err => {
         console.log(err);
         reject();

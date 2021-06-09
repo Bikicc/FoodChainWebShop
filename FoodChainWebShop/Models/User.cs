@@ -26,6 +26,8 @@ namespace FoodChainWebShop.Models {
 
         [Required]
         public int RoleId { get; set; }
+
+        [JsonIgnore]
         public Role Role { get; set; }
 
         [JsonIgnore]

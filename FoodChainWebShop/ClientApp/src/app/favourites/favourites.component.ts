@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 export class FavouritesComponent implements OnInit {
 
   favourites: Product[] = [];
+  favouritesGroupedByRestaurant: any = null;
   subscription: Subscription[] = [];
   user: User = {} as User;
 
@@ -25,11 +26,12 @@ export class FavouritesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
-    ) { }
+  ) { }
 
   ngOnInit() {
-   this.subscription.push(this.activatedRoute.data.subscribe((data: { favourites: Product[] }) => {
+    this.subscription.push(this.activatedRoute.data.subscribe((data: { favourites: Product[] }) => {
       this.favourites = data.favourites;
+      if (this.favourites && this.favourites.length > 0) this.favouritesGroupedByRestaurant = this.groupByRestaurant(this.favourites);
     }, err => {
       console.log(err);
     }));
@@ -46,15 +48,17 @@ export class FavouritesComponent implements OnInit {
   }
 
   getFavourites() {
-   this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
+    this.favouritesGroupedByRestaurant = null;
+    this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
       this.favourites = data;
+      if (this.favourites && this.favourites.length > 0) this.favouritesGroupedByRestaurant = this.groupByRestaurant(this.favourites);
     }, err => {
       console.log(err)
     }));
   }
 
   deleteFromFavourites(favouriteId: number) {
-   this.subscription.push(this.favouritesService.deleteFromFavourites(this.user.userId, favouriteId).subscribe(() => {
+    this.subscription.push(this.favouritesService.deleteFromFavourites(this.user.userId, favouriteId).subscribe(() => {
       this.getFavourites();
     }, err => {
       console.log(err)
@@ -64,6 +68,17 @@ export class FavouritesComponent implements OnInit {
   addToBasket(product: Product) {
     this.basketService.addProductToBasket(product);
     this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
+  }
+
+  private groupByRestaurant(valuesToGroup) {
+    const groups = valuesToGroup.reduce((groups, item) => {
+      const group = (groups[item.product.restaurant.restaurantId] || []);
+      group.push(item.product);
+      groups[item.product.restaurant.restaurantId] = group;
+      return groups;
+    }, {});
+
+    return groups;
   }
 
 }

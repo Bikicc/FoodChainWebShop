@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FoodChainWebShop.Models;
-
+using System.Linq;
 namespace FoodChainWebShop.Interfaces {
     public interface IOrdersRepository {
         Task<ICollection<Order>> GetOrders (int userId);

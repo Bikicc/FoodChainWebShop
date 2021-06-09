@@ -47,6 +47,7 @@ import { BasketService } from './services/BasketService';
 import { EmailService } from './services/EmailService';
 import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
+import { NewComponentComponent } from './new-component/new-component.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { JwtInterceptor } from './interceptors/JwtInterceptor';
     PageNotFoundComponent,
     BasketComponent,
     OrderHistoryComponent,
-    ToastMessagesComponent
+    ToastMessagesComponent,
+    NewComponentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -87,6 +89,8 @@ import { JwtInterceptor } from './interceptors/JwtInterceptor';
       { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },
       { path: 'orderHistory', component: OrderHistoryComponent, resolve: { orders: OrderResolverService } },
+      { path: 'kayo', component: NewComponentComponent },
+
       { path: '**', component: PageNotFoundComponent }
     ]),
     I18nModule,

@@ -13,6 +13,7 @@ export class CategoryService {
     ) { }
 
     category_SelectAllWithProducts() {
+        console.log("gospa")
         return this.http
             .get(this.config.API_URL + 'category')
             .pipe(

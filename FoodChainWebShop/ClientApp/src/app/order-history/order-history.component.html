@@ -27,20 +27,46 @@
           {{order.note}}
         </div>
         <div class="orderText">
-          {{order.price}}kn
+          <div *ngIf="!selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== order.orderId; else changedPriceTotal" style="display: flex; flex-direction: column;">
+            <span style="align-self: center;">
+              {{order.price}} kn
+            </span>
+            <a class="btn" style="width: 100%;" (click)="repeatOrder(order)">{{'NARUCI' | translate}}</a>
+          </div>
+
+          <ng-template #changedPriceTotal>
+            <div class="priceChangeWarnText">Neke cijene su se promjenile! Potvrdite narudžbu.</div>
+            <div class="ta-c">
+              <span class="red"> {{order.price}} kn
+              </span> <i class="fa fa-arrow-right" aria-hidden="true" style="margin: 5px 10px;"></i>
+              <span class="green"> {{selectedOrderToRepeat.repeatOrderPriceTotal}} kn</span>
+            </div>
+            <div class="flex">
+              <a class="btn" style="margin-right: 10px" (click)="confirmOrder(order)">{{'NARUCI' | translate}}</a>
+              <a class="btn btnRemove" (click)="rejectOrder()">{{'ODUSTANI' | translate}}</a>
+            </div>
+          </ng-template>
         </div>
       </div>
       <div class="ui-g ui-fluid w-100">
-        <div *ngFor="let item of order.products" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper" (click)="navigateToProduct(item.name, item.productId)">
+        <div *ngFor="let item of order.orderProduct" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper"
+          (click)="navigateToProduct(item.product.name, item.product.productId)">
           <span class="cursot-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}</span>
           <div class="productImage">
-            <img src="assets/images/products/{{item.imageName}}" style="width: 100px">
+            <img src="assets/images/products/{{item.product.imageName}}" style="width: 100px">
           </div>
           <div class="productName">
-            {{item.name}}
+            {{item.product.name}}
           </div>
           <div class="productPrice">
-            {{item.price}}kn
+            <span *ngIf="item.productPriceATM === item.product.price || !selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== item.orderId; else changedPrice">
+              {{item.productPriceATM}} kn
+            </span>
+            <ng-template #changedPrice>
+              <span class="red"> {{item.productPriceATM}} kn
+              </span> <i class="fa fa-arrow-right" aria-hidden="true" style="margin: 5px 10px;"></i>
+              <span class="green"> {{item.product.price}} kn</span>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -56,4 +82,3 @@
     </div>
   </div>
 </ng-template>
-

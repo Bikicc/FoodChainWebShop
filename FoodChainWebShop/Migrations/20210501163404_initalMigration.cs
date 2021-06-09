@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodChainWebShop.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class initalMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,20 @@ namespace FoodChainWebShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RestaurantTypes",
+                columns: table => new
+                {
+                    RestaurantTypeId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name_En = table.Column<string>(nullable: true),
+                    Name_Hr = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaurantTypes", x => x.RestaurantTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,11 +106,18 @@ namespace FoodChainWebShop.Migrations
                     mobileNumber = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: false),
                     minOrderPrice = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    RestaurantTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Restaurants", x => x.RestaurantId);
+                    table.ForeignKey(
+                        name: "FK_Restaurants_RestaurantTypes_RestaurantTypeId",
+                        column: x => x.RestaurantTypeId,
+                        principalTable: "RestaurantTypes",
+                        principalColumn: "RestaurantTypeId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Restaurants_Users_UserId",
                         column: x => x.UserId,
@@ -241,6 +262,11 @@ namespace FoodChainWebShop.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Restaurants_RestaurantTypeId",
+                table: "Restaurants",
+                column: "RestaurantTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Restaurants_UserId",
                 table: "Restaurants",
                 column: "UserId");
@@ -273,6 +299,9 @@ namespace FoodChainWebShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Restaurants");
+
+            migrationBuilder.DropTable(
+                name: "RestaurantTypes");
 
             migrationBuilder.DropTable(
                 name: "Users");

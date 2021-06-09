@@ -7,7 +7,7 @@ namespace FoodChainWebShop.Interfaces
 {
     public interface IFavouritesService
     {
-        Task<ICollection<FavouriteProduct>> getFavourites (int userId); 
+        Task<ICollection<Favourite>> getFavourites (int userId); 
         Task postFavourite (Favourite favourite);
         Task deleteFavourite (int userId, int productId);
     }

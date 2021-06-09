@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FoodChainWebShop.Data;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace FoodChainWebShop.Repositories {
     public class OrdersRepository : IOrdersRepository {
         private readonly DataContext _context;
@@ -13,7 +13,11 @@ namespace FoodChainWebShop.Repositories {
         }
 
         public async Task<ICollection<Order>> GetOrders (int userId) {
-            return await _context.Orders.Include (o => o.OrderProduct).ToListAsync ();
+            return await _context.Orders
+                .Include (o => o.OrderProduct)
+                    .ThenInclude (op => op.Product)
+                .Where (o => o.UserId == userId)
+                .ToListAsync ();
         }
 
         public async Task postOrders (Order order) {
