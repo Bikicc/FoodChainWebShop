@@ -21,9 +21,13 @@ namespace FoodChainWebShop.Repositories {
                 .ToListAsync ();
         }
 
-        public async Task postOrders (Order order) {
+        public async Task<int> postOrders (Order order) {
             _context.Orders.Add (order);
+
             await _context.SaveChangesAsync ();
+            int orderId = order.OrderId;
+
+            return orderId;
         }
         public async Task postOrderProducts (OrderProduct orderProduct) {
             _context.OrderProducts.Add (orderProduct);

@@ -111,11 +111,11 @@ export class BasketComponent implements OnInit {
       }
       this.orderDetails.orderTime = (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))).toISOString().slice(0, -1);
 
-      this.subscription.push(this.orderService.postOrder(this.orderDetails).subscribe((data: any) => {
+      this.subscription.push(this.orderService.postOrder(this.orderDetails).subscribe((orderId: any) => {
         const multipleApiCalls = [];
 
         this.basketItems.forEach((item: Product) => {
-          multipleApiCalls.push(this.orderService.postOrderProducts({ ProductId: item.productId, OrderId: data.orderId, Quantity: item.quantity, ProductPriceATM: item.price }));
+          multipleApiCalls.push(this.orderService.postOrderProducts({ ProductId: item.productId, OrderId: orderId, Quantity: item.quantity, ProductPriceATM: item.price }));
         });
 
         this.subscription.push(forkJoin(multipleApiCalls).subscribe(() => {

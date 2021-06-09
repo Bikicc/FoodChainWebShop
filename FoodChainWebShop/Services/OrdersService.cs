@@ -17,8 +17,8 @@ namespace FoodChainWebShop.Services
             return await _ordersRepo.GetOrders(userId);
         }
 
-        public async Task postOrders (Order order) {
-            await _ordersRepo.postOrders(order);
+        public async Task<int> postOrders (Order order) {
+            return await _ordersRepo.postOrders(order);
         }
 
         public async Task postOrderProducts (OrderProduct orderProduct) {

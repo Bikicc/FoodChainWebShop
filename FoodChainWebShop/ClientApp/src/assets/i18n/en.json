@@ -92,7 +92,11 @@
     "ODJAVA": "LOGOUT",
     "NO_FAVOURITES": "NO FAVOURITES YET!",
     "NO_ORDERS": "NO ORDERS YET!",
-    "ADD_TO_BASKET_ERR": "Your basket already contains products from other restaurants!"
+    "ADD_TO_BASKET_ERR": "Your basket already contains products from other restaurants!",
+    "NARUDZBA_ZAPRIMLJENA": "Order has been received!",
+    "DOSLO_DO_POGRESKE": "Error has occured! Please try again.",
+    "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Data has not been refreshed successfully!"
+
 
 
 }

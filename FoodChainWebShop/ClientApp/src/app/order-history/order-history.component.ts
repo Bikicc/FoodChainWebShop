@@ -3,9 +3,11 @@ import { OrderService } from './../services/OrderService';
 import { Order } from './../interfaces/Order';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from '../interfaces/User';
+import { forkJoin } from 'rxjs';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 
 
 @Component({
@@ -14,6 +16,10 @@ import { User } from '../interfaces/User';
   styleUrls: ['./order-history.component.scss']
 })
 export class OrderHistoryComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+
+  loading: boolean = false;
   orders: Order[] = [];
   ordersUnformatted: Order[] = [];
   subscription: Subscription[] = [];
@@ -26,12 +32,13 @@ export class OrderHistoryComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
-      this.ordersUnformatted = data.orders;
+      this.ordersUnformatted = this.sortByDate(data.orders);
       this.formatDate();
       this.subscription.push(this.translate.onLangChange.subscribe(() => this.formatDate()));
     }, err => {
@@ -64,7 +71,6 @@ export class OrderHistoryComponent implements OnInit {
 
   formatDate() {
     this.orders = JSON.parse(JSON.stringify(this.ordersUnformatted));
-    console.log(this.orders)
     this.translate.currentLang === 'hr' ? this.formatDateTimeHrv() : this.formatDateTimeEng();
   }
 
@@ -75,6 +81,7 @@ export class OrderHistoryComponent implements OnInit {
       this.selectedOrderToRepeat.priceChanged = true;
       this.selectedOrderToRepeat.orderId = order.orderId;
     } else {
+      this.getPriceTotal(order);
       this.confirmOrder(order)
     }
   }
@@ -92,6 +99,8 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   confirmOrder(order: any) {
+    this.loading = true;
+
     let orderDetails: any = {
       address: order.address,
       note: order.note,
@@ -100,6 +109,51 @@ export class OrderHistoryComponent implements OnInit {
       price: this.selectedOrderToRepeat.repeatOrderPriceTotal
     };
 
-    console.log(orderDetails)
+    this.subscription.push(this.orderService.postOrder(orderDetails).subscribe((orderId: number) => {
+      const multipleApiCalls = [];
+
+      order.orderProduct.forEach((item: any) => {
+        multipleApiCalls.push(this.orderService.postOrderProducts({ ProductId: item.productId, OrderId: orderId, Quantity: item.quantity, ProductPriceATM: item.product.price }));
+      });
+
+      this.subscription.push(forkJoin(multipleApiCalls).subscribe(() => {
+        this.toastMessages.saveChangesSuccess(this.translate.instant("NARUDZBA_ZAPRIMLJENA"));
+        this.rejectOrder();
+        this.getOrdersForUser();
+      }, err => {
+        this.rejectOrder();
+        this.loading = false;
+        this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
+        console.log(err);
+      }));
+    }, err => {
+      this.rejectOrder();
+      this.loading = false;
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
+      console.log(err);
+    }));
+  }
+
+  getOrdersForUser() {
+    const user = JSON.parse(localStorage.getItem("user") || null);
+
+    this.subscription.push(this.orderService.getOrdersForUser(user ? user.userId : null).subscribe((orders: Order[]) => {
+      this.ordersUnformatted = this.sortByDate(orders);
+      this.formatDate();
+      this.loading = false;
+    }, err => {
+      this.loading = false;
+      console.error(err)
+      this.toastMessages.saveChangesFailed(this.translate.instant("OSVJEZAVANJE_PODATAKA_NEUSPJEH"));
+    },
+      () => { }));
+  }
+
+  private sortByDate(dataToSort: any[]) {
+    return dataToSort.sort(function (a, b) {
+      var aOrderTime = new Date(a.orderTime);
+      var bOrderTime = new Date(b.orderTime);
+      return (bOrderTime as any) - (aOrderTime as any);
+    });
   }
 }

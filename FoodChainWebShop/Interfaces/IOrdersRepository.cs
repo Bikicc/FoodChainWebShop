@@ -5,7 +5,7 @@ using System.Linq;
 namespace FoodChainWebShop.Interfaces {
     public interface IOrdersRepository {
         Task<ICollection<Order>> GetOrders (int userId);
-        Task postOrders (Order order);
+        Task<int> postOrders (Order order);
         Task postOrderProducts (OrderProduct orderProduct);
     }
 }

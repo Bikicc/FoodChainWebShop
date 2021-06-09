@@ -28,9 +28,9 @@ namespace FoodChainWebShop.Controllers {
                 return BadRequest (ModelState);
             }
 
-            await _ordersService.postOrders(order);
+            var res = await _ordersService.postOrders(order);
 
-            return Ok();
+            return Ok(res);
         }
 
         [Route ("api/orders/orderProducts")]
