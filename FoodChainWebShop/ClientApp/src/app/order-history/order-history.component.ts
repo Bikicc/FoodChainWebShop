@@ -22,8 +22,7 @@ export class OrderHistoryComponent implements OnInit {
     priceChanged: false,
     orderId: null
   }
-  // repeatOrderPriceTotal: number = 0;
-  // priceChanged: boolean = false;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -65,6 +64,7 @@ export class OrderHistoryComponent implements OnInit {
 
   formatDate() {
     this.orders = JSON.parse(JSON.stringify(this.ordersUnformatted));
+    console.log(this.orders)
     this.translate.currentLang === 'hr' ? this.formatDateTimeHrv() : this.formatDateTimeEng();
   }
 

@@ -17,6 +17,9 @@
   <div *ngIf="orders.length > 0; else noOrders" class="ordersWrapper">
     <div *ngFor="let order of orders">
       <div class="orderHeader">
+        <div class="orderText restaurantName">
+          {{order.orderProduct[0].product.restaurant.name}}
+        </div>
         <div class="orderText">
           {{order.orderTime}}
         </div>

@@ -11,5 +11,6 @@ export interface Product {
     fat: number,
     imageName: string,
     categoryId: number,
-    quantity?: number
+    quantity?: number,
+    restaurantId: number
 }

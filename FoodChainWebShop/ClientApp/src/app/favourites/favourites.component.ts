@@ -2,10 +2,12 @@ import { User } from './../interfaces/User';
 import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
 import { FavouritesService } from './../services/FavouritesService';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 
 
 @Component({
@@ -14,7 +16,9 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./favourites.component.scss']
 })
 export class FavouritesComponent implements OnInit {
-
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+  
   favourites: Product[] = [];
   favouritesGroupedByRestaurant: any = null;
   subscription: Subscription[] = [];
@@ -26,6 +30,7 @@ export class FavouritesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -66,8 +71,12 @@ export class FavouritesComponent implements OnInit {
   }
 
   addToBasket(product: Product) {
-    this.basketService.addProductToBasket(product);
-    this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
+    const res = this.basketService.addProductToBasket(product);
+    if (res && res.error) {
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed(res.messageHR) : this.toastMessages.saveChangesFailed(res.messageEN);
+    } else {
+      this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
+    }
   }
 
   private groupByRestaurant(valuesToGroup) {

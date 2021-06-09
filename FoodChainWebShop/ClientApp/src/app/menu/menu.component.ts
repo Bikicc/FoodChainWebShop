@@ -3,16 +3,20 @@ import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
 import { Category } from './../interfaces/Category';
 import { CategoryService } from './../services/CategoryService';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ComponentCommunicationService } from "../services/ComponentCommunicationService";
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+  
   @Output() myEvent = new EventEmitter();
 
   categories: Category[] = [];
@@ -81,11 +85,20 @@ export class MenuComponent implements OnInit {
   }
 
   addProductToBasket(product: Product) {
-    this.basketService.addProductToBasket(product);
+    const res = this.basketService.addProductToBasket(product);
+    if (res && res.error) {
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed(res.messageHR) : this.toastMessages.saveChangesFailed(res.messageEN);
+    }
   }
 
   navigateToProduct(productId: number, productName: string) {
     productName = productName.split(' ').join('-');
     this.router.navigate(["product/" + productId + "/" + productName]);
+  }
+
+  test() {
+    const pr: Product = {} as Product;
+    pr.restaurantId = 2;
+    this.addProductToBasket(pr);
   }
 }

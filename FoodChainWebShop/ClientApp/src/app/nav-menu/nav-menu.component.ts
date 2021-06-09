@@ -83,6 +83,7 @@ export class NavMenuComponent {
   }
 
   changeLang() {
+    console.log(this.selectedLang)
     this.translate.use(this.selectedLang);
   }
 

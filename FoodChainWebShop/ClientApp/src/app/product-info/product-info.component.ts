@@ -1,12 +1,13 @@
 import { User } from './../interfaces/User';
 import { TranslateService } from '@ngx-translate/core';
 import { BasketService } from './../services/BasketService';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FavouritesService } from './../services/FavouritesService';
 import { Product } from '../interfaces/Product';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 
 @Component({
   selector: 'app-product-info',
@@ -14,6 +15,9 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./product-info.component.scss']
 })
 export class ProductInfoComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+  
   productInfo: Product = null;
   favourites: Product[] = [];
   isFavourite: boolean = null;
@@ -90,8 +94,12 @@ export class ProductInfoComponent implements OnInit {
   }
 
   addToBasket() {
-    this.basketService.addProductToBasket(this.productInfo);
-    this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
+    const res = this.basketService.addProductToBasket(this.productInfo);
+    if (res && res.error) {
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed(res.messageHR) : this.toastMessages.saveChangesFailed(res.messageEN);
+    } else {
+      this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
+    }
   }
 }
 

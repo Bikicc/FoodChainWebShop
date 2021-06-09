@@ -1,4 +1,4 @@
-<div  class="menuContainer">
+<div class="menuContainer">
 
   <!-- Menu HEADER -->
   <div class="coverHeader">
@@ -33,9 +33,12 @@
           {{product.price}}kn
         </div>
         <div class="flex jc-c buttonContainer">
-          <a class="btn" (click)="increaseProductInABasketNumber(); addProductToBasket(product)">{{'DODAJ_U_KOSARICU' | translate}}</a>
+          <a class="btn" (click)="increaseProductInABasketNumber(); addProductToBasket(product)">{{'DODAJ_U_KOSARICU' |
+            translate}}</a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-toast-messages></app-toast-messages>

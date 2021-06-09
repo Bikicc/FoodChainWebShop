@@ -10,21 +10,29 @@ export class BasketService {
 
     addProductToBasket(product: Product) {
         let currProducts = JSON.parse(localStorage.getItem('basketProducts')) || [];
-
-        let existentProduct = currProducts.find((item: Product) => {
-            return item.productId === product.productId
-        })
-
-        if (existentProduct) {
-            currProducts.forEach((item: Product) => {
-                item.productId === existentProduct.productId ? item.quantity++ : null
-            })
-
-            localStorage.setItem('basketProducts', JSON.stringify(currProducts));
+        //Provjera da li svi produkti dolaze iz istog restorana i ukoliko nisu ispisujemo poruku
+        if (currProducts.some(p => p.restaurantId !== product.restaurantId)) {
+            return {
+                messageHR: "Vaša košarica već sadrži produkte iz drugih restorana!",
+                messageEN: "Your basket already contains products from other restaurants!",
+                error: true
+            }
         } else {
-            product.quantity = 1;
-            currProducts.push(product);
-            localStorage.setItem('basketProducts', JSON.stringify(currProducts));
+            let existentProduct = currProducts.find((item: Product) => {
+                return item.productId === product.productId
+            })
+    
+            if (existentProduct) {
+                currProducts.forEach((item: Product) => {
+                    item.productId === existentProduct.productId ? item.quantity++ : null
+                })
+    
+                localStorage.setItem('basketProducts', JSON.stringify(currProducts));
+            } else {
+                product.quantity = 1;
+                currProducts.push(product);
+                localStorage.setItem('basketProducts', JSON.stringify(currProducts));
+            }
         }
     }
 

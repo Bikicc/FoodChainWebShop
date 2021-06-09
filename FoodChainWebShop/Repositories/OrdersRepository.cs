@@ -15,7 +15,8 @@ namespace FoodChainWebShop.Repositories {
         public async Task<ICollection<Order>> GetOrders (int userId) {
             return await _context.Orders
                 .Include (o => o.OrderProduct)
-                    .ThenInclude (op => op.Product)
+                .ThenInclude (op => op.Product)
+                .ThenInclude (opr => opr.Restaurant)
                 .Where (o => o.UserId == userId)
                 .ToListAsync ();
         }
