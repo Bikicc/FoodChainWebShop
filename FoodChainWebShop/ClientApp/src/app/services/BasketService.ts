@@ -13,8 +13,6 @@ export class BasketService {
         //Provjera da li svi produkti dolaze iz istog restorana i ukoliko nisu ispisujemo poruku
         if (currProducts.some(p => p.restaurantId !== product.restaurantId)) {
             return {
-                messageHR: "Vaša košarica već sadrži produkte iz drugih restorana!",
-                messageEN: "Your basket already contains products from other restaurants!",
                 error: true
             }
         } else {

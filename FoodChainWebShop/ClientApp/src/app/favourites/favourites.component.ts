@@ -18,7 +18,7 @@ import { ToastMessagesComponent } from '../toast-messages/toast-messages.compone
 export class FavouritesComponent implements OnInit {
   @ViewChild(ToastMessagesComponent, { static: false })
   toastMessages: ToastMessagesComponent;
-  
+
   favourites: Product[] = [];
   favouritesGroupedByRestaurant: any = null;
   subscription: Subscription[] = [];
@@ -73,7 +73,7 @@ export class FavouritesComponent implements OnInit {
   addToBasket(product: Product) {
     const res = this.basketService.addProductToBasket(product);
     if (res && res.error) {
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed(res.messageHR) : this.toastMessages.saveChangesFailed(res.messageEN);
+      this.toastMessages.saveChangesFailed(this.translate.instant("ADD_TO_BASKET_ERR"))
     } else {
       this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
     }

@@ -16,7 +16,7 @@ import { ToastMessagesComponent } from '../toast-messages/toast-messages.compone
 export class MenuComponent implements OnInit {
   @ViewChild(ToastMessagesComponent, { static: false })
   toastMessages: ToastMessagesComponent;
-  
+
   @Output() myEvent = new EventEmitter();
 
   categories: Category[] = [];
@@ -86,9 +86,7 @@ export class MenuComponent implements OnInit {
 
   addProductToBasket(product: Product) {
     const res = this.basketService.addProductToBasket(product);
-    if (res && res.error) {
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed(res.messageHR) : this.toastMessages.saveChangesFailed(res.messageEN);
-    }
+    if (res && res.error) this.toastMessages.saveChangesFailed(this.translate.instant("ADD_TO_BASKET_ERR"))
   }
 
   navigateToProduct(productId: number, productName: string) {

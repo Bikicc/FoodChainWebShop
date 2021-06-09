@@ -91,6 +91,7 @@
     "IMAM_RACUN_REGISTRACIJA": "Imam korisnički račun!",
     "ODJAVA": "ODJAVA",
     "NO_FAVOURITES": "NEMATE FAVORITA!",
-    "NO_ORDERS": "NEMATE NARUDŽBI!"
+    "NO_ORDERS": "NEMATE NARUDŽBI!",
+    "ADD_TO_BASKET_ERR": "Vaša košarica sadrži produkte iz drugih restorana!"
 
 }

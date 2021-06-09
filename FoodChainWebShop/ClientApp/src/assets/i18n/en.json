@@ -91,7 +91,8 @@
     "IMAM_RACUN_REGISTRACIJA": "I already have an account!",
     "ODJAVA": "LOGOUT",
     "NO_FAVOURITES": "NO FAVOURITES YET!",
-    "NO_ORDERS": "NO ORDERS YET!"
+    "NO_ORDERS": "NO ORDERS YET!",
+    "ADD_TO_BASKET_ERR": "Your basket already contains products from other restaurants!"
 
 
 }

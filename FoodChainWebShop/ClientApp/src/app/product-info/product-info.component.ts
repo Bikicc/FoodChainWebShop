@@ -17,7 +17,7 @@ import { ToastMessagesComponent } from '../toast-messages/toast-messages.compone
 export class ProductInfoComponent implements OnInit {
   @ViewChild(ToastMessagesComponent, { static: false })
   toastMessages: ToastMessagesComponent;
-  
+
   productInfo: Product = null;
   favourites: Product[] = [];
   isFavourite: boolean = null;
@@ -31,7 +31,7 @@ export class ProductInfoComponent implements OnInit {
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
     private translate: TranslateService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { product: Product, favourites: Product[] }) => {
@@ -57,7 +57,7 @@ export class ProductInfoComponent implements OnInit {
       productId: this.productInfo.productId
     };
 
-   this.subscription.push(this.favouritesService.postProductToFavourites(data).subscribe(async () => {
+    this.subscription.push(this.favouritesService.postProductToFavourites(data).subscribe(async () => {
       await this.getFavourites();
       this.checkIsProductInFavourites();
     }, err => {
@@ -82,7 +82,7 @@ export class ProductInfoComponent implements OnInit {
 
   getFavourites() {
     return new Promise((resolve, reject) => {
-     this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
+      this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
         this.favourites = data;
         this.checkIsProductInFavourites();
         resolve(null);
@@ -96,7 +96,7 @@ export class ProductInfoComponent implements OnInit {
   addToBasket() {
     const res = this.basketService.addProductToBasket(this.productInfo);
     if (res && res.error) {
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed(res.messageHR) : this.toastMessages.saveChangesFailed(res.messageEN);
+      this.toastMessages.saveChangesFailed(this.translate.instant("ADD_TO_BASKET_ERR"))
     } else {
       this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
     }
