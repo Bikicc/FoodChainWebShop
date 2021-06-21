@@ -1,7 +1,18 @@
 <div class="menuContainer">
 
   <!-- Menu HEADER -->
-  <div class="coverHeader">
+  <div class="menuCover">
+    <div class="coverHeaderContainer">
+      <h1 class="coverHeaderHeadline">{{'MENI' | translate}}</h1>
+      <h2 class="coverHeaderContent">{{'MENI_HEADER' | translate}}</h2>
+      <span class="as-c">
+        <p-dropdown [options]="categoriesDropdown" [(ngModel)]="selectedCategoryId"
+          (onChange)="filterProductsBasedOnCategory()">
+        </p-dropdown>
+      </span>
+    </div>
+  </div>
+  <!-- <div class="coverHeader">
     <div class="coverHeaderContainer">
       <h1 class="coverHeaderHeadline">{{'MENI' | translate}}</h1>
       <h2 class="coverHeaderContent">{{'MENI_HEADER' | translate}}</h2>
@@ -16,7 +27,7 @@
         <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
       </svg>
     </div>
-  </div>
+  </div> -->
 
   <!-- MENU SECTION-->
   <div class="menuWrapper">
@@ -42,6 +53,10 @@
       </button>
     </div>
   </div>
+
+  <!-- REVIEWS HEADER-->
+  <!-- REVIEWS SECTION-->
+
 </div>
 
 <app-toast-messages></app-toast-messages>

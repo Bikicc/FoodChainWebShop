@@ -48,6 +48,11 @@ import { EmailService } from './services/EmailService';
 import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { NewComponentComponent } from './new-component/new-component.component';
+import { RestaurantsComponent } from './restaurants/restaurants.component';
+import { RestaurantsService } from './services/RestaurantsService';
+import { RestaurantsResloverService } from './services/RestaurantsResloverService';
+import { RestaurantTypeService } from './services/RestaurantTypeService';
+import { RestaurantTypeResolverService } from './services/RestaurantTypeResolverService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +71,8 @@ import { NewComponentComponent } from './new-component/new-component.component';
     BasketComponent,
     OrderHistoryComponent,
     ToastMessagesComponent,
-    NewComponentComponent
+    NewComponentComponent,
+    RestaurantsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -84,12 +90,13 @@ import { NewComponentComponent } from './new-component/new-component.component';
       { path: 'login', component: LoginComponent },
       { path: 'aboutUs', component: AboutUsComponent },
       { path: 'contactUs', component: ContactUsComponent },
-      { path: 'menu', component: MenuComponent, resolve: { categories: MenuResolverService } },
+      { path: 'menu/:restaurantId', component: MenuComponent, resolve: { categories: MenuResolverService } },
       { path: 'favourites', component: FavouritesComponent, resolve: { favourites: FavouritesResolverService } },
       { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },
       { path: 'orderHistory', component: OrderHistoryComponent, resolve: { orders: OrderResolverService } },
       { path: 'kayo', component: NewComponentComponent },
+      { path: 'restaurants', component: RestaurantsComponent, resolve: { restaurants: RestaurantsResloverService, restaurantTypes: RestaurantTypeResolverService } },
 
       { path: '**', component: PageNotFoundComponent }
     ]),
@@ -111,6 +118,8 @@ import { NewComponentComponent } from './new-component/new-component.component';
     BasketService,
     EmailService,
     MessageService,
+    RestaurantsService,
+    RestaurantTypeService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

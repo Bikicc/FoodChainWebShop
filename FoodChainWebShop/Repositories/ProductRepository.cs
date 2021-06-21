@@ -1,7 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using FoodChainWebShop.Data;
 using FoodChainWebShop.Interfaces;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using FoodChainWebShop.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +13,10 @@ namespace FoodChainWebShop.Repositories {
             this._context = context;
         }
 
-        public async Task<ICollection<Product>> GetProducts () {
-            return await _context.Products.ToListAsync ();
+        public async Task<ICollection<Product>> GetProducts (int restaurantId) {
+            return await _context.Products
+                .Where (p => p.RestaurantId == restaurantId)
+                .ToListAsync ();
         }
 
         public async Task<Product> GetProduct (int id) {

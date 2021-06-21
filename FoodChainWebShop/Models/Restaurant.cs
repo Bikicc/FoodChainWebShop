@@ -33,7 +33,12 @@ namespace FoodChainWebShop.Models {
 
         [Required]
         public int RestaurantTypeId { get; set; }
+
+        [JsonIgnore]
         public RestaurantType RestaurantType { get; set; }
+
+        [JsonIgnore]
+        public ICollection<RestaurantReview> RestaurantReviews { get; set; }
 
     }
 }

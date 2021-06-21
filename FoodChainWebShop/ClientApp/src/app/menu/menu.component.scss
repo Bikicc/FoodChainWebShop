@@ -4,6 +4,15 @@
 @import '../../assets/css/dropdown.scss';
 @import '../../assets/css/products.scss';
 
+.menuCover {
+  background-image: url("../../assets/images/menuCover.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .buttonContainer {
   width: unset;

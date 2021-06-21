@@ -1,6 +1,6 @@
 import { CategoryService } from './CategoryService';
 import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
+import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 import { catchError } from 'rxjs/operators';
 import { empty } from 'rxjs';
 
@@ -13,8 +13,8 @@ import { empty } from 'rxjs';
 export class MenuResolverService implements Resolve<any> {
     constructor(private categoryService: CategoryService) { }
 
-    resolve() {
-        return this.categoryService.category_SelectAllWithProducts().pipe(
+    resolve(route: ActivatedRouteSnapshot) {
+        return this.categoryService.category_SelectAllWithProducts(Number(route.params.restaurantId)).pipe(
             catchError((error) => {
                 console.log(error);
                 return empty();

@@ -11,8 +11,8 @@ namespace FoodChainWebShop.Services {
             this._productRepo = repo;
         }
 
-        public async Task<ICollection<Product>> GetProducts () {
-            return await _productRepo.GetProducts ();
+        public async Task<ICollection<Product>> GetProducts (int restaurantId) {
+            return await _productRepo.GetProducts (restaurantId);
         }
 
         public async Task<Product> GetProduct (int id) {

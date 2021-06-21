@@ -1,0 +1,3 @@
+<div *ngFor="let item of restaurants">
+    <button (click)="navigateToRestaurant(item.restaurantInfo.restaurantId)">{{item.restaurantInfo.name}}</button>
+</div>

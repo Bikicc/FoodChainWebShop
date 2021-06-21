@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FoodChainWebShop.Models;
+using FoodChainWebShop.HelperClasses;
 
 namespace FoodChainWebShop.Interfaces
 {
-    public interface IProductService
+    public interface IRestaurantsTypeService
     {
-         Task<ICollection<Product>> GetProducts(int restaurantId);
-         Task<Product> GetProduct (int id);
+        Task<ICollection<RestaurantType>> GetRestaurantTypes();
     }
 }

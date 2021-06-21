@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using FoodChainWebShop.Models;
-
+using System.Linq;
+using Z.EntityFramework.Plus;
 namespace FoodChainWebShop.Repositories
 {
     public class CategoryRepository : ICategoryRepository
@@ -16,8 +17,10 @@ namespace FoodChainWebShop.Repositories
             this._context = context;
         }
 
-        public async Task<ICollection<Category>> getCategories() {
-            return await _context.Categories.Include (i => i.Products).ToListAsync ();
+        public async Task<ICollection<Category>> getCategories(int restaurantId) {
+            return await _context.Categories
+            .IncludeFilter (i => i.Products.Where(p => p.RestaurantId == restaurantId))
+            .ToListAsync ();
         }
 
         public async Task<Category> GetCategory (int id) {

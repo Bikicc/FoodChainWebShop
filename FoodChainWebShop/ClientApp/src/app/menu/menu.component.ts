@@ -67,14 +67,14 @@ export class MenuComponent implements OnInit {
   }
 
 
-  getMenuItems() {
-    this.subscription.push(this.categoryService.category_SelectAllWithProducts().subscribe((data: Category[]) => {
-      this.categories = data;
-      this.setDropdownCategories();
-    }, err => {
-      console.log(err);
-    }));
-  }
+  // getMenuItems() {
+  //   this.subscription.push(this.categoryService.category_SelectAllWithProducts(Number(this.route.params.restaurantId)).subscribe((data: Category[]) => {
+  //     this.categories = data;
+  //     this.setDropdownCategories();
+  //   }, err => {
+  //     console.log(err);
+  //   }));
+  // }
 
   filterProductsBasedOnCategory() {
     this.selectedCategory = this.categories.filter(item => item.categoryId == this.selectedCategoryId)[0];

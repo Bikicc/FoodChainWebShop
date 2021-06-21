@@ -10,8 +10,8 @@ namespace FoodChainWebShop.Services {
             this._categoryRepo = repo;
         }
 
-        public async Task<ICollection<Category>> getCategories () {
-            return await _categoryRepo.getCategories();
+        public async Task<ICollection<Category>> getCategories (int restaurantId) {
+            return await _categoryRepo.getCategories(restaurantId);
         }
 
         public async Task<Category> GetCategory (int id) {

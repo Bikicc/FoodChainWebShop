@@ -95,8 +95,8 @@
     "ADD_TO_BASKET_ERR": "Your basket already contains products from other restaurants!",
     "NARUDZBA_ZAPRIMLJENA": "Order has been received!",
     "DOSLO_DO_POGRESKE": "Error has occured! Please try again.",
-    "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Data has not been refreshed successfully!"
-
+    "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Data has not been refreshed successfully!",
+    "RESTORANI": "Restaurants"
 
 
 }

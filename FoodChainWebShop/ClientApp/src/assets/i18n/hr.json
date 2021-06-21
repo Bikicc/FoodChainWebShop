@@ -95,7 +95,8 @@
     "ADD_TO_BASKET_ERR": "Vaša košarica sadrži produkte iz drugih restorana!",
     "NARUDZBA_ZAPRIMLJENA": "Narudžba je zaprimljena!",
     "DOSLO_DO_POGRESKE": "Došlo je do pogreške! Pokušajte ponovno.",
-    "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Podatci se nisu uspješno osvježili!"
+    "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Podatci se nisu uspješno osvježili!",
+    "RESTORANI": "Restaurants"
 
 
 }

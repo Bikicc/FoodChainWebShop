@@ -7,6 +7,8 @@ namespace FoodChainWebShop.Models {
         public int RestaurantTypeId { get; set; }
         public string Name_En { get; set; }
         public string Name_Hr { get; set; }
+
+        [JsonIgnore]
         public ICollection<Restaurant> Restaurants { get; set; }
     }
 }

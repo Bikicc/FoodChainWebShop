@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FoodChainWebShop.Interfaces {
     public interface ICategoryService {
-        Task<ICollection<Category>> getCategories ();
+        Task<ICollection<Category>> getCategories (int restaurantId);
         Task<Category> GetCategory (int id);
     }
 }

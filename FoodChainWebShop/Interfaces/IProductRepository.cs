@@ -4,7 +4,7 @@ using FoodChainWebShop.Models;
 
 namespace FoodChainWebShop.Interfaces {
     public interface IProductRepository {
-        Task<ICollection<Product>> GetProducts ();
+        Task<ICollection<Product>> GetProducts (int restaurantId);
         Task<Product> GetProduct (int id);
     }
 }
