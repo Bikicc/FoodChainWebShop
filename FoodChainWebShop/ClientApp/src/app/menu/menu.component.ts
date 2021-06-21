@@ -31,7 +31,6 @@ export class MenuComponent implements OnInit {
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
     private router: Router,
-    private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private basketService: BasketService,
     private translate: TranslateService

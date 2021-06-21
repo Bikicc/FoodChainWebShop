@@ -1,6 +1,7 @@
 :host ::ng-deep .ui-dropdown {
     background: transparent;
     border: 1px solid var(--goldenColor);
+    min-width: 120px;
   }
   
   :host ::ng-deep .ui-dropdown-panel {

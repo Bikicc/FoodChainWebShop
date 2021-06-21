@@ -26,8 +26,8 @@
             <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
-            <a *ngIf="!userLoginStatus" routerLink="/login" class="btn" style="min-width: 105px ">{{'PRIJAVA' | translate}}</a>
-            <a *ngIf="userLoginStatus"  (click)="logOutUser()" class="btn" style="min-width: 105px ">{{'ODJAVA' | translate}}</a>
+            <a *ngIf="!userLoginStatus" routerLink="/login" class="btn" style="min-width: 80px ">{{'PRIJAVA' | translate}}</a>
+            <a *ngIf="userLoginStatus"  (click)="logOutUser()" class="btn" style="min-width: 80px ">{{'ODJAVA' | translate}}</a>
           </div>
         </li>
       </ul>
@@ -54,8 +54,8 @@
             <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
-            <a *ngIf="!userLoginStatus" routerLink="/login" class="btn" style="width: 105px !important ">{{'PRIJAVA' | translate}}</a>
-            <a *ngIf="userLoginStatus"  (click)="logOutUser()" class="btn" style="width: 105px !important ">{{'ODJAVA' | translate}}</a>
+            <a *ngIf="!userLoginStatus" routerLink="/login" class="btn" style="width: 80px !important ">{{'PRIJAVA' | translate}}</a>
+            <a *ngIf="userLoginStatus"  (click)="logOutUser()" class="btn" style="width: 80px !important ">{{'ODJAVA' | translate}}</a>
           </div>
         </li>
       </ul>

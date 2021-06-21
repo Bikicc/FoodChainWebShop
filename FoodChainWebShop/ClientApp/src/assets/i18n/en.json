@@ -96,7 +96,9 @@
     "NARUDZBA_ZAPRIMLJENA": "Order has been received!",
     "DOSLO_DO_POGRESKE": "Error has occured! Please try again.",
     "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Data has not been refreshed successfully!",
-    "RESTORANI": "Restaurants"
+    "RESTORANI": "Restaurants",
+    "REVIEWS_HEADER": "Find out what our customers think about our service",
+    "REVIEWS": "REVIEWS" 
 
 
 }
