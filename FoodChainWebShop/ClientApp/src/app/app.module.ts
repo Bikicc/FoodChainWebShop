@@ -16,6 +16,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GMapModule } from 'primeng/gmap';
 import { ToastModule } from 'primeng/toast';
+import { CardModule } from 'primeng/card';
+import { RatingModule } from 'primeng/rating';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -102,7 +104,9 @@ import { RestaurantTypeResolverService } from './services/RestaurantTypeResolver
     ]),
     I18nModule,
     ProgressSpinnerModule,
-    DropdownModule
+    DropdownModule,
+    CardModule,
+    RatingModule
   ],
   providers: [
     GlobalVar,

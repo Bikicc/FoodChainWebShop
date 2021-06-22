@@ -1,3 +1,42 @@
-<div *ngFor="let item of restaurants">
-    <button (click)="navigateToRestaurant(item.restaurantInfo.restaurantId)">{{item.restaurantInfo.name}}</button>
+<div class="menuCover">
+    <div class="opacityLayer"></div>
+    <div class="coverHeaderContainer">
+        <h1 class="coverHeaderHeadline">{{'RESTORANI' | translate}}</h1>
+        <h2 class="coverHeaderContent">{{'RESTAURANTS_HEADER' | translate}}</h2>
+        <span class="as-c">
+            <p-dropdown [options]="restaurantTypesDropdown" [(ngModel)]="selectedRestaurantTypeId"
+                (onChange)="filterRestaurantsBasedOnType()">
+            </p-dropdown>
+        </span>
+    </div>
 </div>
+
+<div class="ui-g ui-fluid w-100">
+    <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
+        (click)="navigateToRestaurant(item.restaurant.restaurantId)">
+        <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
+            <p-header>
+                <img src="assets/images/mcdonaldsLogo.jpg" class="restaurantCardsImg">
+            </p-header>
+            <div class="ratingAndOrderContainer">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <span>{{item.rating}}</span>
+
+                <span class="dot">•</span>
+
+                <span class="minOrderContainer">Min. {{item.restaurant.minOrderPrice}} Kn</span>
+            </div>
+
+            <div class="addressAndNumberContainer">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>{{item.restaurant.address}}</span>
+
+                <span class="dot">•</span>
+
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span class="minOrderContainer">{{item.restaurant.mobileNumber}}</span>
+            </div>
+        </p-card>
+    </div>
+</div>
+
