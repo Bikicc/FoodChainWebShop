@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,7 +6,6 @@ using FoodChainWebShop.Data;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace FoodChainWebShop.Repositories {
     public class ProductRepository : IProductRepository {
         private readonly DataContext _context;
@@ -21,6 +21,16 @@ namespace FoodChainWebShop.Repositories {
 
         public async Task<Product> GetProduct (int id) {
             return await _context.Products.SingleOrDefaultAsync (x => x.ProductId == id);
+        }
+
+        public async Task InsertProduct (Product product) {
+            try {
+                _context.Products.Add (product);
+                await _context.SaveChangesAsync ();
+            } catch (Exception e) {
+                throw e;
+            }
+
         }
     }
 }

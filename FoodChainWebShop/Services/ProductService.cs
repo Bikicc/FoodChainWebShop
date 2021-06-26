@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FoodChainWebShop.Interfaces;
@@ -17,6 +18,14 @@ namespace FoodChainWebShop.Services {
 
         public async Task<Product> GetProduct (int id) {
             return await _productRepo.GetProduct(id);
+        }
+
+        public async Task PostProduct (Product product) {
+            try {
+                await _productRepo.InsertProduct(product);
+            } catch(Exception e) {
+                throw e;
+            }
         }
 
     }

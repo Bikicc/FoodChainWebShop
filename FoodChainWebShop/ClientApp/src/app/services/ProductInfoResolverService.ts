@@ -15,7 +15,7 @@ export class ProductInfoResolverService implements Resolve<any> {
         private productService: ProductService) { }
 
     resolve(route: ActivatedRouteSnapshot) {
-        return this.productService.products_SelectById(Number(route.params.productId)).pipe(
+        return this.productService.productsSelectById(Number(route.params.productId)).pipe(
             catchError((error) => {
                 console.log(error);
                 return empty();

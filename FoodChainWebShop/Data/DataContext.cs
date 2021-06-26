@@ -11,6 +11,7 @@ namespace FoodChainWebShop.Data {
 
             modelBuilder.Entity<RestaurantReview> ().HasKey (rr => new { rr.UserId, rr.RestaurantId });
 
+            modelBuilder.Entity<Product> ().Ignore (p => p.ImageFile);
         }
 
         public DbSet<Order> Orders { get; set; }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 namespace FoodChainWebShop.Models {
     public class Product {
         public int ProductId { get; set; }
@@ -16,7 +18,8 @@ namespace FoodChainWebShop.Models {
         public int Carbs { get; set; }
         public int Sugar { get; set; }
         public int Fat { get; set; }
-        public string ImageName { get; set; }
+        public IFormFile ImageFile { get; set; }
+        public byte[] Image { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
@@ -27,6 +30,6 @@ namespace FoodChainWebShop.Models {
         public Restaurant Restaurant { get; set; }
         public ICollection<OrderProduct> OrderProduct { get; set; }
         public ICollection<Favourite> Favourites { get; set; }
-
     }
+
 }

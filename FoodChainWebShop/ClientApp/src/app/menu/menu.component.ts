@@ -8,6 +8,7 @@ import { ComponentCommunicationService } from "../services/ComponentCommunicatio
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -26,20 +27,27 @@ export class MenuComponent implements OnInit {
   categoriesDropdown: any[] = [];
   selectedCategory: Category = null;
   subscription: Subscription[] = [];
-
+  renderHtml: boolean = false;
 
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private basketService: BasketService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private sanitazer: DomSanitizer
   ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
       this.categories = data.categories;
-      console.log(this.categories)
+      this.categories = this.categories.map(cat => {
+        cat.products.forEach(async (prod) => {
+          prod.imageToShow = await this.readFile(prod);
+        })
+        return cat;
+      })
+
       this.setDropdownCategories();
       this.translate.onLangChange.subscribe(() => this.setDropdownCategories());
     }, err => {
@@ -98,4 +106,20 @@ export class MenuComponent implements OnInit {
     pr.restaurantId = 2;
     this.addProductToBasket(pr);
   }
+
+  readFile(file): Promise<string> {
+    console.log(typeof file.image)
+    return new Promise((resolve, reject) => {
+      var reader = new FileReader();
+
+      reader.onloadend = () => {
+        let img: string = 'data:image/jpg;base64,' + (this.sanitazer.bypassSecurityTrustResourceUrl(reader.result as string))
+        resolve(img);
+      }
+      reader.readAsDataURL(new Blob([file.image], {
+        type: 'text/plain'
+      }));
+
+  });
+}
 }

@@ -9,8 +9,9 @@ export interface Product {
     carbs: number,
     sugar: number,
     fat: number,
-    imageName: string,
+    image: ArrayBuffer | File | string,
     categoryId: number,
     quantity?: number,
-    restaurantId: number
+    restaurantId: number,
+    imageToShow: string
 }

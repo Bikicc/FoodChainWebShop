@@ -7,13 +7,13 @@ namespace FoodChainWebShop.HelperClasses
         public int productId { get; set; }
         public string name { get; set; }
         public double price { get; set; }
-        public string imageName { get; set; }
+        public byte[] image { get; set; }
         public Restaurant restaurant { get; set; }
         public FavouriteProduct (Product product) {
             productId = product.ProductId;
             name = product.Name;
             price = product.Price;
-            imageName = product.ImageName;
+            image = product.Image;
         }
 
         public FavouriteProduct(){}

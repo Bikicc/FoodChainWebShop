@@ -18,6 +18,7 @@ import { GMapModule } from 'primeng/gmap';
 import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
 import { RatingModule } from 'primeng/rating';
+import { FileUploadModule } from 'primeng/fileupload';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -106,7 +107,8 @@ import { RestaurantTypeResolverService } from './services/RestaurantTypeResolver
     ProgressSpinnerModule,
     DropdownModule,
     CardModule,
-    RatingModule
+    RatingModule,
+    FileUploadModule
   ],
   providers: [
     GlobalVar,

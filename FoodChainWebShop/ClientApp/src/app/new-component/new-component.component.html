@@ -3,8 +3,6 @@
     <video autoplay loop id="myVideo">
         <source src="assets/images/Attack-On-Titan.mp4" type="video/mp4">
     </video>
-
-    <!-- <button (click)="playVideo()">
-        CLICK ME
-    </button> -->
+  
+    <p-fileUpload name="myfile" customUpload="true" (uploadHandler)="myUploader($event)" accept="image/*" maxFileSize="20000"></p-fileUpload>
 </div>

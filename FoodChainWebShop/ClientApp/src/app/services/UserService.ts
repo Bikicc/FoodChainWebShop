@@ -26,7 +26,6 @@ export class UserService {
     }
 
     registerUser(body: any) {
-        console.log(body)
         return this.http
             .post(this.config.API_URL + 'auth/createUser', body, { headers: this.headersOption })
             .pipe(

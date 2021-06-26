@@ -36,7 +36,8 @@
       <div *ngFor="let product of selectedCategory.products"
         class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
         <div class="productImage" (click)="navigateToProduct(product.productId, product.name)">
-          <img src="assets/images/products/{{product.imageName}}" style="width: 100px">
+          <!-- <img src="assets/images/products/{{product.imageName}}" style="width: 100px"> -->
+          <img src="{{product.imageToShow}}" style="width: 100px" />
         </div>
         <div class="productName" (click)="navigateToProduct(product.productId, product.name)">
           {{product.name}}

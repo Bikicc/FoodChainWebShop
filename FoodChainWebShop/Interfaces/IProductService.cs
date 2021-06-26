@@ -8,5 +8,7 @@ namespace FoodChainWebShop.Interfaces
     {
          Task<ICollection<Product>> GetProducts(int restaurantId);
          Task<Product> GetProduct (int id);
+
+         Task PostProduct(Product product);
     }
 }

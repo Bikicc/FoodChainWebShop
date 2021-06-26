@@ -6,5 +6,6 @@ namespace FoodChainWebShop.Interfaces {
     public interface IProductRepository {
         Task<ICollection<Product>> GetProducts (int restaurantId);
         Task<Product> GetProduct (int id);
+        Task InsertProduct(Product product);
     }
 }
