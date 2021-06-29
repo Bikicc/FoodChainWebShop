@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiKey } from '../../apiKey';
 import { forkJoin, Subscription } from 'rxjs';
 import { ToastMessagesComponent } from './../toast-messages/toast-messages.component';
+import { GeneralService } from '../services/GeneralService';
 
 
 @Component({
@@ -40,10 +41,15 @@ export class BasketComponent implements OnInit {
     private http: HttpClient,
     private key: ApiKey,
     private orderService: OrderService,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private generalService: GeneralService) { }
 
   ngOnInit() {
     this.basketItems = this.basketService.getProductsFromBasket();
+    this.basketItems.forEach(item => {
+      item.imageToShow = this.generalService.setBase64ImageToShow(item.image as string);
+    });
+
     this.getTotalAmountToPay();
   }
 

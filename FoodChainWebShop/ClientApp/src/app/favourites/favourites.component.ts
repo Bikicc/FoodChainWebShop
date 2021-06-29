@@ -8,6 +8,7 @@ import { ComponentCommunicationService } from '../services/ComponentCommunicatio
 import { Subscription } from 'rxjs/internal/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
+import { GeneralService } from '../services/GeneralService';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class FavouritesComponent implements OnInit {
   @ViewChild(ToastMessagesComponent, { static: false })
   toastMessages: ToastMessagesComponent;
 
-  favourites: Product[] = [];
+  favourites: any[] = [];
   favouritesGroupedByRestaurant: any = null;
   subscription: Subscription[] = [];
   user: User = {} as User;
@@ -30,13 +31,13 @@ export class FavouritesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private generalService: GeneralService
   ) { }
 
   ngOnInit() {
-    this.subscription.push(this.activatedRoute.data.subscribe((data: { favourites: Product[] }) => {
-      this.favourites = data.favourites;
-      if (this.favourites && this.favourites.length > 0) this.favouritesGroupedByRestaurant = this.groupByRestaurant(this.favourites);
+    this.subscription.push(this.activatedRoute.data.subscribe((data: { favourites: any }) => {
+      this.setFavourites(data.favourites);
     }, err => {
       console.log(err);
     }));
@@ -55,8 +56,7 @@ export class FavouritesComponent implements OnInit {
   getFavourites() {
     this.favouritesGroupedByRestaurant = null;
     this.subscription.push(this.favouritesService.getFavouritesForUser(this.user.userId).subscribe((data: Product[]) => {
-      this.favourites = data;
-      if (this.favourites && this.favourites.length > 0) this.favouritesGroupedByRestaurant = this.groupByRestaurant(this.favourites);
+      this.setFavourites(data)
     }, err => {
       console.log(err)
     }));
@@ -88,6 +88,16 @@ export class FavouritesComponent implements OnInit {
     }, {});
 
     return groups;
+  }
+
+  private setFavourites(data: any[]): void {
+    this.favourites = data;
+  
+    this.favourites.forEach((fav) => {
+      fav.product.imageToShow = this.generalService.setBase64ImageToShow(fav.image as string);
+    });
+    
+    if (this.favourites && this.favourites.length > 0) this.favouritesGroupedByRestaurant = this.groupByRestaurant(this.favourites);
   }
 
 }

@@ -5,16 +5,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
 import { Config } from "../config";
 import { Product } from '../interfaces/Product';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class ProductService {
-    
+
     private headersOption: HttpHeaders;
     private formDataHeadersOption: HttpHeaders;
     constructor(
         private config: Config,
         private http: HttpClient,
-        private errorHandler: ErrorHandlerService
+        private errorHandler: ErrorHandlerService,
+        private sanitazer: DomSanitizer
     ) {
         this.headersOption = new HttpHeaders({ 'Content-Type': 'application/json' });
         this.formDataHeadersOption = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });
@@ -45,5 +47,4 @@ export class ProductService {
                 retry(this.config.APIRetryCount),
                 catchError(this.errorHandler.errorHandler));
     }
-
 }

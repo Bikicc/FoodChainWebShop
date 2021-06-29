@@ -1,7 +1,7 @@
 <div *ngIf="productInfo" class="productInfoWrapper">
 
   <!-- PRODUCT INFO HEADER -->
-  <div class="coverHeader">
+  <!-- <div class="coverHeader">
     <div class="coverHeaderContainer">
       <h1 class="coverHeaderHeadline">{{productInfo.name}}</h1>
       <h2 class="coverHeaderContent">{{'INFORMACIJE_O_PRODUKTU_HEADER' | translate}}</h2>
@@ -11,10 +11,17 @@
         <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
       </svg>
     </div>
-  </div>
+  </div> -->
 
-  <!-- DECRIPTION SECTION -->
   <div class="flex fd-c">
+    <div class="productNameContainer">
+      <h1 class="coverHeaderHeadline">{{productInfo.name}}</h1>
+    </div>
+    <!-- IMAGE SECTION -->
+    <div class="productImgWrapper">
+      <img class="productImg" [src]=productInfo.imageToShow>
+    </div>
+    <!-- DECRIPTION SECTION -->
     <div class="descriptionWrapper">
       <div class="descriptionTextHeader">
         {{'INFORMACIJE_O_PRODUKTU_01' | translate}}
@@ -38,9 +45,9 @@
     </div>
 
     <!-- IMAGE SECTION -->
-    <div class="productImgWrapper">
-      <img class="productImg" src="assets/images/products/{{productInfo.imageName}}">
-    </div>
+    <!-- <div class="productImgWrapper">
+      <img class="productImg" [src]=productInfo.imageToShow>
+    </div> -->
 
     <!-- NUTRITION VALUES -->
     <div class="nutritionValuesWrapper">

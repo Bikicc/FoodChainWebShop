@@ -2,6 +2,15 @@
 @import '../../assets/css/button.scss';
 @import '../../assets/css/coverHeader.scss';
 
+.productNameContainer {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--goldenColor);
+  background-color: #2d2929;
+}
+
 .descriptionWrapper {
   display: flex;
   align-items: center;
@@ -19,6 +28,7 @@
   font-family: 'Times New Roman', Times, serif;
   margin: 5px 0;
   font-weight: bold;
+  padding: 10px;
 }
 
 .descriptionTextContent {
@@ -107,7 +117,7 @@
 
   .descriptionTextHeader,
   .nutritionValuesTextHeader {
-    font-size: 25px;
+    font-size: 18px;
   }
 
   .descriptionTextContent {
@@ -116,10 +126,10 @@
   }
 
   .contentHeader {
-      font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .contentValue {
-      font-size: 1rem;
+    font-size: 0.8rem;
   }
 }

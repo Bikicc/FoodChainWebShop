@@ -8,6 +8,8 @@ import { Product } from '../interfaces/Product';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
+import { ProductService } from '../services/ProductService';
+import { GeneralService } from '../services/GeneralService';
 
 @Component({
   selector: 'app-product-info',
@@ -30,12 +32,14 @@ export class ProductInfoComponent implements OnInit {
     private favouritesService: FavouritesService,
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private generalService: GeneralService
   ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { product: Product, favourites: Product[] }) => {
       this.productInfo = data.product;
+      this.productInfo.imageToShow = this.generalService.setBase64ImageToShow(data.product.image as string);
       this.favourites = data.favourites;
       this.checkIsProductInFavourites();
     }, err => {

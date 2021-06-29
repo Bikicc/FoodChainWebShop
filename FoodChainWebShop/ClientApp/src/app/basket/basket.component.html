@@ -39,7 +39,9 @@
             </svg>
           </div>
           <div class="productImage" (click)="navigateToProduct(item.name)">
-            <img class="us-none" src="assets/images/products/{{item.imageName}}" style="width: 100px">
+            <img  class="us-none" [src]=item.imageToShow style="width: 100px">
+
+            <!-- <img class="us-none" src="assets/images/products/{{item.imageName}}" style="width: 100px"> -->
           </div>
           <div class="productName us-none" (click)="navigateToProduct(item.name)">
             {{item.name}}

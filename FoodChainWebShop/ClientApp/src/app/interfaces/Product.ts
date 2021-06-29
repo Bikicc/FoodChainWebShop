@@ -1,3 +1,5 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
+
 export interface Product {
     productId: number,
     name: string,
@@ -13,5 +15,5 @@ export interface Product {
     categoryId: number,
     quantity?: number,
     restaurantId: number,
-    imageToShow: string
+    imageToShow: SafeResourceUrl
 }

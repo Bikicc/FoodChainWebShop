@@ -56,6 +56,8 @@ import { RestaurantsService } from './services/RestaurantsService';
 import { RestaurantsResloverService } from './services/RestaurantsResloverService';
 import { RestaurantTypeService } from './services/RestaurantTypeService';
 import { RestaurantTypeResolverService } from './services/RestaurantTypeResolverService';
+import { GeneralService } from './services/GeneralService';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,6 +128,7 @@ import { RestaurantTypeResolverService } from './services/RestaurantTypeResolver
     MessageService,
     RestaurantsService,
     RestaurantTypeService,
+    GeneralService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

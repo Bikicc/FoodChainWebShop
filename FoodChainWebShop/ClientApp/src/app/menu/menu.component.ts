@@ -8,7 +8,9 @@ import { ComponentCommunicationService } from "../services/ComponentCommunicatio
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ProductService } from '../services/ProductService';
+import { GeneralService } from '../services/GeneralService';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -35,16 +37,14 @@ export class MenuComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private basketService: BasketService,
     private translate: TranslateService,
-    private sanitazer: DomSanitizer
+    private generalService: GeneralService
   ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
       this.categories = data.categories;
       this.categories = this.categories.map(cat => {
-        cat.products.forEach(async (prod) => {
-          prod.imageToShow = await this.readFile(prod);
-        })
+        cat.products.forEach(prod => prod.imageToShow = this.generalService.setBase64ImageToShow(prod.image as string));
         return cat;
       })
 
@@ -107,19 +107,4 @@ export class MenuComponent implements OnInit {
     this.addProductToBasket(pr);
   }
 
-  readFile(file): Promise<string> {
-    console.log(typeof file.image)
-    return new Promise((resolve, reject) => {
-      var reader = new FileReader();
-
-      reader.onloadend = () => {
-        let img: string = 'data:image/jpg;base64,' + (this.sanitazer.bypassSecurityTrustResourceUrl(reader.result as string))
-        resolve(img);
-      }
-      reader.readAsDataURL(new Blob([file.image], {
-        type: 'text/plain'
-      }));
-
-  });
-}
 }
