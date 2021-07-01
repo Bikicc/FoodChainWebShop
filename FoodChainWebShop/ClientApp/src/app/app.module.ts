@@ -57,6 +57,7 @@ import { RestaurantsResloverService } from './services/RestaurantsResloverServic
 import { RestaurantTypeService } from './services/RestaurantTypeService';
 import { RestaurantTypeResolverService } from './services/RestaurantTypeResolverService';
 import { GeneralService } from './services/GeneralService';
+import { NoDataComponent } from './no-data/no-data.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { GeneralService } from './services/GeneralService';
     OrderHistoryComponent,
     ToastMessagesComponent,
     NewComponentComponent,
-    RestaurantsComponent
+    RestaurantsComponent,
+    NoDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -99,5 +99,13 @@
     "RESTORANI": "Restaurants",
     "REVIEWS_HEADER": "Find out what our customers think about our service",
     "REVIEWS": "REVIEWS",
-    "RESTAURANTS_HEADER": "Check the best restaurant offer in one place"
+    "RESTAURANTS_HEADER": "Check the best restaurant offer in one place",
+
+    "NEMA_PODATAKA": "No data",
+    "NEMA_RESTORANA": "No restaurants found",
+    "NEMA_PROIZVODA": "There is no products",
+    "NEMA_RECENZIJA": "There is no reviews",
+    "NEMA_NARUDZBI": "There is no orders"
+
+
 }

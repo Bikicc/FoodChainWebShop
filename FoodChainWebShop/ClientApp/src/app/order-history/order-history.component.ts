@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from '../interfaces/User';
 import { forkJoin } from 'rxjs';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
+import { Product } from '../interfaces/Product';
+import { GeneralService } from '../services/GeneralService';
 
 
 @Component({
@@ -33,13 +35,16 @@ export class OrderHistoryComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private generalService: GeneralService
   ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
       this.ordersUnformatted = this.sortByDate(data.orders);
       this.formatDate();
+      console.log(this.orders)
+      this.setImageToShow(this.orders);
       this.subscription.push(this.translate.onLangChange.subscribe(() => this.formatDate()));
     }, err => {
       console.log(err);
@@ -140,6 +145,7 @@ export class OrderHistoryComponent implements OnInit {
     this.subscription.push(this.orderService.getOrdersForUser(user ? user.userId : null).subscribe((orders: Order[]) => {
       this.ordersUnformatted = this.sortByDate(orders);
       this.formatDate();
+      this.setImageToShow(this.orders);
       this.loading = false;
     }, err => {
       this.loading = false;
@@ -154,6 +160,12 @@ export class OrderHistoryComponent implements OnInit {
       var aOrderTime = new Date(a.orderTime);
       var bOrderTime = new Date(b.orderTime);
       return (bOrderTime as any) - (aOrderTime as any);
+    });
+  }
+
+  private setImageToShow(orders: Order[]): void {
+    orders.forEach((order: Order) => {
+      order.orderProduct.forEach((product: Product) => product.imageToShow = this.generalService.setBase64ImageToShow(product.image as string));
     });
   }
 }

@@ -1,6 +1,9 @@
 @import '../../assets/css/form.scss';
 @import '../../assets/css/loader.css';
 
+.buttonContainer {
+    width: 80%;
+}
 
 .mh-40 {
     max-height: 40px;
@@ -13,10 +16,6 @@
 
 .errorInput {
     border-bottom: 1px solid red;
-}
-
-.inputWrapper {
-    width: 300px;
 }
 
 .disabledButton {

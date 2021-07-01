@@ -6,13 +6,8 @@
       <h1 class="coverHeaderHeadline">{{'POVIJEST_NARUDZBI' | translate}}</h1>
       <h2 class="coverHeaderContent">{{'POVIJEST_NARUDZBI_HEADER' | translate}}</h2>
     </div>
-    <div class="triangleShapeDivider">
-      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
-      </svg>
-    </div>
   </div>
-
+  
   <!-- ORDER HISTORY SECTION-->
   <div *ngIf="orders.length > 0; else noOrders" class="ordersWrapper">
     <div *ngFor="let order of orders">
@@ -56,7 +51,7 @@
           (click)="navigateToProduct(item.product.name, item.product.productId)">
           <span class="cursot-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}X</span>
           <div class="productImage">
-            <img src="assets/images/products/{{item.product.imageName}}" style="width: 100px">
+            <img [src]=item.imageToShow style="width: 100px">
           </div>
           <div class="productName">
             {{item.product.name}}
@@ -92,12 +87,8 @@
 </div>
 
 <ng-template #noOrders>
-  <div class="noOrders">
-    <img src="assets/images/NoOrders.png">
-    <div class="noOrdersText">
-      {{'NO_ORDERS' | translate}}
-    </div>
-  </div>
+  <app-no-data noDataText="{{'NO_ORDERS' | translate}}">
+  </app-no-data>
 </ng-template>
 
 <app-toast-messages></app-toast-messages>

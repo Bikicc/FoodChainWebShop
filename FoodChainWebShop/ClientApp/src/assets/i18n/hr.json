@@ -99,5 +99,15 @@
     "RESTORANI": "Restaurants",
     "REVIEWS_HEADER": "Saznajte što korisnici misle o našim uslugama",
     "REVIEWS": "Recenzije",
-    "RESTAURANTS_HEADER": "Provjerite najbolju ponudu restorana na jednom mjestu"
+    "RESTAURANTS_HEADER": "Provjerite najbolju ponudu restorana na jednom mjestu",
+
+    "NEMA_PODATAKA": "Nema podataka",
+    "NEMA_RESTORANA": "Nema pronađenih restorana",
+    "NEMA_PROIZVODA": "Nema proizvoda",
+    "NEMA_RECENZIJA": "Nema recenzija",
+    "NEMA_NARUDZBI": "Nema narudžbi"
+
+
+
+
 }

@@ -6,15 +6,10 @@
       <h1 class="coverHeaderHeadline">{{'FAVORITI' | translate}}</h1>
       <h2 class="coverHeaderContent">{{'FAVORITI_HEADER' | translate}}</h2>
     </div>
-    <div class="triangleShapeDivider">
-      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
-      </svg>
-    </div>
   </div>
 
   <!-- FAVOURITES SECTION-->
-  <div *ngIf="favouritesGroupedByRestaurant; else noFavourites" class="menuWrapper">
+  <div *ngIf="favouritesGroupedByRestaurant; else noData" class="menuWrapper">
     <div class="w-100">
       <div *ngFor="let item of favouritesGroupedByRestaurant | keyvalue" class="w-100 flex fd-c">
         <div class="restaurantNameContainer">{{item.value[0].restaurant.name}}</div>
@@ -42,12 +37,6 @@
   </div>
 </div>
 
-<ng-template #noFavourites>
-  <div class="noFavourites">
-    <img src="assets/images/NoFavourites.png">
-    <div class="noFavouritesText">
-      {{'NO_FAVOURITES' | translate}}
-    </div>
-  </div>
+<ng-template #noData>
+  <app-no-data noDataText="{{'NO_FAVOURITES' | translate}}"></app-no-data>
 </ng-template>
-

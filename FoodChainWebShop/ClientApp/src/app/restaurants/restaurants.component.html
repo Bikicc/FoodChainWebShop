@@ -1,5 +1,4 @@
 <div class="menuCover">
-    <div class="opacityLayer"></div>
     <div class="coverHeaderContainer">
         <h1 class="coverHeaderHeadline">{{'RESTORANI' | translate}}</h1>
         <h2 class="coverHeaderContent">{{'RESTAURANTS_HEADER' | translate}}</h2>
@@ -11,7 +10,7 @@
     </div>
 </div>
 
-<div class="ui-g ui-fluid w-100">
+<div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100">
     <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
         (click)="navigateToRestaurant(item.restaurant.restaurantId)">
         <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
@@ -40,3 +39,6 @@
     </div>
 </div>
 
+<ng-template #noData>
+    <app-no-data noDataText="{{'NEMA_RESTORANA' | translate}}"></app-no-data>
+</ng-template>

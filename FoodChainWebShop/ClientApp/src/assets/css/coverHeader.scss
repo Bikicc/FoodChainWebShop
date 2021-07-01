@@ -1,17 +1,11 @@
 .coverHeader {
-  height: 400px;
   width: 100%;
-  background: url("../../assets/images/coverHeader.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: right;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 500px;
-  position: relative;
-  padding-bottom: 10%;
+  margin-bottom: 20px;
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
 }
 
 .coverHeaderContainer {
@@ -52,18 +46,4 @@
   .coverHeaderContent {
     font-size: 18px;
   }
-
-  .coverHeader {
-    min-height: unset;
-    padding-bottom: unset;
-  }
-
-  .coverHeaderContainer {
-    transform: translateY(-30px);
-  }
-
-  .coverHeader {
-    height: 52vh;
-  }
-
 }

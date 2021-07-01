@@ -48,7 +48,7 @@
 .registrationContainer {
     display: flex;
     justify-content: center;
-    width: 30%;
+    width: 50%;
 }
 
 .buttonContainer {
@@ -101,5 +101,11 @@
 
     .navItems {
         font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .registrationContainer {
+        width: 100%;
     }
 }

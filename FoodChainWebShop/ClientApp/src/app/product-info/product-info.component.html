@@ -1,21 +1,10 @@
-<div *ngIf="productInfo" class="productInfoWrapper">
-
-  <!-- PRODUCT INFO HEADER -->
-  <!-- <div class="coverHeader">
-    <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">{{productInfo.name}}</h1>
-      <h2 class="coverHeaderContent">{{'INFORMACIJE_O_PRODUKTU_HEADER' | translate}}</h2>
-    </div>
-    <div class="triangleShapeDivider">
-      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
-      </svg>
-    </div>
-  </div> -->
-
+<div *ngIf="productInfo; else noData" class="productInfoWrapper">
   <div class="flex fd-c">
-    <div class="productNameContainer">
-      <h1 class="coverHeaderHeadline">{{productInfo.name}}</h1>
+    <div class="coverHeader">
+      <div class="coverHeaderContainer">
+        <h1 class="coverHeaderHeadline">{{'POVIJEST_NARUDZBI' | translate}}</h1>
+        <h2 class="coverHeaderContent">{{'POVIJEST_NARUDZBI_HEADER' | translate}}</h2>
+      </div>
     </div>
     <!-- IMAGE SECTION -->
     <div class="productImgWrapper">
@@ -99,3 +88,8 @@
     </div>
   </div>
 </div>
+
+<ng-template #noData>
+  <app-no-data noDataText="{{'NEMA_PODATAKA' | translate}}">
+  </app-no-data>
+</ng-template>

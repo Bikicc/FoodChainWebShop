@@ -7,5 +7,5 @@ export interface Order {
     note: string,
     address: string,
     userId: number,
-    products: Product[]
+    orderProduct: Product[]
 }

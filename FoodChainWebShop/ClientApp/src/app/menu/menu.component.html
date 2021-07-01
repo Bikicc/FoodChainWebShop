@@ -1,11 +1,10 @@
 <div class="menuContainer">
 
   <!-- Menu HEADER -->
-  <div class="menuCover">
-    <div class="opacityLayer"></div>
+  <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">{{'MENI' | translate}}</h1>
-      <h2 class="coverHeaderContent">{{'MENI_HEADER' | translate}}</h2>
+      <h1 class="coverHeaderHeadline">{{'KOSARICA' | translate}}</h1>
+      <h2 class="coverHeaderContent">{{'KOSARICA_HEADER' | translate}}</h2>
       <span class="as-c">
         <p-dropdown [options]="categoriesDropdown" [(ngModel)]="selectedCategoryId"
           (onChange)="filterProductsBasedOnCategory()">
@@ -13,25 +12,9 @@
       </span>
     </div>
   </div>
-  <!-- <div class="coverHeader">
-    <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">{{'MENI' | translate}}</h1>
-      <h2 class="coverHeaderContent">{{'MENI_HEADER' | translate}}</h2>
-      <span class="as-c">
-        <p-dropdown [options]="categoriesDropdown" [(ngModel)]="selectedCategoryId"
-          (onChange)="filterProductsBasedOnCategory()">
-        </p-dropdown>
-      </span>
-    </div>
-    <div class="triangleShapeDivider">
-      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
-      </svg>
-    </div>
-  </div> -->
 
   <!-- MENU SECTION-->
-  <div class="menuWrapper">
+  <div *ngIf="selectedCategory.products.length > 0; else noProducts" class="menuWrapper">
     <div class="ui-g ui-fluid w-100">
       <div *ngFor="let product of selectedCategory.products"
         class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
@@ -57,15 +40,23 @@
   </div>
 
   <!-- REVIEWS HEADER-->
-  <div class="reviewsCover">
-    <div class="opacityLayer"></div>
+  <div class="coverHeader">
     <div class="coverHeaderContainer">
       <h1 class="coverHeaderHeadline">{{'REVIEWS' | translate}}</h1>
       <h2 class="coverHeaderContent">{{'REVIEWS_HEADER' | translate}}</h2>
     </div>
   </div>
   <!-- REVIEWS SECTION-->
-
 </div>
+
+<ng-template #noProducts>
+  <app-no-data noDataText="{{'NEMA_PROIZVODA' | translate}}">
+  </app-no-data>
+</ng-template>
+
+<ng-template #noReviews>
+  <app-no-data noDataText="{{'NEMA_RECENZIJA' | translate}}">
+  </app-no-data>
+</ng-template>
 
 <app-toast-messages></app-toast-messages>
