@@ -59,22 +59,22 @@ input:focus {
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
-  z-index: 100;
+  z-index: 0 !important;
   overflow-y: auto;
-  position: relative;
+  position: relative !important;
   padding-bottom: 10px;
 }
 
 .modal__container {
   display: -ms-flexbox;
   display: flex;
-  max-width: 800px;
-  min-width: 400px;
-  min-height: 400px;
+  // max-width: 800px;
+  // min-width: 400px;
+  // min-height: 400px;
   margin-bottom: 50px;
   background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 3px 3px 20px rgba(228, 228, 228, 0.52);
+  box-shadow: 2px 1px 10px rgba(228, 228, 228, 0.52);
   width: 70%;
 }
 
@@ -211,6 +211,11 @@ a:hover {
 @media only screen and (max-width: 800px) {
   .modal__featured {
     display: none;
+  }
+
+  .modal__container {
+    width: 100%;
+    margin: 10px;
   }
 }
 
