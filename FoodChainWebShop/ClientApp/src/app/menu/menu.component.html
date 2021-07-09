@@ -47,6 +47,86 @@
     </div>
   </div>
   <!-- REVIEWS SECTION-->
+  <div *ngIf="reviews.length > 0; else noReviews" class="reviewsSection">
+    <span class="userRatingsText">{{'KORISNICKE_RECENZIJE' | translate}} (30)</span>
+    <div class="ratingContainer">
+      <div class="starStats">
+        <div id="fiveStar" class="ratingStats">
+          <span class="ratingNumberText">5</span>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <span class="rGraph">
+            <b id="fiveStarPrecentage" class="r-graph-scroller"></b>
+          </span>
+        </div>
+        <div id="fourStar" class="ratingStats">
+          <span class="ratingNumberText">4</span>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <span class="rGraph">
+            <b id="fourStarPrecentage" class="r-graph-scroller" style="width:100.0%;"></b>
+          </span>
+        </div>
+        <div id="threeStar" class="ratingStats">
+          <span class="ratingNumberText">3</span>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <span class="rGraph">
+            <b id="threeStarPrecentage" class="r-graph-scroller" style="width:100.0%;"></b>
+          </span>
+        </div>
+        <div id="twoStar" class="ratingStats">
+          <span class="ratingNumberText">2</span>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <span class="rGraph">
+            <b id="twoStarPrecentage" class="r-graph-scroller" style="width:100.0%;"></b>
+          </span>
+        </div>
+        <div id="oneStar" class="ratingStats" style="padding-left: 2px;">
+          <span class="ratingNumberText">1</span>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <span class="rGraph">
+            <b id="oneStarPrecentage" class="r-graph-scroller"></b>
+          </span>
+        </div>
+      </div>
+
+      <div class="totalStat">
+        <span class="avgLabel">Total</span>
+        <div class="totalRating">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <span class="ratingNumber">5</span>
+          <span class="ratingNumberDivider">/</span>
+          <span class="ratingNumber" style="margin-left: 2px;">5</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="commentsWrapper">
+      <div class="commentTextArea">
+        <p-rating [(ngModel)]="myRating.rating" [cancel]="false"></p-rating>
+        <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" placeholder="Write your comment..."
+          [(ngModel)]="myRating.comment"></textarea>
+        <div class="writeCommentButton">
+          <button pButton type="button" label="Comment" icon="pi pi-comment" class="ui-button-secondary"
+            (click)="postComment()"></button>
+        </div>
+      </div>
+      <div class="commentContainer" *ngFor="let review of reviews">
+        <div class="commentHeader">
+          <span class="usernameText">{{review.userName}}</span>
+          <span class="dot">•</span>
+          <span>
+            <p-rating [(ngModel)]="review.rating" [cancel]="false" [readonly]="true"></p-rating>
+          </span>
+        </div>
+        <div class="commentContent">
+          <span>
+            {{review.comment}}
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <ng-template #noProducts>

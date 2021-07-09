@@ -40,6 +40,7 @@ namespace FoodChainWebShop {
             services.AddScoped<IOrdersService, OrdersService> ();
             services.AddScoped<IRestaurantsService, RestaurantsService> ();
             services.AddScoped<IRestaurantsTypeService, RestaurantTypeService> ();
+            services.AddScoped<IRestaurantReviewsService, RestaurantReviewsService> ();
 
             //Repositories
             services.AddScoped<IAuthRepository, AuthRepository> ();
@@ -49,6 +50,7 @@ namespace FoodChainWebShop {
             services.AddScoped<IOrdersRepository, OrdersRepository> ();
             services.AddScoped<IRestaurantsRepository, RestaurantsRepository> ();
             services.AddScoped<IRestaurantTypeRepository, RestaurantTypeRepository> ();
+            services.AddScoped<IRestaurantReviewsRepository, RestaurantReviewsRepository> ();
 
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 

@@ -97,10 +97,23 @@ body {
   cursor: pointer;
 }
 
+.ui-rating {
+  font-size: 1rem
+}
+
+body .ui-rating a .ui-rating-icon {
+  margin-right: 2px;
+  font-size: 0.8rem;
+  color: gold;
+}
+
+.fa.fa-star {
+  color: gold;
+  font-size: 17px;
+}
+
 @media only screen and (max-width: 850px) {
   .HeadlineText {
     font-size: 1.5rem;
   }
 }
-
-

@@ -19,6 +19,7 @@ namespace FoodChainWebShop.Models {
 
         [Phone (ErrorMessage = "Entered number is invalid!")]
         public string mobileNumber { get; set; }
+        
         public string Address { get; set; }
 
         [JsonIgnore]

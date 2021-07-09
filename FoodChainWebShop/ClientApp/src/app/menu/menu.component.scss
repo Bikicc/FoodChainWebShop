@@ -4,6 +4,8 @@
 @import '../../assets/css/dropdown.scss';
 @import '../../assets/css/products.scss';
 
+$rad: 8px;
+
 .menuCover {
   background-image: url("../../assets/images/menuCover.jpg");
   background-size: cover;
@@ -40,8 +42,210 @@
   box-shadow: unset;
 }
 
+.reviewsSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  .userRatingsText {
+    display: flex;
+    width: 50%;
+    font-weight: 600;
+    font-size: 1.8em;
+    font-family: initial;
+    color: #666060;
+  }
+
+  .ratingContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #252525;
+    border-top: 1px solid #252525;
+
+    padding: 10px 0;
+
+    .starStats {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      margin-bottom: 10px;
+
+      .ratingStats {
+        display: flex;
+        align-items: center;
+
+        .rGraph {
+          width: 200px;
+          height: 5px;
+          background-color: #E9E9E9;
+          margin-left: 20px;
+          display: flex;
+
+          .r-graph-scroller {
+            background-color: var(--goldenColor);
+          }
+        }
+
+      }
+    }
+
+    .totalStat {
+      display: flex;
+      flex: 1 1 100%;
+      align-items: center;
+
+      .avgLabel {
+        margin-right: 10px;
+        font-size: 1.5em;
+        font-weight: 800;
+        color: #666060;
+      }
+
+      .ratingNumberDivider {
+        margin: 0 5px;
+        font-size: 1.5em;
+      }
+
+      .ratingNumber {
+        margin-left: 10px;
+        font-size: 1.5em;
+        font-weight: 600;
+      }
+    }
+
+    .fa.fa-star {
+      font-size: 22px;
+    }
+
+    .ratingNumberText {
+      margin-right: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
+
+  .commentsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+
+    .commentTextArea {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #252525;
+      ::ng-deep {
+        .ui-inputtext {
+          width: 100%;
+        }
+
+        .ui-inputtext:focus{
+          border-color: #212121 !important;
+        }
+
+        .ui-rating {
+          margin-bottom: 10px;
+        }
+
+        .ui-rating-icon {
+          font-size: 1.2em;
+          cursor: pointer;
+        }
+      }
+
+      .writeCommentButton {
+        margin-top: 5px;
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+
+      }
+    }
+
+    .commentContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      border: 1px solid var(--goldenColor);
+      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 5px 10px;
+
+      .commentHeader {
+        display: flex;
+
+        .usernameText {
+          font-weight: 600;
+          color: #666060;
+          font-size: 1.1rem;
+          font-family: initial;
+        }
+      }
+
+    }
+  }
+
+
+  .dot {
+    color: #6a6a6a;
+    padding: 0 5px;
+  }
+}
+
+:host {
+  ::ng-deep {
+    .ui-button.ui-state-default.ui-button-secondary {
+      background-color: transparent;
+      color: white;
+    }
+
+    .ui-button.ui-state-default.ui-button-secondary:hover {
+      background-color: transparent !important;
+      color: white !important;
+      border-color: #212121 !important;
+    }
+  }
+} 
+
+
+
+
 @media only screen and (max-width: 1024px) {
   .buttonContainer {
     opacity: 1;
+  }
+
+  .reviewsSection {
+    .ratingContainer {
+      width: 90%;
+
+      .starStats {
+        margin-bottom: 0;
+      }
+
+      .totalStat {
+        justify-content: center;
+        margin-bottom: 0;
+      }
+    }
+
+    .commentsWrapper {
+      width: 90%;
+
+      .commentContainer {
+        width: 100%;
+
+      }
+
+    }
+
+    .userRatingsText {
+      width: 90%;
+      justify-content: center;
+    }
   }
 }

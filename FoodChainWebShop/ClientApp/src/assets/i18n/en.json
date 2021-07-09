@@ -105,7 +105,10 @@
     "NEMA_RESTORANA": "No restaurants found",
     "NEMA_PROIZVODA": "There is no products",
     "NEMA_RECENZIJA": "There is no reviews",
-    "NEMA_NARUDZBI": "There is no orders"
+    "NEMA_NARUDZBI": "There is no orders",
+    "KORISNICKE_RECENZIJE": "Korisničke recenzije",
+    "RECENZIJA": "Reviews"
+
 
 
 }

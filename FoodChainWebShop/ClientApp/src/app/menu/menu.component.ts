@@ -30,6 +30,52 @@ export class MenuComponent implements OnInit {
   selectedCategory: Category = null;
   subscription: Subscription[] = [];
   renderHtml: boolean = false;
+  //DUMMY DATA
+  totalRating: number = 4;
+  reviews: any = [{
+    userName: 'Filip Bikić',
+    rating: 5,
+    comment: 'Dobar je maliiii'
+  },
+  {
+    userName: 'Karlo Rešetar',
+    rating: 1,
+    comment: null
+  },
+  {
+    userName: 'Filip Bikić',
+    rating: 5,
+    comment: 'Dobar je maliiii'
+  },
+  {
+    userName: 'Filip Bikić',
+    rating: 5,
+    comment: 'Dobar je maliiii'
+  },
+  {
+    userName: 'Filip Bikić',
+    rating: 5,
+    comment: 'Dobar je maliiii'
+  },
+  {
+    userName: 'Filip Bikić',
+    rating: 5,
+    comment: 'Dobar je maliiii'
+  }];
+
+  myRating: any = {
+    pkReview: null,
+    rating: null,
+    comment: null
+  }
+
+  reviewsStats: any = {
+    one: 5,
+    two: 15,
+    three: 40,
+    four: 20,
+    five: 45
+  }
 
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
@@ -46,13 +92,21 @@ export class MenuComponent implements OnInit {
       this.categories = this.categories.map(cat => {
         cat.products.forEach(prod => prod.imageToShow = this.generalService.setBase64ImageToShow(prod.image as string));
         return cat;
-      })
+      });
+
 
       this.setDropdownCategories();
       this.translate.onLangChange.subscribe(() => this.setDropdownCategories());
     }, err => {
       console.log(err);
     }));
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.setReviewStats();
+
   }
 
   ngOnDestroy(): void {
@@ -107,4 +161,23 @@ export class MenuComponent implements OnInit {
     this.addProductToBasket(pr);
   }
 
+  setReviewStats(): void {
+    const elOneStar = document.getElementById('oneStarPrecentage');
+    const elTwoStar = document.getElementById('twoStarPrecentage');
+    const elThreeStar = document.getElementById('threeStarPrecentage');
+    const elFourStar = document.getElementById('fourStarPrecentage');
+    const elFiveStar = document.getElementById('fiveStarPrecentage');
+
+    elOneStar.style.width = '30%';
+    elTwoStar.style.width = '30%';
+    elThreeStar.style.width = '60.54%';
+    elFourStar.style.width = '30%';
+    elFiveStar.style.width = '30%';
+
+
+  }
+
+  postComment() {
+    console.log("Funkcija za insert komentara")
+  }
 }

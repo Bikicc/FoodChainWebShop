@@ -6,7 +6,7 @@ namespace FoodChainWebShop.Models {
     public class RestaurantReview {
         [Required]
         public int UserId { get; set; }
-        public User User;
+        public User User { get; set; }
 
         [Required]
         public int RestaurantId { get; set; }

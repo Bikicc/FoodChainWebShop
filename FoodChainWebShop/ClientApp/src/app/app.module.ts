@@ -19,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
 import { RatingModule } from 'primeng/rating';
 import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -90,6 +91,7 @@ import { NoDataComponent } from './no-data/no-data.component';
     GMapModule,
     GooglePlaceModule,
     ToastModule,
+    InputTextareaModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },

@@ -129,10 +129,9 @@ img {
 }
 
 .basketIcon {
-  width: 60px;
+  width: 40px;
   margin-right: 15px;
   filter: invert(100%);
-  transform: translateY(5px);
 }
 
 .numberOfProductsInBasket {
@@ -141,8 +140,8 @@ img {
   background-color: #f5ce34c9;
   border-radius: 50px;
   position: absolute;
-  top: 6px;
-  right: 117px;
+  top: 5px;
+  right: 127px;
   color: white;
   text-align: center;
   cursor: pointer;
@@ -161,12 +160,10 @@ img {
     display: block;
   }
 
-  .basketIcon {
-    width: 40px;
-    margin-right: 15px;
-    filter: invert(100%);
-    transform: translateY(2px);
-  }
+  // .basketIcon {
+  //   margin-right: 15px;
+  //   filter: invert(100%);
+  // }
 
   .numberOfProductsInBasket {
     top: 1px;
