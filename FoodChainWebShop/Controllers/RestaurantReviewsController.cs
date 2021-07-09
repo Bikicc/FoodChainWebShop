@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
+using FoodChainWebShop.HelperClasses;
 
 namespace FoodChainWebShop.Controllers {
 
@@ -19,12 +20,16 @@ namespace FoodChainWebShop.Controllers {
         }
 
         [HttpPost]
+        [Authorize]
+
         public async Task<IActionResult> PostRestaurantReview ([FromBody] RestaurantReview review) {
             await _restaurantReviewsService.InsertReview (review);
             return Ok ();
         }
 
         [HttpPut]
+        [Authorize]
+
         public async Task<IActionResult> UpdateRestaurantReview ([FromBody] RestaurantReview review) {
             await _restaurantReviewsService.UpdateReview (review);
             return Ok ();

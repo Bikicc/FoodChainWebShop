@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -10,6 +9,8 @@ namespace FoodChainWebShop.Models {
 
         [Required]
         public int RestaurantId { get; set; }
+
+        [JsonIgnore]
         public Restaurant Restaurant { get; set; }
 
         [Required]

@@ -2,20 +2,30 @@ import { TranslateService } from '@ngx-translate/core';
 import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
 import { Category } from './../interfaces/Category';
-import { CategoryService } from './../services/CategoryService';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ComponentCommunicationService } from "../services/ComponentCommunicationService";
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ProductService } from '../services/ProductService';
 import { GeneralService } from '../services/GeneralService';
+import { RestaurantReview } from '../interfaces/RestaurantReview';
+import { User } from '../interfaces/User';
+import { RestaurantReviewService } from '../services/RestaurantReviewService';
+
+interface StarPrecentage {
+  one: string,
+  two: string,
+  three: string,
+  four: string,
+  five: string
+};
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
+
 export class MenuComponent implements OnInit {
   @ViewChild(ToastMessagesComponent, { static: false })
   toastMessages: ToastMessagesComponent;
@@ -30,52 +40,17 @@ export class MenuComponent implements OnInit {
   selectedCategory: Category = null;
   subscription: Subscription[] = [];
   renderHtml: boolean = false;
-  //DUMMY DATA
-  totalRating: number = 4;
-  reviews: any = [{
-    userName: 'Filip Bikić',
-    rating: 5,
-    comment: 'Dobar je maliiii'
-  },
-  {
-    userName: 'Karlo Rešetar',
-    rating: 1,
-    comment: null
-  },
-  {
-    userName: 'Filip Bikić',
-    rating: 5,
-    comment: 'Dobar je maliiii'
-  },
-  {
-    userName: 'Filip Bikić',
-    rating: 5,
-    comment: 'Dobar je maliiii'
-  },
-  {
-    userName: 'Filip Bikić',
-    rating: 5,
-    comment: 'Dobar je maliiii'
-  },
-  {
-    userName: 'Filip Bikić',
-    rating: 5,
-    comment: 'Dobar je maliiii'
-  }];
-
-  myRating: any = {
-    pkReview: null,
+  totalRating: number = 0;
+  reviews: RestaurantReview[] = [];
+  numberOfReviews: number = 0;
+  starPrecentage: StarPrecentage = {} as StarPrecentage;
+  userData: User = {} as User;
+  myReview: { Reviewed: boolean, rating: number, comment: string } = {
+    Reviewed: false,
     rating: null,
     comment: null
   }
-
-  reviewsStats: any = {
-    one: 5,
-    two: 15,
-    three: 40,
-    four: 20,
-    five: 45
-  }
+  loading: boolean = false;
 
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
@@ -83,12 +58,24 @@ export class MenuComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private basketService: BasketService,
     private translate: TranslateService,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private route: ActivatedRoute,
+    private restaurantReviewService: RestaurantReviewService
   ) { }
 
   ngOnInit() {
-    this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
+    this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[], reviews: RestaurantReview[] }) => {
       this.categories = data.categories;
+      this.reviews = data.reviews;
+
+      this.setUserData();
+
+      this.setMyReview(this.userData);
+
+      this.totalRating = this.calcTotalRating(this.reviews);
+      this.numberOfReviews = this.getNumberOfReviews(this.reviews);
+      this.setReviewStats(this.reviews);
+
       this.categories = this.categories.map(cat => {
         cat.products.forEach(prod => prod.imageToShow = this.generalService.setBase64ImageToShow(prod.image as string));
         return cat;
@@ -103,10 +90,6 @@ export class MenuComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    this.setReviewStats();
-
   }
 
   ngOnDestroy(): void {
@@ -126,16 +109,6 @@ export class MenuComponent implements OnInit {
 
     this.filterProductsBasedOnCategory();
   }
-
-
-  // getMenuItems() {
-  //   this.subscription.push(this.categoryService.category_SelectAllWithProducts(Number(this.route.params.restaurantId)).subscribe((data: Category[]) => {
-  //     this.categories = data;
-  //     this.setDropdownCategories();
-  //   }, err => {
-  //     console.log(err);
-  //   }));
-  // }
 
   filterProductsBasedOnCategory() {
     this.selectedCategory = this.categories.filter(item => item.categoryId == this.selectedCategoryId)[0];
@@ -161,23 +134,130 @@ export class MenuComponent implements OnInit {
     this.addProductToBasket(pr);
   }
 
-  setReviewStats(): void {
-    const elOneStar = document.getElementById('oneStarPrecentage');
-    const elTwoStar = document.getElementById('twoStarPrecentage');
-    const elThreeStar = document.getElementById('threeStarPrecentage');
-    const elFourStar = document.getElementById('fourStarPrecentage');
-    const elFiveStar = document.getElementById('fiveStarPrecentage');
+  setReviewStats(reviews: RestaurantReview[]): void {
+    const ratingPrecentage = this.calcRatingPrecentage(reviews);
+    this.starPrecentage.one = (ratingPrecentage.one + "%");
+    this.starPrecentage.two = (ratingPrecentage.two + "%");
+    this.starPrecentage.three = (ratingPrecentage.three + "%");
+    this.starPrecentage.four = (ratingPrecentage.four + "%");
+    this.starPrecentage.five = (ratingPrecentage.five + "%");
+  }
 
-    elOneStar.style.width = '30%';
-    elTwoStar.style.width = '30%';
-    elThreeStar.style.width = '60.54%';
-    elFourStar.style.width = '30%';
-    elFiveStar.style.width = '30%';
+  onClickReview() {
+    if (this.myReview.Reviewed) {
+      this.updateReview();
+    } else {
+      this.insertReview();
+    }
+  }
 
+  calcTotalRating(rw: RestaurantReview[]): number {
+    const numberOfReviews: number = rw.length;
+    const accumulativeScore: number = rw.reduce((acc, curr) => { return acc + curr.rating }, 0);
+
+    return Math.round(accumulativeScore / numberOfReviews * 100) / 100;
+  }
+
+  getNumberOfReviews(rw: RestaurantReview[]) {
+    return rw.length;
+  }
+
+  calcRatingPrecentage(rw: RestaurantReview[]): StarPrecentage {
+    const totalNumberOfReviews = rw.length;
+    const numberOfOneStar = rw.filter(rw => rw.rating === 1).length;
+    const numberOfTwoStar = rw.filter(rw => rw.rating === 2).length;
+    const numberOfThreeStar = rw.filter(rw => rw.rating === 3).length;
+    const numberOfFourStar = rw.filter(rw => rw.rating === 4).length;
+    const numberOfFiveStar = rw.filter(rw => rw.rating === 5).length;
+
+    return {
+      one: ((numberOfOneStar / totalNumberOfReviews) * 100).toFixed(2),
+      two: ((numberOfTwoStar / totalNumberOfReviews) * 100).toFixed(2),
+      three: ((numberOfThreeStar / totalNumberOfReviews) * 100).toFixed(2),
+      four: ((numberOfFourStar / totalNumberOfReviews) * 100).toFixed(2),
+      five: ((numberOfFiveStar / totalNumberOfReviews) * 100).toFixed(2)
+    }
 
   }
 
-  postComment() {
-    console.log("Funkcija za insert komentara")
+  setMyReview(user: User): void {
+    //Provjeravamo da li uopce postoji logirani korisnik
+    if (user) {
+      //Trazimo da li je ostavia review
+      const userReview = this.reviews.find(r => r.userId === user.userId);
+      if (userReview) {
+        this.myReview = {
+          Reviewed: true,
+          rating: userReview.rating,
+          comment: userReview.comment
+        }
+      }
+    }
+  }
+
+  setUserData(): void {
+    const user = JSON.parse(localStorage.getItem("user")) || null;
+    if (user) {
+      this.userData = user;
+    } else {
+      this.userData = null;
+    }
+  }
+
+  getReviews(): void {
+    this.restaurantReviewService.getRestaurantReviews(Number(this.route.snapshot.params.restaurantId)).subscribe((data: RestaurantReview[]) => {
+      this.reviews = data;
+      this.setMyReview(this.userData);
+
+      this.totalRating = this.calcTotalRating(this.reviews);
+      this.numberOfReviews = this.getNumberOfReviews(this.reviews);
+      this.setReviewStats(this.reviews);
+    }, err => {
+      this.loading = false;
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      console.log(err);
+    })
+  }
+
+  insertReview() {
+    const reviewData: RestaurantReview = {
+      RestaurantId: Number(this.route.snapshot.params.restaurantId),
+      comment: this.myReview.comment,
+      rating: this.myReview.rating,
+      userId: this.userData.userId
+    };
+    
+    this.loading = true;
+    
+    this.restaurantReviewService.insertRestaurantReview(reviewData).subscribe(() => {
+      this.loading = false;
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Hvala na ostavljenoj recenziji!') : this.toastMessages.saveChangesSuccess('Thank you for your review!');
+      this.getReviews();
+    }, err => {
+      this.loading = false;
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      console.log(err);
+    })
+  }
+
+  updateReview() {
+    const reviewData: RestaurantReview = {
+      RestaurantId: Number(this.route.snapshot.params.restaurantId),
+      comment: this.myReview.comment,
+      rating: this.myReview.rating,
+      userId: this.userData.userId
+    };
+    
+    this.loading = true;
+    
+    this.restaurantReviewService.updateRestaurantReview(reviewData).subscribe(() => {
+      this.loading = false;
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Hvala na ostavljenoj recenziji!') : this.toastMessages.saveChangesSuccess('Thank you for your review!');
+      this.getReviews();
+    }, err => {
+      this.loading = false;
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      console.log(err);
+    })
   }
 }

@@ -40,6 +40,7 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BasketComponent } from './basket/basket.component';
+import { NoDataComponent } from './no-data/no-data.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { CategoryService } from './services/CategoryService';
@@ -58,7 +59,8 @@ import { RestaurantsResloverService } from './services/RestaurantsResloverServic
 import { RestaurantTypeService } from './services/RestaurantTypeService';
 import { RestaurantTypeResolverService } from './services/RestaurantTypeResolverService';
 import { GeneralService } from './services/GeneralService';
-import { NoDataComponent } from './no-data/no-data.component';
+import { RestaurantReviewService } from './services/RestaurantReviewService';
+import { RestaurantReviewResolverService } from './services/RestaurantReviewResolverService';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,7 @@ import { NoDataComponent } from './no-data/no-data.component';
       { path: 'login', component: LoginComponent },
       { path: 'aboutUs', component: AboutUsComponent },
       { path: 'contactUs', component: ContactUsComponent },
-      { path: 'menu/:restaurantId', component: MenuComponent, resolve: { categories: MenuResolverService } },
+      { path: 'menu/:restaurantId', component: MenuComponent, resolve: { categories: MenuResolverService, reviews: RestaurantReviewResolverService } },
       { path: 'favourites', component: FavouritesComponent, resolve: { favourites: FavouritesResolverService } },
       { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },
@@ -133,6 +135,8 @@ import { NoDataComponent } from './no-data/no-data.component';
     RestaurantsService,
     RestaurantTypeService,
     GeneralService,
+    RestaurantReviewService,
+    RestaurantReviewResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

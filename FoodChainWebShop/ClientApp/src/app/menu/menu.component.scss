@@ -138,12 +138,13 @@ $rad: 8px;
       margin-bottom: 20px;
       padding-bottom: 20px;
       border-bottom: 1px solid #252525;
+
       ::ng-deep {
         .ui-inputtext {
           width: 100%;
         }
 
-        .ui-inputtext:focus{
+        .ui-inputtext:focus {
           border-color: #212121 !important;
         }
 
@@ -203,14 +204,33 @@ $rad: 8px;
       color: white;
     }
 
-    .ui-button.ui-state-default.ui-button-secondary:hover {
+    .ui-button.ui-state-default.ui-button-secondary:not([disabled]):hover {
       background-color: transparent !important;
       color: white !important;
       border-color: #212121 !important;
     }
-  }
-} 
 
+    .ui-button.ui-state-default.ui-button-secondary:focus {
+      box-shadow: unset !important;
+    }
+
+    .ui-widget:disabled:hover {
+      cursor: default !important;
+    }
+  }
+}
+
+.precentageCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 17px;
+  background-color: #1a1a1a;
+  margin-left: 20px;
+  border: 1px solid var(--goldenColor);
+  font-size: 0.9em;
+}
 
 
 
@@ -225,6 +245,11 @@ $rad: 8px;
 
       .starStats {
         margin-bottom: 0;
+        .ratingStats {
+          .rGraph {
+            width: 100px;
+          }
+        }
       }
 
       .totalStat {
@@ -246,6 +271,7 @@ $rad: 8px;
     .userRatingsText {
       width: 90%;
       justify-content: center;
+      font-size: 1.6em;
     }
   }
 }
