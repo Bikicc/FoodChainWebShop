@@ -61,6 +61,12 @@ img {
   flex-direction: column;
 }
 
+.rolePickerContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
 .dataInput {
   display: flex;
   justify-content: center;

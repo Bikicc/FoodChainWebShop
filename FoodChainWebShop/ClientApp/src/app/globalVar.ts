@@ -4,4 +4,9 @@ import { Injectable } from '@angular/core';
 export class GlobalVar {
     homeSlideimages: string[] = ['assets/images/ThreeBurgerCover.png', 'assets/images/BestBurgerQuality&Prices.jpg', 'assets/images/FastFoodStoresCover.png'];
     PkUser: number = null;
+    readonly userRoles = {
+        admin: 1,
+        vlasnik: 2,
+        korisnik: 3
+    }
 }

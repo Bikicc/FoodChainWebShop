@@ -20,6 +20,7 @@ import { CardModule } from 'primeng/card';
 import { RatingModule } from 'primeng/rating';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -94,6 +95,7 @@ import { RestaurantReviewResolverService } from './services/RestaurantReviewReso
     GooglePlaceModule,
     ToastModule,
     InputTextareaModule,
+    SelectButtonModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },

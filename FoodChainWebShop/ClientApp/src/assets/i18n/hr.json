@@ -88,6 +88,7 @@
     "UKLONI_IZ_FAVORITE": "Ukloni iz favorita",
     "USERNAME_ERROR": "Korisničko ime mora sadržavati barem 4 karaktera!",
     "PASSWORD_ERROR": "Lozinka mora sadržavati barem 4 karaktera!",
+    "MOBILE_ERROR": "Format broja neispravan!",
     "IMAM_RACUN_REGISTRACIJA": "Imam korisnički račun!",
     "ODJAVA": "ODJAVA",
     "NO_FAVOURITES": "NEMATE FAVORITA!",
@@ -96,7 +97,7 @@
     "NARUDZBA_ZAPRIMLJENA": "Narudžba je zaprimljena!",
     "DOSLO_DO_POGRESKE": "Došlo je do pogreške! Pokušajte ponovno.",
     "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Podatci se nisu uspješno osvježili!",
-    "RESTORANI": "Restaurants",
+    "RESTORANI": "Restorani",
     "REVIEWS_HEADER": "Saznajte što korisnici misle o našim uslugama",
     "REVIEWS": "Recenzije",
     "RESTAURANTS_HEADER": "Provjerite najbolju ponudu restorana na jednom mjestu",
@@ -107,7 +108,9 @@
     "NEMA_RECENZIJA": "Nema recenzija",
     "NEMA_NARUDZBI": "Nema narudžbi",
     "KORISNICKE_RECENZIJE": "Korisničke recenzije",
-    "RECENZIJA": "Recenzija"
+    "RECENZIJA": "Recenzija",
+    "BROJ_MOBITELA": "Br. mob.",
+    "KORISNIK_USPJESNO_DODAN": "Korisnik uspješno dodan"
 
 
 

@@ -88,6 +88,7 @@
     "UKLONI_IZ_FAVORITE": "Remove from favourites",
     "USERNAME_ERROR": "Username must contain at least 4 characters!",
     "PASSWORD_ERROR": "Password must contain at least 4 characters!",
+    "MOBILE_ERROR": "Incorrect number format!",
     "IMAM_RACUN_REGISTRACIJA": "I already have an account!",
     "ODJAVA": "LOGOUT",
     "NO_FAVOURITES": "NO FAVOURITES YET!",
@@ -107,7 +108,11 @@
     "NEMA_RECENZIJA": "There is no reviews",
     "NEMA_NARUDZBI": "There is no orders",
     "KORISNICKE_RECENZIJE": "Korisničke recenzije",
-    "RECENZIJA": "Reviews"
+    "RECENZIJA": "Reviews",
+    "BROJ_MOBITELA": "Tel. number",
+    "KORISNIK_USPJESNO_DODAN": "User Successfully added"
+
+
 
 
 
