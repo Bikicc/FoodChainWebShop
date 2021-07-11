@@ -34,6 +34,15 @@ export class UserService {
             );
     }
 
+    registerUserAdmin(body : any) {
+        return this.http
+        .post(this.config.API_URL + 'auth/admin/createUser', body, { headers: this.headersOption })
+        .pipe(
+            retry(this.config.APIRetryCount),
+            catchError(this.errorHandler.errorHandler)
+        );
+    }
+
     loginUser(body: any) {
         return this.http
             .post(this.config.API_URL + 'auth/loginUser', body, { headers: this.headersOption })

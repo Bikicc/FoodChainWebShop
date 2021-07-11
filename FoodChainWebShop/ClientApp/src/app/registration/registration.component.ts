@@ -98,14 +98,17 @@ export class RegistrationComponent implements OnInit {
   }
 
   submitForm() {
+    let registrationApi = null;
     if (!this.buttonDisabled) {
       if (this.roleId === this.globalVar.userRoles.admin) {
         this.userToRegister.roleId = this.selectedRole;
+        registrationApi = this.userService.registerUserAdmin(this.userToRegister);
       } else {
         this.userToRegister.roleId = this.globalVar.userRoles.korisnik;
+        registrationApi = this.userService.registerUser(this.userToRegister);
       }
       this.loading = true;
-      this.subscription.push(this.userService.registerUser(this.userToRegister).subscribe(() => {
+      this.subscription.push(registrationApi.subscribe(() => {
         this.loading = false;
         //Registraciju mogu vršiti anonimni korisnici i administrator, ako je anoniman roleId je null
         if (this.roleId) {
@@ -114,16 +117,14 @@ export class RegistrationComponent implements OnInit {
           this.router.navigate(["login"], { queryParams: { fromRegistration: true } });
         }
       }, (err: HttpErrorResponse) => {
-        console.log(err.status)
+        this.loading = false;
         if (err.error.errorId === 1) {
           this.usernameTaken = err.error.message;
-          this.loading = false;
           return;
         }
 
         if (err.error.errorId === 2) {
           this.emailTaken = err.error.message;
-          this.loading = false;
           return;
         }
       }));

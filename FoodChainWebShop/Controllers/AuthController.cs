@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
+using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
-using FoodChainWebShop.HelperClasses;
 namespace FoodChainWebShop.Controllers {
     public class AuthController : ControllerBase {
         private IAuthService _userService;
@@ -18,11 +18,28 @@ namespace FoodChainWebShop.Controllers {
                 return BadRequest (ModelState);
             }
 
-            errorMessage error = await _userService.createUser(user);
+            errorMessage error = await _userService.createUser (user);
             if (error != null) {
-                return BadRequest(error);
+                return BadRequest (error);
             } else {
-                return Ok();
+                return Ok ();
+            }
+        }
+
+        [Route ("api/auth/admin/createUser")]
+        [HttpPost]
+        //OVO TRIBA OSIGURAT DA SAMO ADMIN MOZE
+        public async Task<IActionResult> createUserAdmin ([FromBody] User user) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest (ModelState);
+            }
+
+            errorMessage error = await _userService.createUser (user);
+            if (error != null) {
+                return BadRequest (error);
+            } else {
+                return Ok ();
             }
         }
 
