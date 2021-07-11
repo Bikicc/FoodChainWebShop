@@ -29,6 +29,11 @@ namespace FoodChainWebShop {
                 .Get<EmailConfiguration> ();
             services.AddSingleton (emailConfig);
 
+            var rolesConfig = Configuration
+                .GetSection ("RolesConfiguration")
+                .Get<RolesConfiguration> ();
+            services.AddSingleton (rolesConfig);
+
             services.Configure<AppSettings> (Configuration.GetSection ("AppSettings"));
 
             //Services

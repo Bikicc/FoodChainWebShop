@@ -13,20 +13,20 @@ namespace FoodChainWebShop.Controllers {
             this._favouritesService = service;
         }
 
-        [Authorize(3)]
+        [Authorize("korisnik")]
         [HttpGet ("{userId}")]
         public async Task<IActionResult> GetFavourites (int userId) {
             return Ok (await _favouritesService.getFavourites(userId));
         }
 
-        [Authorize(3)]
+        [Authorize("korisnik")]
         [HttpPost]
         public async Task<IActionResult> postFavourite ([FromBody] Favourite favourite) {
             await _favouritesService.postFavourite(favourite);
             return Ok ();
         }
 
-        [Authorize(3)]
+        [Authorize("korisnik")]
         [HttpDelete ("{userId}/{productId}")]
         public async Task<IActionResult> deleteFavourite (int userId, int productId) {
             await _favouritesService.deleteFavourite(userId, productId);

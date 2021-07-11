@@ -102,7 +102,8 @@ export class RegistrationComponent implements OnInit {
     if (!this.buttonDisabled) {
       if (this.roleId === this.globalVar.userRoles.admin) {
         this.userToRegister.roleId = this.selectedRole;
-        registrationApi = this.userService.registerUser(this.userToRegister);
+        // registrationApi = this.userService.registerUser(this.userToRegister);
+        registrationApi = this.userService.registerUserAdmin(this.userToRegister);
 
       } else {
         this.userToRegister.roleId = this.globalVar.userRoles.korisnik;

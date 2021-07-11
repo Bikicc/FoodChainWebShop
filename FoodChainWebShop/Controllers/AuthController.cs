@@ -28,7 +28,7 @@ namespace FoodChainWebShop.Controllers {
 
         [Route ("api/auth/admin/createUser")]
         [HttpPost]
-        [Authorize(1)]
+        [Authorize ("admin")]
         public async Task<IActionResult> createUserAdmin ([FromBody] User user) {
 
             if (!ModelState.IsValid) {
