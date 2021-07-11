@@ -14,14 +14,14 @@ namespace FoodChainWebShop.Controllers {
 
         [Route ("api/orders/getOrders/{userId}")]
         [HttpGet]
-        [Authorize]
+        [Authorize(3)]
         public async Task<IActionResult> GetOrders (int userId) {
             return Ok(await _ordersService.GetOrders(userId));
         }
 
         [Route ("api/orders/order")]
         [HttpPost]
-        [Authorize]
+        [Authorize(3)]
         public async Task<IActionResult> postOrders ([FromBody] Order order) {
 
             if (!ModelState.IsValid) {
@@ -35,7 +35,7 @@ namespace FoodChainWebShop.Controllers {
 
         [Route ("api/orders/orderProducts")]
         [HttpPost]
-        [Authorize]
+        [Authorize(3)]
         public async Task<IActionResult> postOrderProducts ([FromBody] OrderProduct orderProduct) {
 
             if (!ModelState.IsValid) {

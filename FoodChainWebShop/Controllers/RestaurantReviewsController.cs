@@ -20,7 +20,7 @@ namespace FoodChainWebShop.Controllers {
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(3)]
 
         public async Task<IActionResult> PostRestaurantReview ([FromBody] RestaurantReview review) {
             await _restaurantReviewsService.InsertReview (review);
@@ -28,7 +28,7 @@ namespace FoodChainWebShop.Controllers {
         }
 
         [HttpPut]
-        [Authorize]
+        [Authorize(3)]
 
         public async Task<IActionResult> UpdateRestaurantReview ([FromBody] RestaurantReview review) {
             await _restaurantReviewsService.UpdateReview (review);
