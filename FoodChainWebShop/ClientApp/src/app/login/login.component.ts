@@ -17,10 +17,10 @@ export class LoginComponent implements OnInit {
   toastMessages: ToastMessagesComponent;
 
   userCredentials: User = {
-    email: '',
     Username: '',
-    PasswordPlain: ''
-  }
+    email: '',
+    PasswordPlain: '',
+  };
   wrongCredentials: boolean = false;
   subscription: Subscription[] = [];
 
@@ -54,13 +54,21 @@ export class LoginComponent implements OnInit {
     this.subscription.push(this.userService.loginUser(this.userCredentials).subscribe((data) => {
       this.wrongCredentials = false;
       localStorage.setItem('user', JSON.stringify(data));
-      this.router.navigate(["homepage"]);
+      this.redirectAfterLogin(data);
       this.dataFromAnotherComponent.userLoginStatus(true);
     }, err => this.wrongCredentials = true));
   }
 
   resetWrongCredentials() {
     this.wrongCredentials = false;
+  }
+
+  redirectAfterLogin(user) {
+    if (user.roleId === 1 || user.roleId === 2) {
+      this.router.navigate(["restaurants"]);
+    } else {
+      this.router.navigate(["homepage"]);
+    }
   }
 
 }

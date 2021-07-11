@@ -1,29 +1,31 @@
 <div class="footerContainer flex jc-c">
   <div class="footerContentContainer flex fd-c ai-c">
-    <div class="socialMediaContainer">
-      <a class="socialMediaHref" href="#">
-        <img class="socialMediaImg" style="width: 50px;" src="assets/images/twitterLogo.png">
-      </a>
-      <a class="socialMediaHref" href="#">
-        <img class="socialMediaImg" style="width: 50px;" src="assets/images/instagramLogo.png">
-      </a>
-      <a class="socialMediaHref" href="#">
-        <img class="socialMediaImg" style="width: 50px;" src="assets/images/facebookLogo.png">
-      </a>
-    </div>
-    <div class="navContainer">
-      <a class="navItems"  routerLink="/homepage">{{'POCETNA' | translate}}</a>
-      <a class="navItems" routerLink="/menu">{{'MENI' | translate}}</a>
-      <a class="navItems" routerLink="/contactUs">{{'KONTAKTIRAJTE_NAS' | translate}}</a>
-      <a class="navItems" routerLink="/aboutUs">{{'O_NAMA' | translate}}</a>
-    </div>
-    <div class="registrationContainer">
-      <div class="flex jc-c buttonContainer">
-        <a href="#" class="btn" routerLink="/registration">{{'REGISTRACIJA' | translate}}</a>
+    <div *ngIf="!roleId || roleId === globalVar.userRoles.korisnik" class="userViewContainer">
+      <div class="socialMediaContainer">
+        <a class="socialMediaHref" href="#">
+          <img class="socialMediaImg" style="width: 50px;" src="assets/images/twitterLogo.png">
+        </a>
+        <a class="socialMediaHref" href="#">
+          <img class="socialMediaImg" style="width: 50px;" src="assets/images/instagramLogo.png">
+        </a>
+        <a class="socialMediaHref" href="#">
+          <img class="socialMediaImg" style="width: 50px;" src="assets/images/facebookLogo.png">
+        </a>
       </div>
-    </div>
-    <div class="alreadyHaveAnAccountContainer">
-      <a class="alreadyHaveAnAccountLink" routerLink="/login">{{'IMAM_RACUN' | translate}}</a>
+      <div class="navContainer">
+        <a class="navItems"  routerLink="/homepage">{{'POCETNA' | translate}}</a>
+        <a class="navItems" routerLink="/menu">{{'MENI' | translate}}</a>
+        <a class="navItems" routerLink="/contactUs">{{'KONTAKTIRAJTE_NAS' | translate}}</a>
+        <a class="navItems" routerLink="/aboutUs">{{'O_NAMA' | translate}}</a>
+      </div>
+      <div class="registrationContainer">
+        <div class="flex jc-c buttonContainer">
+          <a href="#" class="btn" routerLink="/registration">{{'REGISTRACIJA' | translate}}</a>
+        </div>
+      </div>
+      <div class="alreadyHaveAnAccountContainer">
+        <a class="alreadyHaveAnAccountLink" routerLink="/login">{{'IMAM_RACUN' | translate}}</a>
+      </div>
     </div>
     <div class="copyrightContainer">
       <span class="copyrightContent">© 2020 Filip Bikić All Rights Reserved</span>

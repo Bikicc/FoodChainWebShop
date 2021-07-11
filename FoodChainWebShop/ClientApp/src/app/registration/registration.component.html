@@ -80,7 +80,7 @@
         <a class="btn" (click)="submitForm()" [ngClass]="{'disabledButton': buttonDisabled}">{{'REGISTRACIJA' |
           translate}}</a>
       </div>
-      <div class="flex jc-c">
+      <div *ngIf="!roleId" class="flex jc-c">
         <a routerLink="/login" class="haveAccountLink">{{'IMAM_RACUN_REGISTRACIJA' | translate}}</a>
       </div>
     </section>

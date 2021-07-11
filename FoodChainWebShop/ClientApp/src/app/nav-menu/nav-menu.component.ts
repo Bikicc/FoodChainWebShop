@@ -6,6 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { filter, skip } from 'rxjs/operators'
 import { Subscription } from 'rxjs';
 import { ComponentCommunicationService } from "../services/ComponentCommunicationService";
+import { GeneralService } from '../services/GeneralService';
+import { GlobalVar } from '../globalVar';
+
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
@@ -18,7 +21,9 @@ export class NavMenuComponent {
     private router: Router,
     private dataFromAnotherComponent: ComponentCommunicationService,
     private basketService: BasketService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private generalService: GeneralService,
+    public globalVar: GlobalVar) { }
 
   isExpanded = false;
   selectedRoute: string = null;
@@ -28,7 +33,7 @@ export class NavMenuComponent {
   numberOfProducts: number = 0;
   message: string;
   userLoginStatus: boolean = false;
-
+  roleId: number = null;
   ngOnInit(): void {
     this.selectedLang = this.translate.currentLang;
     this.setDropDownLangs();
@@ -62,11 +67,16 @@ export class NavMenuComponent {
     this.subscription.push(
       this.dataFromAnotherComponent.userLoginStatusSource
         .pipe(skip(1))
-        .subscribe((status: boolean) => this.setUserLoginStatus(status)))
+        .subscribe((status: boolean) => {
+          this.setUserLoginStatus(status);
+          this.roleId = this.generalService.getUserRoleId();
+        }));
 
-    if(JSON.parse(localStorage.getItem("user")) || null) {
+    if (JSON.parse(localStorage.getItem("user")) || null) {
       this.userLoginStatus = true;
     }
+
+    this.roleId = this.generalService.getUserRoleId();
 
   }
 

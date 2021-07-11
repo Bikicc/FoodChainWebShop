@@ -4,26 +4,41 @@
       <ul class="flex fd-r jc-sb">
         <li class="logoAndLangChangeContainer">
           <div class="flex">
-            <a class="logoHomeLink" routerLink="/homepage">
-              <img src="assets/images/burgerLogo.png" style="width: 100px;">
+            <a *ngIf="(roleId === globalVar.userRoles.admin ||  roleId === globalVar.userRoles.vlasnik); else routeLogo" class="logoHomeLink">
+              <img src="assets/images/burgerLogo.png" style="width: 100px; cursor: default;" >
             </a>
+            <ng-template #routeLogo>
+              <a class="logoHomeLink" routerLink="/homepage">
+                <img src="assets/images/burgerLogo.png" style="width: 100px" >
+              </a>
+            </ng-template>
+            
             <span class="as-c">
               <p-dropdown [options]="langs" [(ngModel)]="selectedLang" (onChange)="changeLang()">
               </p-dropdown>
             </span>
           </div>
         </li>
-        <li class="linksContainer jc-c">
+        <li *ngIf="!roleId || roleId === globalVar.userRoles.korisnik" class="linksContainer jc-c">
           <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
           <a routerLink="/aboutUs">{{'O_NAMA' | translate}}</a>
           <a routerLink="/contactUs">{{'KONTAKTIRAJTE_NAS' | translate}}</a>
           <a routerLink="/favourites">{{'FAVORITI' | translate}}</a>
           <a routerLink="/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
         </li>
+        <li *ngIf="roleId && roleId === globalVar.userRoles.admin" class="linksContainer jc-c">
+          <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
+          <a routerLink="/admin/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+          <a routerLink="/registration">{{'REGISTRIRAJ_KORISNIKA' | translate}}</a>
+        </li>
+        <li *ngIf="roleId && roleId === globalVar.userRoles.vlasnik" class="linksContainer jc-c">
+          <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
+          <a routerLink="/owner/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+        </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-c buttonContainer">
-            <img class="basketIcon" src="assets/images/MenuBasket.png" (click)="navigateToBasket()">
-            <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
+            <img *ngIf="!roleId || roleId === globalVar.userRoles.korisnik" class="basketIcon" src="assets/images/MenuBasket.png" (click)="navigateToBasket()">
+            <div *ngIf="!roleId || roleId === globalVar.userRoles.korisnik" class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
             <a *ngIf="!userLoginStatus" routerLink="/login" class="btn" style="min-width: 80px ">{{'PRIJAVA' | translate}}</a>
@@ -50,8 +65,8 @@
         </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-fe buttonContainer">
-            <img class="basketIcon" src="assets/images/MenuBasket.png" (click)="navigateToBasket()">
-            <div class="numberOfProductsInBasket" (click)="navigateToBasket()">
+            <img *ngIf="!roleId || roleId === globalVar.userRoles.korisnik" class="basketIcon" src="assets/images/MenuBasket.png" (click)="navigateToBasket()">
+            <div *ngIf="!roleId || roleId === globalVar.userRoles.korisnik" class="numberOfProductsInBasket" (click)="navigateToBasket()">
               {{numberOfProducts}}
             </div>
             <a *ngIf="!userLoginStatus" routerLink="/login" class="btn" style="width: 80px !important ">{{'PRIJAVA' | translate}}</a>
@@ -65,12 +80,22 @@
 
 <div id="overlayNav" class="overlayNav">
   <a href="javascript:void(0)" class="closebtn" (click)="closeOverlayNav()">&times;</a>
-  <div class="overlayNavContent">
+  <div *ngIf="!roleId || roleId === globalVar.userRoles.korisnik" class="overlayNavContent">
+    <a routerLink="/homepage">{{'POCETNA' | translate}}</a>
     <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
     <a routerLink="/aboutUs">{{'O_NAMA' | translate}}</a>
     <a routerLink="/contactUs">{{'KONTAKTIRAJTE_NAS' | translate}}</a>
     <a routerLink="/favourites">{{'FAVORITI' | translate}}</a>
     <a routerLink="/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+  </div>
+  <div *ngIf="roleId && roleId === globalVar.userRoles.admin" class="overlayNavContent">
+    <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
+    <a routerLink="/admin/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+    <a routerLink="/registration">{{'REGISTRIRAJ_KORISNIKA' | translate}}</a>
+  </div>
+  <div *ngIf="roleId && roleId === globalVar.userRoles.vlasnik" class="overlayNavContent">
+    <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
+    <a routerLink="/owner/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
   </div>
 </div>
 
