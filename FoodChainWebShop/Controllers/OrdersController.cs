@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using FoodChainWebShop.Data;
 using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;

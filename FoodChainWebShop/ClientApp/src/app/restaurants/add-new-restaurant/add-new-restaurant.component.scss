@@ -1,0 +1,21 @@
+@import '../../../assets/css/form.scss';
+@import '../../../assets/css/loader.css';
+
+.buttonContainer {
+    width: 80%;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+.mh-40 {
+    max-height: 40px;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 0.8rem;
+}

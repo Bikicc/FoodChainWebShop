@@ -29,11 +29,6 @@ namespace FoodChainWebShop {
                 .Get<EmailConfiguration> ();
             services.AddSingleton (emailConfig);
 
-            var rolesConfig = Configuration
-                .GetSection ("RolesConfiguration")
-                .Get<RolesConfiguration> ();
-            services.AddSingleton (rolesConfig);
-
             services.Configure<AppSettings> (Configuration.GetSection ("AppSettings"));
 
             //Services
@@ -46,6 +41,7 @@ namespace FoodChainWebShop {
             services.AddScoped<IRestaurantsService, RestaurantsService> ();
             services.AddScoped<IRestaurantsTypeService, RestaurantTypeService> ();
             services.AddScoped<IRestaurantReviewsService, RestaurantReviewsService> ();
+            services.AddScoped<IUserService, UserService> ();
 
             //Repositories
             services.AddScoped<IAuthRepository, AuthRepository> ();
@@ -56,6 +52,7 @@ namespace FoodChainWebShop {
             services.AddScoped<IRestaurantsRepository, RestaurantsRepository> ();
             services.AddScoped<IRestaurantTypeRepository, RestaurantTypeRepository> ();
             services.AddScoped<IRestaurantReviewsRepository, RestaurantReviewsRepository> ();
+            services.AddScoped<IUserRepository, UserRepository> ();
 
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
 

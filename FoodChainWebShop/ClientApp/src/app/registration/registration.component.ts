@@ -50,7 +50,7 @@ export class RegistrationComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private generalService: GeneralService,
-    private globalVar: GlobalVar,
+    public globalVar: GlobalVar,
     private translate: TranslateService,
   ) { }
 

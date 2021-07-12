@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace FoodChainWebShop.Models {
     public class Restaurant {
@@ -9,8 +10,8 @@ namespace FoodChainWebShop.Models {
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string imageName { get; set; }
+        public byte[] Image { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         [Required]
         [Phone (ErrorMessage = "Entered number is invalid!")]

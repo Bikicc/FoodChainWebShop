@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { GlobalVar } from '../globalVar';
 import { RestaurantWithRating } from '../interfaces/RestaurantsWithRating';
 import { RestaurantType } from '../interfaces/RestaurantType';
+import { GeneralService } from '../services/GeneralService';
 import { RestaurantsService } from '../services/RestaurantsService';
 
 @Component({
@@ -18,20 +20,23 @@ export class RestaurantsComponent implements OnInit {
   restaurantTypesDropdown: any[] = [];
   selectedRestaurantTypeId: number = 1;
   filteredRestaurants: RestaurantWithRating[] = [];
-  
+  roleId: number = null;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private generalService: GeneralService,
+    public globalVar: GlobalVar
   ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { restaurants: RestaurantWithRating[], restaurantTypes: RestaurantType[] }) => {
       this.restaurants = data.restaurants;
       this.restaurantTypes = data.restaurantTypes;
-      console.log(this.restaurants)
       this.setDropdownRestaurantTypes();
       this.translate.onLangChange.subscribe(() => this.setDropdownRestaurantTypes());
+      this.roleId = this.generalService.getUserRoleId();
     }, err => {
       console.log(err);
     }));
@@ -61,6 +66,10 @@ export class RestaurantsComponent implements OnInit {
 
   public filterRestaurantsBasedOnType() {
     this.filteredRestaurants = this.restaurants.filter(item => item.restaurant.restaurantTypeId == this.selectedRestaurantTypeId);
+  }
+
+  public navigateToAddNewRestaurant(): void {
+    this.router.navigateByUrl("add-new-restaurant/");
   }
 
 }

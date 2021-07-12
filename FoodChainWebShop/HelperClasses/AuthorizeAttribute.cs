@@ -9,18 +9,18 @@ namespace FoodChainWebShop.HelperClasses {
     [AttributeUsage (AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter {
         int roleId = 0;
-        private readonly RolesConfiguration _rolesConfig;
-
-        public AuthorizeAttribute (RolesConfiguration rolesConfig) {
-            this._rolesConfig = rolesConfig;
+        enum rolesId {
+            admin = 1,
+            vlasnik = 2,
+            korisnik = 3
         }
         public AuthorizeAttribute (string roleName) {
             if (roleName.ToUpper () == "admin".ToUpper ()) {
-                this.roleId = this._rolesConfig.Admin;
+                this.roleId = (int) rolesId.admin;
             } else if (roleName.ToUpper () == "vlasnik".ToUpper ()) {
-                this.roleId = this._rolesConfig.Vlasnik;
+                this.roleId = (int) rolesId.vlasnik;
             } else if (roleName.ToUpper () == "korisnik".ToUpper ()) {
-                this.roleId = this._rolesConfig.Korisnik;
+                this.roleId = (int) rolesId.korisnik;
             }
         }
         public void OnAuthorization (AuthorizationFilterContext context) {

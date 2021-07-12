@@ -62,6 +62,7 @@ import { RestaurantTypeResolverService } from './services/RestaurantTypeResolver
 import { GeneralService } from './services/GeneralService';
 import { RestaurantReviewService } from './services/RestaurantReviewService';
 import { RestaurantReviewResolverService } from './services/RestaurantReviewResolverService';
+import { AddNewRestaurantComponent } from './restaurants/add-new-restaurant/add-new-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { RestaurantReviewResolverService } from './services/RestaurantReviewReso
     ToastMessagesComponent,
     NewComponentComponent,
     RestaurantsComponent,
-    NoDataComponent
+    NoDataComponent,
+    AddNewRestaurantComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -110,6 +112,7 @@ import { RestaurantReviewResolverService } from './services/RestaurantReviewReso
       { path: 'orderHistory', component: OrderHistoryComponent, resolve: { orders: OrderResolverService } },
       { path: 'kayo', component: NewComponentComponent },
       { path: 'restaurants', component: RestaurantsComponent, resolve: { restaurants: RestaurantsResloverService, restaurantTypes: RestaurantTypeResolverService } },
+      { path: 'add-new-restaurant', component: AddNewRestaurantComponent},
 
       { path: '**', component: PageNotFoundComponent }
     ]),
