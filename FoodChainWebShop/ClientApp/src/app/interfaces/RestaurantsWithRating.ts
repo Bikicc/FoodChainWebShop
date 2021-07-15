@@ -1,7 +1,10 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
+
 interface RestaurantInfo {
     restaurantId: number,
     name: string,
-    imageName: string,
+    image: ArrayBuffer | File | string,
+    imageToShow: SafeResourceUrl
     mobileNumber: string,
     address: string,
     minOrderPrice: number,

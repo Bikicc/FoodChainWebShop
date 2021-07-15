@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,18 @@ namespace FoodChainWebShop.Controllers {
             this._restaurantService = service;
         }
 
+        [HttpGet ("{resId}")]
+        public IActionResult GetRestaurant (int resId) {
+            return Ok (_restaurantService.GetRestaurant (resId));
+        }
+
         [HttpGet]
         public IActionResult GetRestaurants () {
             return Ok (_restaurantService.GetRestaurants ());
         }
+
+        [HttpPost]
+        [Authorize ("admin")]
 
         public async Task<IActionResult> PostRestaurant ([FromForm] Restaurant rest) {
 
@@ -27,12 +36,9 @@ namespace FoodChainWebShop.Controllers {
             }
 
             try {
-                var resImage = rest.ImageFile.Length;
-                var ms = new MemoryStream ();
-                rest.ImageFile.CopyTo (ms);
-
-                var fileBytes = ms.ToArray ();
-                rest.Image = fileBytes;
+                if (rest.ImageFile != null) {
+                    rest.Image = _restaurantService.getByteArrForImage (rest.ImageFile);
+                }
 
                 await _restaurantService.PostRestaurant (rest);
                 return Ok ();
@@ -44,5 +50,15 @@ namespace FoodChainWebShop.Controllers {
 
         }
 
+        [HttpPut]
+        [Authorize ("admin")]
+        public async Task<IActionResult> UpdateRestaurantReview ([FromForm] Restaurant rest) {
+            if (rest.ImageFile != null) {
+                rest.Image = _restaurantService.getByteArrForImage (rest.ImageFile);
+            }
+
+            await _restaurantService.UpdateRestaurant (rest);
+            return Ok ();
+        }
     }
 }

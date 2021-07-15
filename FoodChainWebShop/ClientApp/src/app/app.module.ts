@@ -63,6 +63,9 @@ import { GeneralService } from './services/GeneralService';
 import { RestaurantReviewService } from './services/RestaurantReviewService';
 import { RestaurantReviewResolverService } from './services/RestaurantReviewResolverService';
 import { AddNewRestaurantComponent } from './restaurants/add-new-restaurant/add-new-restaurant.component';
+import { addNewUserResolverService } from './services/addNewUserResolverService';
+import { RestaurantInfoResolverService } from './services/RestaurantInfoResolverService';
+import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +88,8 @@ import { AddNewRestaurantComponent } from './restaurants/add-new-restaurant/add-
     NewComponentComponent,
     RestaurantsComponent,
     NoDataComponent,
-    AddNewRestaurantComponent
+    AddNewRestaurantComponent,
+    EditRestaurantComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -105,14 +109,15 @@ import { AddNewRestaurantComponent } from './restaurants/add-new-restaurant/add-
       { path: 'login', component: LoginComponent },
       { path: 'aboutUs', component: AboutUsComponent },
       { path: 'contactUs', component: ContactUsComponent },
-      { path: 'menu/:restaurantId', component: MenuComponent, resolve: { categories: MenuResolverService, reviews: RestaurantReviewResolverService } },
+      { path: 'menu/:restaurantId', component: MenuComponent, resolve: { categories: MenuResolverService, reviews: RestaurantReviewResolverService, restaurantInfo: RestaurantInfoResolverService } },
       { path: 'favourites', component: FavouritesComponent, resolve: { favourites: FavouritesResolverService } },
       { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },
       { path: 'orderHistory', component: OrderHistoryComponent, resolve: { orders: OrderResolverService } },
       { path: 'kayo', component: NewComponentComponent },
       { path: 'restaurants', component: RestaurantsComponent, resolve: { restaurants: RestaurantsResloverService, restaurantTypes: RestaurantTypeResolverService } },
-      { path: 'add-new-restaurant', component: AddNewRestaurantComponent},
+      { path: 'addNewRestaurant', component: AddNewRestaurantComponent, resolve: { owners: addNewUserResolverService, restaurantTypes: RestaurantTypeResolverService } },
+      { path: 'editRestaurant/:restaurantId', component: EditRestaurantComponent, resolve: { owners: addNewUserResolverService, restaurantTypes: RestaurantTypeResolverService, restaurantInfo: RestaurantInfoResolverService } },
 
       { path: '**', component: PageNotFoundComponent }
     ]),
@@ -141,7 +146,6 @@ import { AddNewRestaurantComponent } from './restaurants/add-new-restaurant/add-
     RestaurantTypeService,
     GeneralService,
     RestaurantReviewService,
-    RestaurantReviewResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

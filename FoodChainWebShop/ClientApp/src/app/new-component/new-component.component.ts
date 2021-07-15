@@ -46,7 +46,6 @@ export class NewComponentComponent implements OnInit {
       formData.append(key, product[key]);
     }
     formData.append("imageFile", event.files[0])
-    console.log(formData)
     
     this.productService.postProduct(formData).subscribe(() => {
       console.log("ima srice");

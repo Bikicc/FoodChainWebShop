@@ -26,7 +26,7 @@ export class RegistrationComponent implements OnInit {
   selectedRole: number = 2;
   roleId: number = null;
   userToRegister: User = {
-    Username: '',
+    username: '',
     email: '',
     PasswordPlain: '',
     address: '',
@@ -63,7 +63,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   checkUsername() {
-    if (this.userToRegister.Username.length < 4) {
+    if (this.userToRegister.username.length < 4) {
       this.errors.usernameError = true;
     } else {
       this.errors.usernameError = false;
@@ -86,7 +86,7 @@ export class RegistrationComponent implements OnInit {
 
   checkButton() {
     if (
-      this.userToRegister.Username.length >= 4 &&
+      this.userToRegister.username.length >= 4 &&
       this.userToRegister.PasswordPlain.length >= 4 &&
       this.checkEmail() === false &&
       this.userToRegister.address.length > 0 &&

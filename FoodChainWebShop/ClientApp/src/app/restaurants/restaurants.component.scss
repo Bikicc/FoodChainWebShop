@@ -15,6 +15,12 @@
   height: 150px;
 }
 
+.buttonContainer {
+  width: 100%;
+  margin-top: 10px;
+}
+
+
 :host::ng-deep {
 
   .ui-card {
@@ -56,8 +62,37 @@
   font-weight: lighter;
 }
 
+.activeInactiveHeader {
+  background-color: var(--bacgroundTransparentSilver);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+
+  .activeText {
+    font-size: 2em;
+    color: green;
+    font-family: sans;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .inactiveText {
+      font-size: 2em;
+      color: red;
+      font-family: sans;
+      font-weight: 600;
+      text-transform: uppercase;
+  }
+}
+
+.activateColor {
+  border-color: green;
+}
+
 @media only screen and (max-width: 638px) {
   .restaurantCardsImg {
     height: 200px;
   }
+
 }

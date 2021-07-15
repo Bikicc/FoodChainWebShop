@@ -12,8 +12,8 @@
           <div class="flex ai-c">
             <i class="fa fa-user" aria-hidden="true"></i>
           </div>
-          <input id="name" type="text" placeholder="{{'KORISNICKO_IME' | translate}}"
-            [(ngModel)]="userCredentials.Username" (focusout)="resetWrongCredentials();"
+          <input  type="text" placeholder="{{'KORISNICKO_IME' | translate}}"
+            [(ngModel)]="userCredentials.username" (focusout)="resetWrongCredentials();"
             [ngClass]="{'invalidCredentials': wrongCredentials}">
         </div>
       </div>
@@ -23,7 +23,7 @@
             <i class="fa fa-key" aria-hidden="true"></i>
           </div>
           <div class="flex fd-c">
-            <input id="name" type="password" placeholder="{{'LOZINKA' | translate}}"
+            <input  type="password" placeholder="{{'LOZINKA' | translate}}"
               [(ngModel)]="userCredentials.PasswordPlain" (focusout)="resetWrongCredentials();"
               [ngClass]="{'invalidCredentials': wrongCredentials}">
             <div *ngIf="wrongCredentials" class="error">Invalid credentials!</div>

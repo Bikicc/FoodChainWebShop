@@ -3,8 +3,7 @@
   <!-- Menu HEADER -->
   <div class="coverHeader">
     <div class="coverHeaderContainer">
-      <h1 class="coverHeaderHeadline">{{'KOSARICA' | translate}}</h1>
-      <h2 class="coverHeaderContent">{{'KOSARICA_HEADER' | translate}}</h2>
+      <h1 class="coverHeaderHeadline">{{restaurantInfo.name}}</h1>
       <span class="as-c">
         <p-dropdown [options]="categoriesDropdown" [(ngModel)]="selectedCategoryId"
           (onChange)="filterProductsBasedOnCategory()">
@@ -46,6 +45,7 @@
       <h2 class="coverHeaderContent">{{'REVIEWS_HEADER' | translate}}</h2>
     </div>
   </div>
+  
   <!-- REVIEWS SECTION-->
   <div *ngIf="reviews.length > 0; else noReviews" class="reviewsSection">
     <span class="userRatingsText">{{'KORISNICKE_RECENZIJE' | translate}} ({{ numberOfReviews }})</span>
@@ -115,7 +115,7 @@
     </div>
 
     <div class="commentsWrapper">
-      <div class="commentTextArea">
+      <div *ngIf="userData && userData.roleId === globalVar.userRoles.korisnik" class="commentTextArea">
         <p-rating [(ngModel)]="myReview.rating" [cancel]="false"></p-rating>
         <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" placeholder="Write your comment..."
           [(ngModel)]="myReview.comment"></textarea>

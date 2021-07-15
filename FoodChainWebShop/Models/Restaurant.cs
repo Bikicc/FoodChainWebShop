@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace FoodChainWebShop.Models {
     public class Restaurant {
@@ -19,6 +19,9 @@ namespace FoodChainWebShop.Models {
 
         [Required]
         public string Address { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
 
         [Required]
         public int minOrderPrice { get; set; }

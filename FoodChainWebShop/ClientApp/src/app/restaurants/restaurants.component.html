@@ -7,38 +7,124 @@
                 (onChange)="filterRestaurantsBasedOnType()">
             </p-dropdown>
         </span>
-        <a *ngIf="roleId === globalVar.userRoles.admin" (click)="navigateToAddNewRestaurant()" class="btn" style="margin-top: 10px; align-self: center;">{{'DODAJ_RESTORAN' | translate}}</a>
+        <a *ngIf="roleId === globalVar.userRoles.admin" (click)="navigateToAddNewRestaurant()" class="btn"
+            style="margin-top: 10px; align-self: center;">{{'DODAJ_RESTORAN' | translate}}</a>
+    </div>
+</div>
+<div *ngIf="!userData || userData.roleId !== globalVar.userRoles.admin; else adminView">
+    <div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100" style="position: relative;">
+        <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
+            (click)="navigateToRestaurant(item.restaurant.restaurantId)">
+            <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
+                <p-header>
+                    <img [src]=item.restaurant.imageToShow class="restaurantCardsImg">
+                </p-header>
+                <div class="ratingAndOrderContainer">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <span>{{item.rating}}</span>
+
+                    <span class="dot">•</span>
+
+                    <span class="minOrderContainer">Min. {{item.restaurant.minOrderPrice}} Kn</span>
+                </div>
+
+                <div class="addressAndNumberContainer">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>{{item.restaurant.address}}</span>
+
+                    <span class="dot">•</span>
+
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span class="minOrderContainer">{{item.restaurant.mobileNumber}}</span>
+                </div>
+            </p-card>
+        </div>
     </div>
 </div>
 
-<div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100" style="position: relative;">
-    <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
-        (click)="navigateToRestaurant(item.restaurant.restaurantId)">
-        <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
-            <p-header>
-                <img src="assets/images/mcdonaldsLogo.jpg" class="restaurantCardsImg">
-            </p-header>
-            <div class="ratingAndOrderContainer">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <span>{{item.rating}}</span>
+<ng-template #adminView>
+    <!-- AKTIVNI -->
+    <section class="activeRest">
+        <div class="activeInactiveHeader">
+            <span class="activeText">{{'AKTIVNI' | translate}}</span>
+        </div>
+        <div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100"
+            style="position: relative;">
+            <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
+                (click)="navigateToRestaurant(item.restaurant.restaurantId)">
+                <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
+                    <p-header>
+                        <img [src]=item.restaurant.imageToShow class="restaurantCardsImg">
+                    </p-header>
+                    <div class="ratingAndOrderContainer">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <span>{{item.rating}}</span>
 
-                <span class="dot">•</span>
+                        <span class="dot">•</span>
 
-                <span class="minOrderContainer">Min. {{item.restaurant.minOrderPrice}} Kn</span>
+                        <span class="minOrderContainer">Min. {{item.restaurant.minOrderPrice}} Kn</span>
+                    </div>
+
+                    <div class="addressAndNumberContainer">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <span>{{item.restaurant.address}}</span>
+
+                        <span class="dot">•</span>
+
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <span class="minOrderContainer">{{item.restaurant.mobileNumber}}</span>
+                    </div>
+                    <div class="flex jc-c buttonContainer" (click)="navigateToEditRestaurant(item.restaurant.restaurantId)">
+                        <a class="btn">{{'UREDI' | translate}}</a>
+                    </div>
+                    <div class="flex jc-c buttonContainer">
+                        <a class="btn btnRemove">{{'DEAKTIVIRAJ' | translate}}</a>
+                    </div>
+                </p-card>
             </div>
+        </div>
+    </section>
 
-            <div class="addressAndNumberContainer">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>{{item.restaurant.address}}</span>
+    <!-- NEAKTIVNI -->
+    <section class="inactiveRest">
+        <div class="activeInactiveHeader">
+            <span class="inactiveText">{{'NEAKTIVNI' | translate}}</span>
+        </div>
+        <div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100"
+            style="position: relative;">
+            <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
+                (click)="navigateToRestaurant(item.restaurant.restaurantId)">
+                <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
+                    <p-header>
+                        <img [src]=item.restaurant.imageToShow class="restaurantCardsImg">
+                    </p-header>
+                    <div class="ratingAndOrderContainer">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <span>{{item.rating}}</span>
 
-                <span class="dot">•</span>
+                        <span class="dot">•</span>
 
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span class="minOrderContainer">{{item.restaurant.mobileNumber}}</span>
+                        <span class="minOrderContainer">Min. {{item.restaurant.minOrderPrice}} Kn</span>
+                    </div>
+
+                    <div class="addressAndNumberContainer">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <span>{{item.restaurant.address}}</span>
+
+                        <span class="dot">•</span>
+
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <span class="minOrderContainer">{{item.restaurant.mobileNumber}}</span>
+                    </div>
+                    <div class="flex jc-c buttonContainer">
+                        <a class="btn activateColor">{{'AKTIVIRAJ' | translate}}</a>
+                    </div>
+                </p-card>
             </div>
-        </p-card>
-    </div>
-</div>
+        </div>
+    </section>
+
+</ng-template>
 
 <ng-template #noData>
     <app-no-data noDataText="{{'NEMA_RESTORANA' | translate}}"></app-no-data>

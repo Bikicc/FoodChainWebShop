@@ -79,6 +79,12 @@ input[type=number] {
   background: unset;
 }
 
+.currImageText {
+    font-size: 1.5em;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 @media only screen and (max-width: 850px) {
   .dataInputContainer {
     width: 100%;

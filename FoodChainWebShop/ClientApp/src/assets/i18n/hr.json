@@ -112,7 +112,14 @@
     "BROJ_MOBITELA": "Br. mob.",
     "KORISNIK_USPJESNO_DODAN": "Korisnik uspješno dodan",
     "REGISTRIRAJ_KORISNIKA": "Registriraj korisnika",
-    "DODAJ_RESTORAN": "Dodaj restoran"
+    "DODAJ_RESTORAN": "Dodaj restoran",
+    "NAZIV": "Naziv",
+    "MIN_NARUDZBA": "Min. narudzba (kn)",
+    "DEAKTIVIRAJ": "Deaktiviraj",
+    "AKTIVIRAJ": "Aktiviraj",
+    "AKTIVNI": "Aktivni",
+    "NEAKTIVNI": "Neaktivni",
+    "TRENUTNA_SLIKA": "Trenutna slika"
 
 
 

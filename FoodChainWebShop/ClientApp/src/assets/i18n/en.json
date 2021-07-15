@@ -112,7 +112,17 @@
     "BROJ_MOBITELA": "Tel. number",
     "KORISNIK_USPJESNO_DODAN": "User Successfully added",
     "REGISTRIRAJ_KORISNIKA": "Register user",
-    "DODAJ_RESTORAN": "Add new restaurant"
+    "DODAJ_RESTORAN": "Add new restaurant",
+    "NAZIV": "Name",
+    "MIN_NARUDZBA": "Min. order (kn)",
+    "DEAKTIVIRAJ": "Deactivate",
+    "AKTIVIRAJ": "Activate",
+    "AKTIVNI": "Active",
+    "NEAKTIVNI": "Non-active",
+    "TRENUTNA_SLIKA": "Current image"
+
+
+
 
 
 

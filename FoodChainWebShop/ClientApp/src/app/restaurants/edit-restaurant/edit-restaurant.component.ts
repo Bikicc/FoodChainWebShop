@@ -9,13 +9,14 @@ import { RestaurantType } from 'src/app/interfaces/RestaurantType';
 import { User } from 'src/app/interfaces/User';
 import { RestaurantsService } from 'src/app/services/RestaurantsService';
 import { ToastMessagesComponent } from 'src/app/toast-messages/toast-messages.component';
-
+import { Location } from '@angular/common';
+import { GeneralService } from 'src/app/services/GeneralService';
 @Component({
-  selector: 'app-add-new-restaurant',
-  templateUrl: './add-new-restaurant.component.html',
-  styleUrls: ['./add-new-restaurant.component.scss']
+  selector: 'app-edit-restaurant',
+  templateUrl: './edit-restaurant.component.html',
+  styleUrls: ['./edit-restaurant.component.scss']
 })
-export class AddNewRestaurantComponent implements OnInit {
+export class EditRestaurantComponent implements OnInit {
   @ViewChild('name', { static: false })
   formName: NgModel;
   @ViewChild('address', { static: false })
@@ -28,17 +29,8 @@ export class AddNewRestaurantComponent implements OnInit {
   toastMessages: ToastMessagesComponent;
   @ViewChild('fileUploader', { static: false })
   fileUploader: any;
-  restaurantModel: Restaurant = {
-    name: '',
-    mobileNumber: '',
-    address: '',
-    minOrderPrice: null,
-    RestaurantTypeId: null,
-    active: true,
-    restaurantId: null, 
-    restaurantTypeId: null, 
-    userId: null
-  };
+
+  restaurantModel: Restaurant = null;
 
   owners: User[] = [];
   ownersDropDown: MenuItem[] = [];
@@ -48,17 +40,22 @@ export class AddNewRestaurantComponent implements OnInit {
 
   subscription: Subscription[] = [];
   readonly formData: FormData = new FormData();
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private restaurantService: RestaurantsService,
     private translate: TranslateService,
+    private location: Location,
+    private generalService: GeneralService
   ) { }
 
   ngOnInit() {
-    this.subscription.push(this.activatedRoute.data.subscribe((data: { owners: User[], restaurantTypes: RestaurantType[] }) => {
+    this.subscription.push(this.activatedRoute.data.subscribe((data: { owners: User[], restaurantTypes: RestaurantType[], restaurantInfo: any }) => {
       this.owners = data.owners;
+      this.restaurantModel = this.setRestaurantImageToShow(data.restaurantInfo.result);
       this.restaurantModel.userId = data.owners[0].userId;
+      this.restaurantModel.image && this.formData.append("imageFile", this.convertBase64ToBlob(this.restaurantModel.image as string));
+
       this.setDropDownOwners(data.owners);
       this.restarauntTypes = data.restaurantTypes;
       this.restaurantModel.RestaurantTypeId = data.restaurantTypes[0].restaurantTypeId;
@@ -99,49 +96,48 @@ export class AddNewRestaurantComponent implements OnInit {
     return !(
       !this.restaurantModel.name ||
       !this.restaurantModel.address ||
-      !this.restaurantModel.minOrderPrice  ||
+      !this.restaurantModel.minOrderPrice ||
       !this.restaurantModel.mobileNumber.match(/^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$/) ||
       !this.restaurantModel.userId
     );
   }
 
-  insertRestaurant() {
+  editRestaurant() {
+    const dataToUpload = (({ RestaurantTypeId, userId, active, address, minOrderPrice, mobileNumber, name, restaurantId, restaurantTypeId }) => ({ RestaurantTypeId, userId, active, address, minOrderPrice, mobileNumber, name, restaurantId, restaurantTypeId }))(this.restaurantModel);
+
+
     if (this.isFormValid()) {
-      for (var key in this.restaurantModel) {
+      for (var key in dataToUpload) {
         this.formData.append(key, this.restaurantModel[key]);
       }
 
-      this.restaurantService.insertRestaurant(this.formData).subscribe(() => {
-        this.resetFormModel();
-        this.resetFormFields();
-        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno dodan!') : this.toastMessages.saveChangesSuccess('Restaurant has been successfully added!');
-
+      this.restaurantService.editRestaurant(this.formData).subscribe(() => {
+        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno uređen!') : this.toastMessages.saveChangesSuccess('Restaurant has been successfully edited!');
+        this.location.back();
       }, err => {
         this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
       })
     }
   }
 
-  private resetFormFields() {
-    this.formName.reset();
-    this.formAddress.reset();
-    this.formPhone.reset();
-    this.formMinOrder.reset();
-    this.fileUploader.clear();
+  private setRestaurantImageToShow(restaurant: Restaurant): Restaurant {
+    restaurant.imageToShow = this.generalService.setBase64ImageToShow(restaurant.image as string);
+    return restaurant;
   }
 
-  private resetFormModel() {
-    this.restaurantModel = {
-      name: '',
-      mobileNumber: '',
-      address: '',
-      minOrderPrice: null,
-      RestaurantTypeId: null,
-      active: true,
-      restaurantId: null, 
-      restaurantTypeId: null, 
-      userId: null
-    };
+  convertBase64ToBlob(base64String: string): Blob {
+    const byteCharacters = atob(base64String);
+    
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+
+    const blob = new Blob([byteArray], {type: 'contentType'});
+
+    return blob;
   }
 
 }

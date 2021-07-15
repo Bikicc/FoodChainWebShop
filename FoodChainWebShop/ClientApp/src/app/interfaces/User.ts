@@ -2,7 +2,7 @@ import * as internal from "assert";
 
 export interface User {
     userId?: number,
-    Username: string,
+    username: string,
     email: string,
     PasswordPlain: string,
     mobileNumber?: string,

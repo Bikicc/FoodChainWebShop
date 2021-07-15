@@ -1,101 +1,97 @@
 <div class="mainWrapper">
-    <div class="FormWrapper">
-      <section class="signupHeader">
-        <span class="headerText">
-          DODAJ RESTORAN
-        </span>
-      </section>
-      <section class="signupContent">
-        <div class="dataInput">
-          <div class="flex">
-            <div class="flex ai-c mh-40">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </div>
-            <div class="inputWrapper">
-              <input id="name" name="name" type="text" placeholder="{{'KORISNICKO_IME' | translate}}"
-                [(ngModel)]="userToRegister.Username" [ngClass]="{'errorInput': errors.usernameError}"
-                (focusout)="checkUsername(); checkButton(); checkUsernameTaken()">
-              <span *ngIf="errors.usernameError" class="errorMessage">{{'USERNAME_ERROR' | translate}}</span>
-              <span *ngIf="usernameTaken.length > 0" class="errorMessage">{{usernameTaken}} <a
-                  routerLink="/login">{{'PRIJAVA' | translate}}!</a></span>
-            </div>
+  <div class="FormWrapper">
+    <section class="signupHeader">
+      <span class="headerText">
+        {{'DODAJ_RESTORAN' | translate}}
+      </span>
+    </section>
+    <section class="signupContent">   
+      <div class="dataInput">
+        <div class="dataInputContainer">
+          <div class="flex ai-c mh-40">
+            <i class="fa fa-address-book-o" aria-hidden="true"></i>
+          </div>
+          <div class="inputWrapper">
+            <input  type="text" id="name" name="name" placeholder="{{'NAZIV' | translate}}" 
+              [ngClass]="{'errorInput': name.invalid && (name.dirty || name.touched)}" required
+              [(ngModel)]="restaurantModel.name" #name="ngModel">
           </div>
         </div>
-        <div class="dataInput">
-          <div class="flex">
-            <div class="flex ai-c mh-40">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-            </div>
-            <div class="inputWrapper">
-              <input id="name" type="text" placeholder="E-mail" [(ngModel)]="userToRegister.email"
-                [ngClass]="{'errorInput': errors.emailError}" (focusout)="checkEmail(); checkButton(); checkEmailTaken()">
-              <span *ngIf="errors.emailError" class="errorMessage">{{'EMAIL_ERROR' | translate}}</span>
-              <span *ngIf="emailTaken.length > 0" class="errorMessage">{{emailTaken}} <a routerLink="/login">{{'PRIJAVA' |
-                  translate}}!</a></span>
-            </div>
-          </div>
-        </div>
-        <div class="dataInput">
-          <div class="flex">
-            <div class="flex ai-c mh-40">
-              <i class="fa fa-key" aria-hidden="true"></i>
-            </div>
-            <div class="inputWrapper">
-              <input id="name" type="password" placeholder="{{'LOZINKA' | translate}}"
-                [ngClass]="{'errorInput': errors.passwordError}" [(ngModel)]="userToRegister.PasswordPlain"
-                (focusout)="checkPassword(); checkButton()">
-              <span *ngIf="errors.passwordError" class="errorMessage">{{'PASSWORD_ERROR' | translate}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="dataInput">
-          <div class="flex">
-            <div class="flex ai-c mh-40">
-              <i class="fa fa-address-card-o" aria-hidden="true"></i>
-            </div>
-            <div class="inputWrapper">
-              <input id="name" type="text" placeholder="{{'ADRESA' | translate}}"
-                [ngClass]="{'errorInput': errors.addressError}" [(ngModel)]="userToRegister.address"
-                (focusout)="checkAddress(); checkButton()">
-            </div>
-          </div>
-        </div>
-        <div class="dataInput">
-          <div class="flex">
-            <div class="flex ai-c mh-40">
-              <i class="fa fa-mobile" aria-hidden="true"></i>
-            </div>
-            <div class="inputWrapper">
-              <input type="tel" id="phone" name="phone" placeholder="{{'BROJ_MOBITELA' | translate}}"
-                [ngClass]="{'errorInput': errors.mobileError}" [(ngModel)]="userToRegister.mobileNumber"
-                (focusout)="checkMobileNumber(); checkButton()">
-                <span *ngIf="errors.mobileError" class="errorMessage">{{'MOBILE_ERROR' | translate}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="flex jc-c buttonContainer">
-          <a class="btn" (click)="submitForm()" [ngClass]="{'disabledButton': buttonDisabled}">{{'REGISTRACIJA' |
-            translate}}</a>
-        </div>
-        <div *ngIf="!roleId" class="flex jc-c">
-          <a routerLink="/login" class="haveAccountLink">{{'IMAM_RACUN_REGISTRACIJA' | translate}}</a>
-        </div>
-      </section>
-    </div>
-    <!-- Loader -->
-    <div class="center-page" *ngIf="loading">
-      <div class="sk-cube-grid">
-        <div class="sk-cube sk-cube1"></div>
-        <div class="sk-cube sk-cube2"></div>
-        <div class="sk-cube sk-cube3"></div>
-        <div class="sk-cube sk-cube4"></div>
-        <div class="sk-cube sk-cube5"></div>
-        <div class="sk-cube sk-cube6"></div>
-        <div class="sk-cube sk-cube7"></div>
-        <div class="sk-cube sk-cube8"></div>
-        <div class="sk-cube sk-cube9"></div>
       </div>
-    </div>
+      <div class="dataInput">
+        <div class="dataInputContainer">
+          <div class="flex ai-c mh-40">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+          </div>
+          <div class="inputWrapper">
+            <input  type="text" id="address" name="address" placeholder="{{'ADRESA' | translate}}"
+              [ngClass]="{'errorInput': address.invalid && (address.dirty || address.touched)}" 
+              [(ngModel)]="restaurantModel.address" #address="ngModel" required>
+          </div>
+        </div>
+      </div>
+      <div class="dataInput">
+        <div class="dataInputContainer">
+          <div class="flex ai-c mh-40">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+          </div>
+          <div class="inputWrapper">
+            <input type="tel" id="phone" name="phone" pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$" 
+            placeholder="{{'BROJ_MOBITELA' | translate}}" 
+            [ngClass]="{'errorInput': phone.invalid && (phone.dirty || phone.touched)}"
+            [(ngModel)]="restaurantModel.mobileNumber" #phone="ngModel" required>
+            <span *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="errorMessage">{{'MOBILE_ERROR' | translate}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="dataInput">
+        <div class="dataInputContainer">
+          <div class="flex ai-c mh-40">
+            <i class="fa fa-money" aria-hidden="true"></i>
+          </div>
+          <div class="inputWrapper">
+            <input type="number" id="minOrder" name="minOrder" placeholder="{{'MIN_NARUDZBA' | translate}}" 
+              [ngClass]="{'errorInput': minOrder.invalid && (minOrder.dirty || minOrder.touched)}" required
+              [(ngModel)]="restaurantModel.minOrderPrice" #minOrder="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="dataInput">
+        <div class="dataInputContainer">
+          <div class="flex ai-c mh-40" >
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+          </div>
+          <div class="inputWrapper">
+            <p-dropdown [options]="restaurantTypeDropdown" [(ngModel)]="restaurantModel.RestaurantTypeId"  appendTo="body">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+      <div class="dataInput">
+        <div class="dataInputContainer">
+          <div class="flex ai-c mh-40" >
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+          </div>
+          <div class="inputWrapper">
+            <p-dropdown [options]="ownersDropDown" [(ngModel)]="restaurantModel.UserId"  appendTo="body">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+       <div class="dataInput">
+        <div class="dataInputContainer">
+          <div class="inputWrapper">
+            <p-fileUpload #fileUploader name="myfile" customUpload="true" (uploadHandler)="myUploader($event)" accept="image/*" maxFileSize="2e6" [auto]="true"></p-fileUpload>
+          </div>
+        </div>
+      </div>
+      <div class="flex jc-c buttonContainer">
+        <a class="btn" (click)="insertRestaurant()" [ngClass]="{'disabledButton': !isFormValid()}">{{'SPREMI' |
+          translate}}</a>
+      </div>
+    </section>
   </div>
-  
-  <app-toast-messages></app-toast-messages>
+
+</div>
+
+<app-toast-messages></app-toast-messages>

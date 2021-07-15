@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { GlobalVar } from '../globalVar';
 import { RestaurantWithRating } from '../interfaces/RestaurantsWithRating';
 import { RestaurantType } from '../interfaces/RestaurantType';
+import { User } from '../interfaces/User';
 import { GeneralService } from '../services/GeneralService';
 import { RestaurantsService } from '../services/RestaurantsService';
 
@@ -21,6 +22,7 @@ export class RestaurantsComponent implements OnInit {
   selectedRestaurantTypeId: number = 1;
   filteredRestaurants: RestaurantWithRating[] = [];
   roleId: number = null;
+  userData: User = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,8 +34,10 @@ export class RestaurantsComponent implements OnInit {
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { restaurants: RestaurantWithRating[], restaurantTypes: RestaurantType[] }) => {
-      this.restaurants = data.restaurants;
+      this.restaurants = this.setRestaurantImageToShow(data.restaurants);
       this.restaurantTypes = data.restaurantTypes;
+      this.setUserData();
+      
       this.setDropdownRestaurantTypes();
       this.translate.onLangChange.subscribe(() => this.setDropdownRestaurantTypes());
       this.roleId = this.generalService.getUserRoleId();
@@ -48,6 +52,11 @@ export class RestaurantsComponent implements OnInit {
 
   navigateToRestaurant(restaurantId: number) {
     this.router.navigateByUrl("menu/" + restaurantId);
+  }
+  
+  navigateToEditRestaurant(restaurantId: number) {
+    window.event.stopPropagation(); //Kako se ne bi okinia onClick od parent diva
+    this.router.navigateByUrl("editRestaurant/" + restaurantId);
   }
 
   setDropdownRestaurantTypes() {
@@ -69,7 +78,23 @@ export class RestaurantsComponent implements OnInit {
   }
 
   public navigateToAddNewRestaurant(): void {
-    this.router.navigateByUrl("add-new-restaurant/");
+    this.router.navigateByUrl("addNewRestaurant");
+  }
+
+  private setRestaurantImageToShow(restaurants: RestaurantWithRating[]): RestaurantWithRating[] {
+    return restaurants.map(res => {
+      res.restaurant.imageToShow = this.generalService.setBase64ImageToShow(res.restaurant.image as string);
+      return res;
+    });;
+  }
+
+  private setUserData(): void {
+    const user = JSON.parse(localStorage.getItem("user")) || null;
+    if (user) {
+      this.userData = user;
+    } else {
+      this.userData = null;
+    }
   }
 
 }

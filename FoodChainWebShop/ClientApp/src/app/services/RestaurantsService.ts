@@ -5,6 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { Config } from "../config";
 import { RestaurantWithRating } from '../interfaces/RestaurantsWithRating';
 import { Observable } from 'rxjs';
+import { Restaurant } from '../interfaces/Restaurant';
 
 @Injectable()
 export class RestaurantsService {
@@ -20,5 +21,29 @@ export class RestaurantsService {
             .pipe(
                 retry(this.config.APIRetryCount),
                 catchError(this.errorHandler.errorHandler));
+    }
+
+    getRestaurantInfo(resId: number): Observable<Restaurant> {
+        return this.http
+        .get<Restaurant>(this.config.API_URL + 'restaurants/' + resId)
+        .pipe(
+            retry(this.config.APIRetryCount),
+            catchError(this.errorHandler.errorHandler));
+    }
+
+    insertRestaurant(body: FormData) {
+        return this.http
+        .post(this.config.API_URL + 'restaurants', body)
+        .pipe(
+            retry(this.config.APIRetryCount),
+            catchError(this.errorHandler.errorHandler));
+    }
+
+    editRestaurant(body: FormData) {
+        return this.http
+        .put(this.config.API_URL + 'restaurants', body)
+        .pipe(
+            retry(this.config.APIRetryCount),
+            catchError(this.errorHandler.errorHandler));
     }
 }

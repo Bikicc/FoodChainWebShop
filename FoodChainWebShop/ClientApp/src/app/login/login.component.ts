@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   toastMessages: ToastMessagesComponent;
 
   userCredentials: User = {
-    Username: '',
+    username: '',
     email: '',
     PasswordPlain: '',
   };

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ErrorHandlerService } from "./errorHandlerService";
 import { Config } from "../config";
 import { ComponentCommunicationService } from './ComponentCommunicationService';
+import { User } from 'oidc-client';
 
 @Injectable({
 
@@ -58,5 +59,13 @@ export class UserService {
             this.router.navigate(["/"]);
             this.dataFromAnotherComponent.userLoginStatus(false);
         }
+    }
+
+    getOwners() {
+        return this.http
+        .get<User[]>(this.config.API_URL + 'owners')
+        .pipe(
+            retry(this.config.APIRetryCount),
+            catchError(this.errorHandler.errorHandler));
     }
 }

@@ -15,8 +15,8 @@
             <i class="fa fa-user" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input id="name" name="name" type="text" placeholder="{{'KORISNICKO_IME' | translate}}"
-              [(ngModel)]="userToRegister.Username" [ngClass]="{'errorInput': errors.usernameError}"
+            <input   type="text" placeholder="{{'KORISNICKO_IME' | translate}}"
+              [(ngModel)]="userToRegister.username" [ngClass]="{'errorInput': errors.usernameError}"
               (focusout)="checkUsername(); checkButton(); checkUsernameTaken()">
             <span *ngIf="errors.usernameError" class="errorMessage">{{'USERNAME_ERROR' | translate}}</span>
             <span *ngIf="usernameTaken.length > 0" class="errorMessage">{{usernameTaken}} <a
@@ -30,7 +30,7 @@
             <i class="fa fa-envelope" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input id="name" type="text" placeholder="E-mail" [(ngModel)]="userToRegister.email"
+            <input  type="text" placeholder="E-mail" [(ngModel)]="userToRegister.email"
               [ngClass]="{'errorInput': errors.emailError}" (focusout)="checkEmail(); checkButton(); checkEmailTaken()">
             <span *ngIf="errors.emailError" class="errorMessage">{{'EMAIL_ERROR' | translate}}</span>
             <span *ngIf="emailTaken.length > 0" class="errorMessage">{{emailTaken}} <a routerLink="/login">{{'PRIJAVA' |
@@ -44,7 +44,7 @@
             <i class="fa fa-key" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input id="name" type="password" placeholder="{{'LOZINKA' | translate}}"
+            <input  type="password" placeholder="{{'LOZINKA' | translate}}"
               [ngClass]="{'errorInput': errors.passwordError}" [(ngModel)]="userToRegister.PasswordPlain"
               (focusout)="checkPassword(); checkButton()">
             <span *ngIf="errors.passwordError" class="errorMessage">{{'PASSWORD_ERROR' | translate}}</span>
@@ -57,7 +57,7 @@
             <i class="fa fa-address-card-o" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input id="name" type="text" placeholder="{{'ADRESA' | translate}}"
+            <input  type="text" placeholder="{{'ADRESA' | translate}}"
               [ngClass]="{'errorInput': errors.addressError}" [(ngModel)]="userToRegister.address"
               (focusout)="checkAddress(); checkButton()">
           </div>

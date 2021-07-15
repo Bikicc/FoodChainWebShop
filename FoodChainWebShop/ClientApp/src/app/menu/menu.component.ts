@@ -11,6 +11,9 @@ import { GeneralService } from '../services/GeneralService';
 import { RestaurantReview } from '../interfaces/RestaurantReview';
 import { User } from '../interfaces/User';
 import { RestaurantReviewService } from '../services/RestaurantReviewService';
+import { GlobalVar } from '../globalVar';
+import { Restaurant } from '../interfaces/Restaurant';
+import { Observable } from 'rxjs';
 
 interface StarPrecentage {
   one: string,
@@ -51,7 +54,7 @@ export class MenuComponent implements OnInit {
     comment: null
   }
   loading: boolean = false;
-
+  restaurantInfo: Restaurant = null;
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
     private router: Router,
@@ -60,13 +63,15 @@ export class MenuComponent implements OnInit {
     private translate: TranslateService,
     private generalService: GeneralService,
     private route: ActivatedRoute,
-    private restaurantReviewService: RestaurantReviewService
+    private restaurantReviewService: RestaurantReviewService,
+    public globalVar: GlobalVar
   ) { }
 
   ngOnInit() {
-    this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[], reviews: RestaurantReview[] }) => {
+    this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[], reviews: RestaurantReview[], restaurantInfo: any }) => {
       this.categories = data.categories;
       this.reviews = data.reviews;
+      this.restaurantInfo = data.restaurantInfo.result;
 
       this.setUserData();
 
@@ -80,7 +85,6 @@ export class MenuComponent implements OnInit {
         cat.products.forEach(prod => prod.imageToShow = this.generalService.setBase64ImageToShow(prod.image as string));
         return cat;
       });
-
 
       this.setDropdownCategories();
       this.translate.onLangChange.subscribe(() => this.setDropdownCategories());
