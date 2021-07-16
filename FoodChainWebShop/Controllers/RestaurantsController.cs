@@ -26,6 +26,20 @@ namespace FoodChainWebShop.Controllers {
             return Ok (_restaurantService.GetRestaurants ());
         }
 
+        [Route ("owner/{userId}")]
+        [HttpGet]
+        [Authorize ("vlasnik")]
+        public IActionResult GetRestaurantsOwner (int userId) {
+            return Ok (_restaurantService.GetRestaurantsOwner (userId));
+        }
+
+        [Route ("admin")]
+        [HttpGet]
+        [Authorize ("admin")]
+        public IActionResult GetRestaurantsAdmin (int userId) {
+            return Ok (_restaurantService.GetRestaurantsAdmin ());
+        }
+
         [HttpPost]
         [Authorize ("admin")]
 
@@ -74,7 +88,7 @@ namespace FoodChainWebShop.Controllers {
             }
 
         }
-        
+
         [Route ("activate/{restId}")]
         [HttpGet]
         [Authorize ("admin")]

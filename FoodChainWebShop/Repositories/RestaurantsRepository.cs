@@ -24,7 +24,24 @@ namespace FoodChainWebShop.Repositories {
                 (from x in _context.Restaurants.AsEnumerable () join y in _context.RestaurantReviews.AsEnumerable () on x.RestaurantId equals y.RestaurantId into w from resrew in w.DefaultIfEmpty () select new { x, rating = resrew?.rating ?? 0 })
                 .GroupBy (v => v.x.RestaurantId)
                 .Select (m => new RestaurantWithRating (m.FirstOrDefault ().x, Math.Round (m.Average (b => b.rating), 2)))
-                // .Where (rw => rw.restaurant.Active == true)
+                .Where (rw => rw.restaurant.Active == true)
+            ).ToList ();
+        }
+
+        public ICollection<RestaurantWithRating> GetRestaurantsOwner (int userId) {
+            return (
+                (from x in _context.Restaurants.AsEnumerable () join y in _context.RestaurantReviews.AsEnumerable () on x.RestaurantId equals y.RestaurantId into w from resrew in w.DefaultIfEmpty () select new { x, rating = resrew?.rating ?? 0 })
+                .GroupBy (v => v.x.RestaurantId)
+                .Select (m => new RestaurantWithRating (m.FirstOrDefault ().x, Math.Round (m.Average (b => b.rating), 2)))
+                .Where (rw => rw.restaurant.UserId == userId)
+            ).ToList ();
+        }
+
+        public ICollection<RestaurantWithRating> GetRestaurantsAdmin () {
+            return (
+                (from x in _context.Restaurants.AsEnumerable () join y in _context.RestaurantReviews.AsEnumerable () on x.RestaurantId equals y.RestaurantId into w from resrew in w.DefaultIfEmpty () select new { x, rating = resrew?.rating ?? 0 })
+                .GroupBy (v => v.x.RestaurantId)
+                .Select (m => new RestaurantWithRating (m.FirstOrDefault ().x, Math.Round (m.Average (b => b.rating), 2)))
             ).ToList ();
         }
 

@@ -14,7 +14,7 @@ export class RestaurantsResloverService implements Resolve<RestaurantWithRating>
         private restaurantsService: RestaurantsService) { }
 
     resolve(route: ActivatedRouteSnapshot) {
-        return this.restaurantsService.restaurants_selectAll().pipe(
+        return this.restaurantsService.getRestaurants().pipe(
             catchError((error) => {
                 console.log(error);
                 return empty();

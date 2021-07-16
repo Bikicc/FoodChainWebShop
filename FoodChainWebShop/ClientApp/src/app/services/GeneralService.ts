@@ -20,5 +20,10 @@ export class GeneralService {
         }
     }
 
+    public getUserDataLocale(): User {
+        let user: User = JSON.parse(localStorage.getItem("user") || null);
+        return user;
+    }
+
 
 }

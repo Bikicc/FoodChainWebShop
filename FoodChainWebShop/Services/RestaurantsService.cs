@@ -14,9 +14,16 @@ namespace FoodChainWebShop.Services {
         public RestaurantsService (IRestaurantsRepository repo) {
             this._restaurantsRepo = repo;
         }
-
         public ICollection<RestaurantWithRating> GetRestaurants () {
             return _restaurantsRepo.GetRestaurants ();
+        }
+
+        public ICollection<RestaurantWithRating> GetRestaurantsOwner (int userId) {
+            return  _restaurantsRepo.GetRestaurantsOwner (userId);
+        }
+
+        public ICollection<RestaurantWithRating> GetRestaurantsAdmin () {
+            return  _restaurantsRepo.GetRestaurantsAdmin ();
         }
 
         public async Task<Restaurant> GetRestaurant (int resId) {

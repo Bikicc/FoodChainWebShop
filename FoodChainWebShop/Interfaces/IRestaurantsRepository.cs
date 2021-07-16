@@ -6,6 +6,8 @@ using FoodChainWebShop.Models;
 namespace FoodChainWebShop.Interfaces {
     public interface IRestaurantsRepository {
         ICollection<RestaurantWithRating> GetRestaurants ();
+        ICollection<RestaurantWithRating> GetRestaurantsOwner (int userId);
+        ICollection<RestaurantWithRating> GetRestaurantsAdmin ();
         Task InsertRestaurant (Restaurant rest);
         Task<Restaurant> GetRestaurant (int resId);
         Task UpdateRestaurant (Restaurant rest);
