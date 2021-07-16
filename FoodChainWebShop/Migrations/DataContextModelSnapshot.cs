@@ -85,8 +85,8 @@ namespace FoodChainWebShop.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ProductPriceATM")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("ProductPriceATM")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
@@ -104,10 +104,10 @@ namespace FoodChainWebShop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Calories")
+                    b.Property<int?>("Calories")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Carbs")
+                    b.Property<int?>("Carbs")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CategoryId")
@@ -119,11 +119,11 @@ namespace FoodChainWebShop.Migrations
                     b.Property<string>("Description_Hr")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Fat")
+                    b.Property<int?>("Fat")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ImageName")
-                        .HasColumnType("TEXT");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -132,13 +132,13 @@ namespace FoodChainWebShop.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Proteins")
+                    b.Property<int?>("Proteins")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Sugar")
+                    b.Property<int?>("Sugar")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ProductId");
@@ -156,9 +156,15 @@ namespace FoodChainWebShop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -169,10 +175,6 @@ namespace FoodChainWebShop.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("imageName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("minOrderPrice")
                         .HasColumnType("INTEGER");
@@ -348,8 +350,14 @@ namespace FoodChainWebShop.Migrations
             modelBuilder.Entity("FoodChainWebShop.Models.RestaurantReview", b =>
                 {
                     b.HasOne("FoodChainWebShop.Models.Restaurant", "Restaurant")
-                        .WithMany()
+                        .WithMany("RestaurantReviews")
                         .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoodChainWebShop.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -10,6 +10,7 @@ import { forkJoin } from 'rxjs';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 import { Product } from '../interfaces/Product';
 import { GeneralService } from '../services/GeneralService';
+import { GlobalVar } from '../globalVar';
 
 
 @Component({
@@ -30,22 +31,26 @@ export class OrderHistoryComponent implements OnInit {
     priceChanged: false,
     orderId: null
   }
+  ordersGroupByRestaurant: Map<number, any> = null;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService,
     private orderService: OrderService,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private globalVar: GlobalVar
   ) { }
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
       this.ordersUnformatted = this.sortByDate(data.orders);
-      console.log(this.ordersUnformatted);
       this.formatDate();
-      console.log(this.orders)
       this.setImageToShow(this.orders);
+      if (this.generalService.getUserRoleId() === this.globalVar.userRoles.admin || this.generalService.getUserRoleId() === this.globalVar.userRoles.vlasnik) {
+        this.ordersGroupByRestaurant = this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId);
+        console.log(this.ordersGroupByRestaurant.get(1));
+      }
       this.subscription.push(this.translate.onLangChange.subscribe(() => this.formatDate()));
     }, err => {
       console.log(err);

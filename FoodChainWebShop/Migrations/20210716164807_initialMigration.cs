@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodChainWebShop.Migrations
 {
-    public partial class initalMigration : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -102,9 +102,10 @@ namespace FoodChainWebShop.Migrations
                     RestaurantId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: false),
-                    imageName = table.Column<string>(nullable: false),
+                    Image = table.Column<byte[]>(nullable: true),
                     mobileNumber = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: false),
+                    Active = table.Column<bool>(nullable: false),
                     minOrderPrice = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     RestaurantTypeId = table.Column<int>(nullable: false)
@@ -136,12 +137,12 @@ namespace FoodChainWebShop.Migrations
                     Price = table.Column<double>(nullable: false),
                     Description_En = table.Column<string>(nullable: true),
                     Description_Hr = table.Column<string>(nullable: true),
-                    Calories = table.Column<int>(nullable: false),
-                    Proteins = table.Column<int>(nullable: false),
-                    Carbs = table.Column<int>(nullable: false),
-                    Sugar = table.Column<int>(nullable: false),
-                    Fat = table.Column<int>(nullable: false),
-                    ImageName = table.Column<string>(nullable: true),
+                    Calories = table.Column<int>(nullable: true),
+                    Proteins = table.Column<int>(nullable: true),
+                    Carbs = table.Column<int>(nullable: true),
+                    Sugar = table.Column<int>(nullable: true),
+                    Fat = table.Column<int>(nullable: true),
+                    Image = table.Column<byte[]>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
                     RestaurantId = table.Column<int>(nullable: false)
                 },
@@ -180,6 +181,12 @@ namespace FoodChainWebShop.Migrations
                         principalTable: "Restaurants",
                         principalColumn: "RestaurantId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaurantReviews_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,7 +219,8 @@ namespace FoodChainWebShop.Migrations
                 {
                     OrderId = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
+                    Quantity = table.Column<int>(nullable: false),
+                    ProductPriceATM = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

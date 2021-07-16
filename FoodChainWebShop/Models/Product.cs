@@ -13,11 +13,11 @@ namespace FoodChainWebShop.Models {
         public double Price { get; set; }
         public string Description_En { get; set; }
         public string Description_Hr { get; set; }
-        public int Calories { get; set; }
-        public int Proteins { get; set; }
-        public int Carbs { get; set; }
-        public int Sugar { get; set; }
-        public int Fat { get; set; }
+        public int? Calories { get; set; }
+        public int? Proteins { get; set; }
+        public int? Carbs { get; set; }
+        public int? Sugar { get; set; }
+        public int? Fat { get; set; }
         public IFormFile ImageFile { get; set; }
         public byte[] Image { get; set; }
 
