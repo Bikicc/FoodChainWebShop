@@ -32,7 +32,11 @@ export class OrderHistoryComponent implements OnInit {
     orderId: null
   }
   ordersGroupByRestaurant: Map<number, any> = null;
-
+  userData: User = null;
+  dateRange: { datumOd: Date | string, datumDo: Date | string } = {
+    datumOd: (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))),
+    datumDo: (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000)))
+  };
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -44,12 +48,12 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
+      this.userData = this.generalService.getUserDataLocale();
       this.ordersUnformatted = this.sortByDate(data.orders);
       this.formatDate();
       this.setImageToShow(this.orders);
       if (this.generalService.getUserRoleId() === this.globalVar.userRoles.admin || this.generalService.getUserRoleId() === this.globalVar.userRoles.vlasnik) {
-        this.ordersGroupByRestaurant = this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId);
-        console.log(this.ordersGroupByRestaurant.get(1));
+        this.ordersGroupByRestaurant = data.orders.length > 0 ? this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId) : null;
       }
       this.subscription.push(this.translate.onLangChange.subscribe(() => this.formatDate()));
     }, err => {
@@ -172,4 +176,24 @@ export class OrderHistoryComponent implements OnInit {
       order.orderProduct.forEach((product: Product) => product.imageToShow = this.generalService.setBase64ImageToShow(product.image as string));
     });
   }
+
+  public getOrdersOnDateChange() {
+    const dates = {
+      datumOd: new Date((this.dateRange.datumOd as Date).getTime() + Math.abs((this.dateRange.datumOd as Date).getTimezoneOffset() * 60000)).toISOString().slice(0, -1),
+      datumDo: new Date((this.dateRange.datumDo as Date).getTime() + Math.abs((this.dateRange.datumDo as Date).getTimezoneOffset() * 60000)).toISOString().slice(0, -1)
+    }
+    this.loading = true;
+
+    this.orderService.getOrders(dates).subscribe((data: any[]) => {
+      this.loading = false;
+      this.ordersUnformatted = this.sortByDate(data);
+      this.formatDate();
+      this.setImageToShow(this.orders);
+      this.ordersGroupByRestaurant = data.length > 0 ? this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId) : null;
+    }, err => {
+      this.loading = false;
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
+    });
+  }
+
 }

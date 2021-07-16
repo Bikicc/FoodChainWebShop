@@ -21,6 +21,8 @@ import { RatingModule } from 'primeng/rating';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { PanelModule } from 'primeng/panel';
+import { CalendarModule } from 'primeng/calendar';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -102,6 +104,8 @@ import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-rest
     ToastModule,
     InputTextareaModule,
     SelectButtonModule,
+    PanelModule,
+    CalendarModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },

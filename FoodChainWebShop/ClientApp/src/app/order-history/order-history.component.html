@@ -4,67 +4,82 @@
   <div class="coverHeader">
     <div class="coverHeaderContainer">
       <h1 class="coverHeaderHeadline">{{'POVIJEST_NARUDZBI' | translate}}</h1>
-      <h2 class="coverHeaderContent">{{'POVIJEST_NARUDZBI_HEADER' | translate}}</h2>
+      <h2 *ngIf="userData && userData.roleId === globalVar.userRoles.korisnik" class="coverHeaderContent">
+        {{'POVIJEST_NARUDZBI_HEADER' | translate}}</h2>
+      <div *ngIf="userData && userData.roleId !== globalVar.userRoles.korisnik" class="calendarContainer">
+        <div style="margin-right: 10px; margin-bottom: 10px;">{{'DATUM_OD' | translate}} 
+          <p-calendar [(ngModel)]="dateRange.datumOd" dateFormat="dd.mm.yy" (onSelect)="getOrdersOnDateChange()"></p-calendar>
+        </div>
+        <div> {{'DATUM_DO' | translate}} 
+          <p-calendar [(ngModel)]="dateRange.datumDo" dateFormat="dd.mm.yy" (onSelect)="getOrdersOnDateChange()"></p-calendar>
+        </div>
+
+      </div>
     </div>
   </div>
-  
-  <!-- ORDER HISTORY SECTION-->
-  <div *ngIf="orders.length > 0; else noOrders" class="ordersWrapper">
-    <div *ngFor="let order of orders">
-      <div class="orderHeader">
-        <div class="orderText restaurantName">
-          {{order.orderProduct[0].product.restaurant.name}}
-        </div>
-        <div class="orderText">
-          {{order.orderTime}}
-        </div>
-        <div class="orderText">
-          {{order.address}}
-        </div>
-        <div class="orderText">
-          {{order.note}}
-        </div>
-        <div class="orderText">
-          <div *ngIf="!selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== order.orderId; else changedPriceTotal" style="display: flex; flex-direction: column;">
-            <span style="align-self: center;">
-              {{order.price}} kn
-            </span>
-            <a class="btn" style="width: 100%;" (click)="repeatOrder(order)">{{'NARUCI' | translate}}</a>
-          </div>
 
-          <ng-template #changedPriceTotal>
-            <div class="priceChangeWarnText">Neke cijene su se promjenile! Potvrdite narudžbu.</div>
-            <div class="ta-c">
-              <span class="red"> {{order.price}} kn
-              </span> <i class="fa fa-arrow-right" aria-hidden="true" style="margin: 5px 10px;"></i>
-              <span class="green"> {{selectedOrderToRepeat.repeatOrderPriceTotal}} kn</span>
-            </div>
-            <div class="flex">
-              <a class="btn" style="margin-right: 10px" (click)="confirmOrder(order)">{{'NARUCI' | translate}}</a>
-              <a class="btn btnRemove" (click)="rejectOrder()">{{'ODUSTANI' | translate}}</a>
-            </div>
-          </ng-template>
-        </div>
-      </div>
-      <div class="ui-g ui-fluid w-100">
-        <div *ngFor="let item of order.orderProduct" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper"
-          (click)="navigateToProduct(item.product.name, item.product.productId)">
-          <span class="cursot-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}X</span>
-          <div class="productImage">
-            <img [src]=item.imageToShow style="width: 100px">
+  <!-- ORDER HISTORY SECTION-->
+  <div *ngIf="userData && userData.roleId === globalVar.userRoles.korisnik; else adminOwnerView">
+    <div *ngIf="orders.length > 0; else noOrders" class="ordersWrapper">
+      <div *ngFor="let order of orders">
+        <div class="orderHeader">
+          <div class="orderText restaurantName">
+            {{order.orderProduct[0].product.restaurant.name}}
           </div>
-          <div class="productName">
-            {{item.product.name}}
+          <div class="orderText">
+            {{order.orderTime}}
           </div>
-          <div class="productPrice">
-            <span *ngIf="item.productPriceATM === item.product.price || !selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== item.orderId; else changedPrice">
-              {{item.productPriceATM}} kn
-            </span>
-            <ng-template #changedPrice>
-              <span class="red"> {{item.productPriceATM}} kn
-              </span> <i class="fa fa-arrow-right" aria-hidden="true" style="margin: 5px 10px;"></i>
-              <span class="green"> {{item.product.price}} kn</span>
+          <div class="orderText">
+            {{order.address}}
+          </div>
+          <div class="orderText">
+            {{order.note}}
+          </div>
+          <div class="orderText">
+            <div
+              *ngIf="!selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== order.orderId; else changedPriceTotal"
+              style="display: flex; flex-direction: column;">
+              <span style="align-self: center;">
+                {{order.price}} kn
+              </span>
+              <a class="btn" style="width: 100%;" (click)="repeatOrder(order)">{{'NARUCI' | translate}}</a>
+            </div>
+
+            <ng-template #changedPriceTotal>
+              <div class="priceChangeWarnText">Neke cijene su se promjenile! Potvrdite narudžbu.</div>
+              <div class="ta-c">
+                <span class="red"> {{order.price}} kn
+                </span> <i class="fa fa-arrow-right" aria-hidden="true" style="margin: 5px 10px;"></i>
+                <span class="green"> {{selectedOrderToRepeat.repeatOrderPriceTotal}} kn</span>
+              </div>
+              <div class="flex">
+                <a class="btn" style="margin-right: 10px" (click)="confirmOrder(order)">{{'NARUCI' | translate}}</a>
+                <a class="btn btnRemove" (click)="rejectOrder()">{{'ODUSTANI' | translate}}</a>
+              </div>
             </ng-template>
+          </div>
+        </div>
+        <div class="ui-g ui-fluid w-100">
+          <div *ngFor="let item of order.orderProduct" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper"
+            (click)="navigateToProduct(item.product.name, item.product.productId)">
+            <span class="cursot-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}X</span>
+            <div class="productImage">
+              <img [src]=item.imageToShow style="width: 100px">
+            </div>
+            <div class="productName">
+              {{item.product.name}}
+            </div>
+            <div class="productPrice">
+              <span
+                *ngIf="item.productPriceATM === item.product.price || !selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== item.orderId; else changedPrice">
+                {{item.productPriceATM}} kn
+              </span>
+              <ng-template #changedPrice>
+                <span class="red"> {{item.productPriceATM}} kn
+                </span> <i class="fa fa-arrow-right" aria-hidden="true" style="margin: 5px 10px;"></i>
+                <span class="green"> {{item.product.price}} kn</span>
+              </ng-template>
+            </div>
           </div>
         </div>
       </div>
@@ -85,6 +100,47 @@
     <div class="sk-cube sk-cube9"></div>
   </div>
 </div>
+
+<ng-template #adminOwnerView>
+  <div *ngIf="ordersGroupByRestaurant; else noOrders" class="ordersWrapper">
+    <p-panel *ngFor="let orders of ordersGroupByRestaurant | keyvalue" [collapsed]="true"
+      [header]="orders.value[0].orderProduct[0].product.restaurant.name" [toggleable]="true">
+      <div *ngFor="let order of orders.value">
+        <div class="orderHeader">
+          <div class="orderText">
+            {{order.user.username}}
+          </div>
+          <div class="orderText">
+            {{order.orderTime}}
+          </div>
+          <div class="orderText">
+            {{order.address}}
+          </div>
+          <div class="orderText">
+            {{order.note}}
+          </div>
+        </div>
+        <div class="ui-g ui-fluid w-100">
+          <div *ngFor="let item of order.orderProduct" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
+            <span class="cursot-pnt w-100 ta-c defCursor" style="font-size: 1.3rem;">{{item.quantity}}X</span>
+            <div class="productImage defCursor">
+              <img [src]=item.imageToShow style="width: 100px">
+            </div>
+            <div class="productName defCursor">
+              {{item.product.name}}
+            </div>
+            <div class="productPrice defCursor">
+              <span>
+                {{item.productPriceATM}} kn
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+</ng-template>
+
 
 <ng-template #noOrders>
   <app-no-data noDataText="{{'NO_ORDERS' | translate}}">

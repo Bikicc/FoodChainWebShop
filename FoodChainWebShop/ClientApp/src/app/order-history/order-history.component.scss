@@ -73,6 +73,34 @@ a {
   width: 100%;
 }
 
+:host::ng-deep {
+  .ui-panel .ui-panel-content {
+    background-color: transparent;
+    color: white;
+    border: none;
+  }
+
+  .ui-panel .ui-panel-titlebar {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    background-color: #181616;
+    color: white;
+  }
+
+  .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon {
+    margin-top: 5px;
+  }
+}
+
+.defCursor {
+  cursor: default;
+}
+
+.calendarContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @media only screen and (max-width: 650px) {
   img {
     width: 40%;

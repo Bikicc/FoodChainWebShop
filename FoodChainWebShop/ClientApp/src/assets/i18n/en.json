@@ -119,7 +119,9 @@
     "AKTIVIRAJ": "Activate",
     "AKTIVNI": "Active",
     "NEAKTIVNI": "Non-active",
-    "TRENUTNA_SLIKA": "Current image"
+    "TRENUTNA_SLIKA": "Current image",
+    "DATUM_OD": "From:",
+    "DATUM_DO": "To:"
 
 
 
