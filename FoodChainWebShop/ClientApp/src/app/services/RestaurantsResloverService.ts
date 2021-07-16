@@ -9,7 +9,7 @@ import { RestaurantsService } from './RestaurantsService';
     providedIn: 'root'
 })
 
-export class RestaurantsResloverService implements Resolve<RestaurantWithRating> {
+export class RestaurantsResloverService implements Resolve<any> {
     constructor(
         private restaurantsService: RestaurantsService) { }
 

@@ -42,6 +42,7 @@ export class OrderHistoryComponent implements OnInit {
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
       this.ordersUnformatted = this.sortByDate(data.orders);
+      console.log(this.ordersUnformatted);
       this.formatDate();
       console.log(this.orders)
       this.setImageToShow(this.orders);
@@ -140,9 +141,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   getOrdersForUser() {
-    const user = JSON.parse(localStorage.getItem("user") || null);
-
-    this.subscription.push(this.orderService.getOrdersForUser(user ? user.userId : null).subscribe((orders: Order[]) => {
+    this.subscription.push(this.orderService.getOrders().subscribe((orders: Order[]) => {
       this.ordersUnformatted = this.sortByDate(orders);
       this.formatDate();
       this.setImageToShow(this.orders);

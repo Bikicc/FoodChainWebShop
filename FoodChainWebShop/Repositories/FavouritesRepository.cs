@@ -20,8 +20,6 @@ namespace FoodChainWebShop.Repositories {
                     .ThenInclude (fp => fp.Restaurant)
                 .Where (fp => fp.UserId == userId)
                 .ToListAsync ();
-            // return await (from product in _context.Products 
-            //     where product.Favourites.Any (p => p.UserId == userId) select new FavouriteProduct(product)).ToListAsync ();
         }
 
         public async Task postFavourite (Favourite favourite) {

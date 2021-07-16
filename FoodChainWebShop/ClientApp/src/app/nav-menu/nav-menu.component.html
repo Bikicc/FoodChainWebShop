@@ -28,12 +28,12 @@
         </li>
         <li *ngIf="roleId && roleId === globalVar.userRoles.admin" class="linksContainer jc-c">
           <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
-          <a routerLink="/admin/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+          <a routerLink="/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
           <a routerLink="/registration">{{'REGISTRIRAJ_KORISNIKA' | translate}}</a>
         </li>
         <li *ngIf="roleId && roleId === globalVar.userRoles.vlasnik" class="linksContainer jc-c">
           <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
-          <a routerLink="/owner/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+          <a routerLink="/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
         </li>
         <li class="basketAndButtonContainer">
           <div class="flex jc-c buttonContainer">

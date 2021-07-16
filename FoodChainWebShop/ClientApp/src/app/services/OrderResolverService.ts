@@ -13,8 +13,7 @@ export class OrderResolverService implements Resolve<any> {
     }
     
      resolve() {      
-        const user =  JSON.parse(localStorage.getItem("user") || null);
-        return this.orderService.getOrdersForUser(user ? user.userId : null).pipe(
+        return this.orderService.getOrders().pipe(
             catchError((error) => {
                 console.log(error);
                 return empty();

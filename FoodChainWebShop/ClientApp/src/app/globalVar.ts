@@ -9,4 +9,6 @@ export class GlobalVar {
         vlasnik: 2,
         korisnik: 3
     }
+
+    readonly todaysDate = (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))).toISOString().slice(0, -1);
 }
