@@ -9,6 +9,8 @@ namespace FoodChainWebShop.Interfaces {
         Task InsertRestaurant (Restaurant rest);
         Task<Restaurant> GetRestaurant (int resId);
         Task UpdateRestaurant (Restaurant rest);
+        Task DeleteRestaurant (int restId);
+        Task ActivateRestaurant (int restId);
 
     }
 }

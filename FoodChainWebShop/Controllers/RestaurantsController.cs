@@ -52,13 +52,42 @@ namespace FoodChainWebShop.Controllers {
 
         [HttpPut]
         [Authorize ("admin")]
-        public async Task<IActionResult> UpdateRestaurantReview ([FromForm] Restaurant rest) {
+        public async Task<IActionResult> UpdateRestaurant ([FromForm] Restaurant rest) {
             if (rest.ImageFile != null) {
                 rest.Image = _restaurantService.getByteArrForImage (rest.ImageFile);
             }
 
             await _restaurantService.UpdateRestaurant (rest);
             return Ok ();
+        }
+
+        [HttpDelete ("{restId}")]
+        [Authorize ("admin")]
+        public async Task<IActionResult> DeleteRestaurant (int restId) {
+            try {
+                await _restaurantService.DeleteRestaurant (restId);
+                return Ok ();
+
+            } catch (Exception e) {
+                Console.WriteLine ($"Exception: {e}");
+                return BadRequest ();
+            }
+
+        }
+        
+        [Route ("activate/{restId}")]
+        [HttpGet]
+        [Authorize ("admin")]
+        public async Task<IActionResult> ActivateRestaurant (int restId) {
+            try {
+                await _restaurantService.ActivateRestaurant (restId);
+                return Ok ();
+
+            } catch (Exception e) {
+                Console.WriteLine ($"Exception: {e}");
+                return BadRequest ();
+            }
+
         }
     }
 }

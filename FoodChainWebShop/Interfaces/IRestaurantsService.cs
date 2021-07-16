@@ -10,6 +10,8 @@ namespace FoodChainWebShop.Interfaces {
         Task PostRestaurant (Restaurant rest);
         Task<Restaurant> GetRestaurant (int resId);
         Task UpdateRestaurant (Restaurant rest);
+        Task DeleteRestaurant (int restId);
+        Task ActivateRestaurant (int restId);
         byte[] getByteArrForImage (IFormFile imageFile);
     }
 }

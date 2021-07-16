@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Http;
-using System.IO;
 
 namespace FoodChainWebShop.Services {
     public class RestaurantsService : IRestaurantsService {
@@ -33,6 +33,22 @@ namespace FoodChainWebShop.Services {
         public async Task UpdateRestaurant (Restaurant rest) {
             try {
                 await _restaurantsRepo.UpdateRestaurant (rest);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        public async Task DeleteRestaurant (int restId) {
+            try {
+                await _restaurantsRepo.DeleteRestaurant (restId);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        public async Task ActivateRestaurant (int restId) {
+            try {
+                await _restaurantsRepo.ActivateRestaurant (restId);
             } catch (Exception e) {
                 throw e;
             }

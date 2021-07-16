@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { GlobalVar } from '../globalVar';
+import { Restaurant } from '../interfaces/Restaurant';
 import { RestaurantWithRating } from '../interfaces/RestaurantsWithRating';
 import { RestaurantType } from '../interfaces/RestaurantType';
 import { User } from '../interfaces/User';
 import { GeneralService } from '../services/GeneralService';
 import { RestaurantsService } from '../services/RestaurantsService';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 
 @Component({
   selector: 'app-restaurants',
@@ -15,6 +17,9 @@ import { RestaurantsService } from '../services/RestaurantsService';
   styleUrls: ['./restaurants.component.scss']
 })
 export class RestaurantsComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+
   subscription: Subscription[] = [];
   restaurants: RestaurantWithRating[] = [];
   restaurantTypes: RestaurantType[] = [];
@@ -29,7 +34,8 @@ export class RestaurantsComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private generalService: GeneralService,
-    public globalVar: GlobalVar
+    public globalVar: GlobalVar,
+    private restaurantService: RestaurantsService
   ) { }
 
   ngOnInit() {
@@ -37,7 +43,7 @@ export class RestaurantsComponent implements OnInit {
       this.restaurants = this.setRestaurantImageToShow(data.restaurants);
       this.restaurantTypes = data.restaurantTypes;
       this.setUserData();
-      
+
       this.setDropdownRestaurantTypes();
       this.translate.onLangChange.subscribe(() => this.setDropdownRestaurantTypes());
       this.roleId = this.generalService.getUserRoleId();
@@ -53,7 +59,7 @@ export class RestaurantsComponent implements OnInit {
   navigateToRestaurant(restaurantId: number) {
     this.router.navigateByUrl("menu/" + restaurantId);
   }
-  
+
   navigateToEditRestaurant(restaurantId: number) {
     window.event.stopPropagation(); //Kako se ne bi okinia onClick od parent diva
     this.router.navigateByUrl("editRestaurant/" + restaurantId);
@@ -95,6 +101,26 @@ export class RestaurantsComponent implements OnInit {
     } else {
       this.userData = null;
     }
+  }
+
+  public deleteRestaurant(restId: number) {
+    window.event.stopPropagation(); //Kako se ne bi okinia onClick od parent diva
+
+    this.restaurantService.deleteRestaurant(restId).subscribe((data) => {
+      console.log("IMA SRICEE")
+    }, err => {
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+    });
+  }
+
+  public activateRestaurant(restId: number) {
+    window.event.stopPropagation(); //Kako se ne bi okinia onClick od parent diva
+
+    this.restaurantService.activateRestaurant(restId).subscribe((data) => {
+      console.log("IMA SRICEE")
+    }, err => {
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+    });
   }
 
 }

@@ -25,25 +25,41 @@ export class RestaurantsService {
 
     getRestaurantInfo(resId: number): Observable<Restaurant> {
         return this.http
-        .get<Restaurant>(this.config.API_URL + 'restaurants/' + resId)
-        .pipe(
-            retry(this.config.APIRetryCount),
-            catchError(this.errorHandler.errorHandler));
+            .get<Restaurant>(this.config.API_URL + 'restaurants/' + resId)
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
     }
 
     insertRestaurant(body: FormData) {
         return this.http
-        .post(this.config.API_URL + 'restaurants', body)
-        .pipe(
-            retry(this.config.APIRetryCount),
-            catchError(this.errorHandler.errorHandler));
+            .post(this.config.API_URL + 'restaurants', body)
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
     }
 
     editRestaurant(body: FormData) {
         return this.http
-        .put(this.config.API_URL + 'restaurants', body)
-        .pipe(
-            retry(this.config.APIRetryCount),
-            catchError(this.errorHandler.errorHandler));
+            .put(this.config.API_URL + 'restaurants', body)
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
+    }
+
+    deleteRestaurant(restId: number) {
+        return this.http
+            .delete(this.config.API_URL + 'restaurants/' + restId)
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
+    }
+
+    activateRestaurant(restId: number) {
+        return this.http
+            .get(this.config.API_URL + 'restaurants/activate/' + restId)
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
     }
 }
