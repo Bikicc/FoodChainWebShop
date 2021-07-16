@@ -27,8 +27,11 @@ export class RestaurantsComponent implements OnInit {
   selectedRestaurantTypeId: number = 1;
   filteredRestaurants: RestaurantWithRating[] = [];
   roleId: number = null;
-  userData: User = null;
-
+  //Admin rest data
+  activeRestaurants: RestaurantWithRating[] = [];
+  inactiveRestaurants: RestaurantWithRating[] = [];
+  filteredActiveRestaurants: RestaurantWithRating[] = [];
+  filteredInactiveRestaurants: RestaurantWithRating[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -40,13 +43,14 @@ export class RestaurantsComponent implements OnInit {
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { restaurants: RestaurantWithRating[], restaurantTypes: RestaurantType[] }) => {
+      this.roleId = this.generalService.getUserRoleId();
+
       this.restaurants = this.setRestaurantImageToShow(data.restaurants);
+      if (this.roleId === this.globalVar.userRoles.admin) this.setAdminRestaurantsView(this.restaurants);
       this.restaurantTypes = data.restaurantTypes;
-      this.setUserData();
 
       this.setDropdownRestaurantTypes();
       this.translate.onLangChange.subscribe(() => this.setDropdownRestaurantTypes());
-      this.roleId = this.generalService.getUserRoleId();
     }, err => {
       console.log(err);
     }));
@@ -81,6 +85,10 @@ export class RestaurantsComponent implements OnInit {
 
   public filterRestaurantsBasedOnType() {
     this.filteredRestaurants = this.restaurants.filter(item => item.restaurant.restaurantTypeId == this.selectedRestaurantTypeId);
+    if (this.roleId === this.globalVar.userRoles.admin) {
+      this.filteredActiveRestaurants = this.activeRestaurants.filter(item => item.restaurant.restaurantTypeId == this.selectedRestaurantTypeId);
+      this.filteredInactiveRestaurants = this.inactiveRestaurants.filter(item => item.restaurant.restaurantTypeId == this.selectedRestaurantTypeId);
+    }
   }
 
   public navigateToAddNewRestaurant(): void {
@@ -94,20 +102,12 @@ export class RestaurantsComponent implements OnInit {
     });;
   }
 
-  private setUserData(): void {
-    const user = JSON.parse(localStorage.getItem("user")) || null;
-    if (user) {
-      this.userData = user;
-    } else {
-      this.userData = null;
-    }
-  }
-
   public deleteRestaurant(restId: number) {
     window.event.stopPropagation(); //Kako se ne bi okinia onClick od parent diva
 
     this.restaurantService.deleteRestaurant(restId).subscribe((data) => {
-      console.log("IMA SRICEE")
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno deaktiviran!') : this.toastMessages.saveChangesSuccess('Restaurant has been deactivated successfully!');
+      this.getRestaurantsAfterActivationDeletion();
     }, err => {
       this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
     });
@@ -117,7 +117,24 @@ export class RestaurantsComponent implements OnInit {
     window.event.stopPropagation(); //Kako se ne bi okinia onClick od parent diva
 
     this.restaurantService.activateRestaurant(restId).subscribe((data) => {
-      console.log("IMA SRICEE")
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno aktiviran!') : this.toastMessages.saveChangesSuccess('Restaurant has been activated successfully!');
+      this.getRestaurantsAfterActivationDeletion();
+    }, err => {
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+    });
+  }
+
+  private setAdminRestaurantsView(rest: RestaurantWithRating[]) {
+    this.activeRestaurants = rest.filter(r => r.restaurant.active === true);
+    this.inactiveRestaurants = rest.filter(r => r.restaurant.active === false);
+
+  }
+
+  private getRestaurantsAfterActivationDeletion() {
+    this.restaurantService.getRestaurants().subscribe((data) => {
+      this.restaurants = this.setRestaurantImageToShow(data);
+      this.setAdminRestaurantsView(this.restaurants);
+      this.filterRestaurantsBasedOnType();
     }, err => {
       this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
     });

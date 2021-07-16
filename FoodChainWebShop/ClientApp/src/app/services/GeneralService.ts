@@ -25,5 +25,19 @@ export class GeneralService {
         return user;
     }
 
+    public groupArrOfObjectByKey(arrOfObj: any[], keyGetter: Function) {
+        const map = new Map();
+        arrOfObj.forEach((item) => {
+             const key = keyGetter(item);
+             const collection = map.get(key);
+             if (!collection) {
+                 map.set(key, [item]);
+             } else {
+                 collection.push(item);
+             }
+        });
+        return map;
+    }
+
 
 }

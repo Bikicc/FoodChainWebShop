@@ -9,7 +9,8 @@ interface RestaurantInfo {
     address: string,
     minOrderPrice: number,
     userId: number,
-    restaurantTypeId: number
+    restaurantTypeId: number,
+    active: boolean,
 }
 
 export interface RestaurantWithRating {

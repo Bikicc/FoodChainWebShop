@@ -19,7 +19,7 @@ export class RestaurantsService {
         private globalVar: GlobalVar
     ) { }
 
-    getRestaurants(): Observable<RestaurantWithRating> {
+    getRestaurants(): Observable<RestaurantWithRating[]> {
         let getReq: string = null;
         const user = this.generalService.getUserDataLocale();
 
@@ -41,7 +41,7 @@ export class RestaurantsService {
         }
 
         return this.http
-            .get<RestaurantWithRating>(getReq)
+            .get<RestaurantWithRating[]>(getReq)
             .pipe(
                 retry(this.config.APIRetryCount),
                 catchError(this.errorHandler.errorHandler));

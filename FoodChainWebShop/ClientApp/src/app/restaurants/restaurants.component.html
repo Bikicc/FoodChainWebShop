@@ -11,7 +11,7 @@
             style="margin-top: 10px; align-self: center;">{{'DODAJ_RESTORAN' | translate}}</a>
     </div>
 </div>
-<div *ngIf="!userData || userData.roleId !== globalVar.userRoles.admin; else adminView">
+<div *ngIf="roleId !== globalVar.userRoles.admin; else adminView">
     <div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100" style="position: relative;">
         <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
             (click)="navigateToRestaurant(item.restaurant.restaurantId)">
@@ -48,9 +48,9 @@
         <div class="activeInactiveHeader">
             <span class="activeText">{{'AKTIVNI' | translate}}</span>
         </div>
-        <div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100"
+        <div *ngIf="filteredActiveRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100"
             style="position: relative;">
-            <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
+            <div *ngFor="let item of filteredActiveRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
                 (click)="navigateToRestaurant(item.restaurant.restaurantId)">
                 <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
                     <p-header>
@@ -90,9 +90,9 @@
         <div class="activeInactiveHeader">
             <span class="inactiveText">{{'NEAKTIVNI' | translate}}</span>
         </div>
-        <div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100"
+        <div *ngIf="filteredInactiveRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100"
             style="position: relative;">
-            <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
+            <div *ngFor="let item of filteredInactiveRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"
                 (click)="navigateToRestaurant(item.restaurant.restaurantId)">
                 <p-card [header]="item.restaurant.name" class="restaurantCardContainer">
                     <p-header>
