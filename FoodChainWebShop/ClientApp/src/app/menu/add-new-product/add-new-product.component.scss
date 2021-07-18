@@ -1,0 +1,100 @@
+@import '../../../assets/css/form.scss';
+@import '../../../assets/css/loader.css';
+@import '../../../assets/css/dropdown.scss';
+
+.dataInputContainer {
+  display: flex;
+  width: 50%;
+}
+
+.buttonContainer {
+  width: 80%;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+}
+
+.mh-40 {
+  max-height: 40px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.errorInput {
+  border-bottom: 1px solid red;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+:host ::ng-deep {
+  .ui-inputtext::before {
+    display: none;
+  }
+
+  .ui-dropdown,
+  .ui-dropdown-open,
+  .ui-dropdown:hover,
+  .ui-dropdown:focus,
+  .ui-dropdown:active {
+    border: 0 !important;
+    border-bottom: 1px solid var(--goldenColor) !important;
+  }
+
+  .ui-dropdown label.ui-dropdown-label {
+    text-align: center;
+    margin-left: 1rem;
+  }
+
+  .ui-fileupload .ui-fileupload-buttonbar,
+  .ui-fileupload .ui-fileupload-content {
+    border: 1px solid var(--goldenColor);
+    background-color: transparent;
+    color: white;
+  }
+
+  .ui-fileupload-content .ui-progressbar {
+    display: none;
+  }
+
+}
+
+.disabledButton {
+  cursor: default;
+  background-color: #80808078;
+}
+
+.disabledButton:hover {
+  box-shadow: unset;
+  color: #6f6868 !important;
+}
+
+.disabledButton::before {
+  background: unset;
+}
+
+textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--goldenColor);
+    text-align: center;
+    color: white;
+}
+
+textarea:focus-visible {
+  outline: 0;
+}
+
+@media only screen and (max-width: 850px) {
+  .dataInputContainer {
+    width: 100%;
+  }
+}

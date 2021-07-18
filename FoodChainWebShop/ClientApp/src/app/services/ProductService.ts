@@ -12,19 +12,10 @@ export class ProductService {
     constructor(
         private config: Config,
         private http: HttpClient,
-        private errorHandler: ErrorHandlerService,
-        private sanitazer: DomSanitizer
+        private errorHandler: ErrorHandlerService
     ) {
         this.headersOption = new HttpHeaders({ 'Content-Type': 'application/json' });
     }
-
-    // products_SelectAll() {
-    //     return this.http
-    //         .get(this.config.API_URL + 'products')
-    //         .pipe(
-    //             retry(this.config.APIRetryCount),
-    //             catchError(this.errorHandler.errorHandler));
-    // }
 
     productsSelectById(productId: number) {
         return this.http

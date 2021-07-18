@@ -121,14 +121,10 @@
     "NEAKTIVNI": "Non-active",
     "TRENUTNA_SLIKA": "Current image",
     "DATUM_OD": "From:",
-    "DATUM_DO": "To:"
-
-
-
-
-
-
-
-
+    "DATUM_DO": "To:",
+    "DODAJ_PRODUKT": "Add product",
+    "CIJENA": "Price",
+    "UNESITE_OPIS_PROIZVODA_EN": "Enter product description (EN)...",
+    "UNESITE_OPIS_PROIZVODA_HR": "Enter product description (HR)..."
 
 }

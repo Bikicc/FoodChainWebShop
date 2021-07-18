@@ -6,5 +6,6 @@ namespace FoodChainWebShop.Interfaces {
     public interface ICategoryRepository {
         Task<ICollection<Category>> getCategories (int restaurantId);
         Task<Category> GetCategory (int id);
+        Task<ICollection<Category>> GetCategoriesWithoutProducts();
     }
 }

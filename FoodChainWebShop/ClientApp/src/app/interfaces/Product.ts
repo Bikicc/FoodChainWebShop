@@ -11,9 +11,9 @@ export interface Product {
     carbs: number,
     sugar: number,
     fat: number,
-    image: ArrayBuffer | File | string,
+    image?: ArrayBuffer | File | string,
     categoryId: number,
     quantity?: number,
     restaurantId: number,
-    imageToShow: SafeResourceUrl
+    imageToShow?: SafeResourceUrl
 }

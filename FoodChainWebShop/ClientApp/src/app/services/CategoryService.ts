@@ -12,6 +12,14 @@ export class CategoryService {
         private errorHandler: ErrorHandlerService
     ) { }
 
+    category_SelectAllWithoutProducts() {
+        return this.http
+            .get(this.config.API_URL + 'categories')
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
+    }
+
     category_SelectAllWithProducts(restaurantId: number) {
         return this.http
             .get(this.config.API_URL + 'category/products/' + restaurantId)

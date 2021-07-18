@@ -1,0 +1,143 @@
+<div class="mainWrapper">
+    <div class="FormWrapper">
+        <section class="signupHeader">
+            <span class="headerText">
+                {{'DODAJ_PROIZVOD' | translate}}
+                <span class="dot">•</span>
+                {{restaurantInfo.name}}
+            </span>
+        </section>
+        <section class="signupContent">
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <input type="text" id="name" name="name" placeholder="{{'NAZIV' | translate}}"
+                            [ngClass]="{'errorInput': name.invalid && (name.dirty || name.touched)}" required
+                            [(ngModel)]="productModel.name" #name="ngModel">
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-money" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <input pKeyFilter="pint" type="text" id="price" name="price"
+                            placeholder="{{'CIJENA' | translate}} (Kn.)"
+                            [ngClass]="{'errorInput': price.invalid && (price.dirty || price.touched)}"
+                            [(ngModel)]="productModel.price" #price="ngModel" required>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <textarea placeholder="{{'UNESITE_OPIS_PROIZVODA_HR' | translate}}" rows="1"
+                            [(ngModel)]="productModel.description_Hr"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <textarea placeholder="{{'UNESITE_OPIS_PROIZVODA_EN' | translate}}" rows="1"
+                            [(ngModel)]="productModel.description_En"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_03' | translate}} (kcal)"
+                            [(ngModel)]="productModel.calories">
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_04' | translate}} (g)"
+                            [(ngModel)]="productModel.carbs">
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_05' | translate}} (g)"
+                            [(ngModel)]="productModel.sugar">
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_06' | translate}} (g)"
+                            [(ngModel)]="productModel.proteins">
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_07' | translate}} (g)"
+                            [(ngModel)]="productModel.fat">
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="flex ai-c mh-40">
+                        <i class="fa fa-glass" aria-hidden="true"></i>
+                    </div>
+                    <div class="inputWrapper">
+                        <p-dropdown [options]="categoriesDropdown" [(ngModel)]="productModel.categoryId"
+                            appendTo="body">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="inputWrapper">
+                        <p-fileUpload #fileUploader name="myfile" customUpload="true"
+                            (uploadHandler)="myUploader($event)" accept="image/*" maxFileSize="2e6" [auto]="true">
+                        </p-fileUpload>
+                    </div>
+                </div>
+            </div>
+            <div class="flex jc-c buttonContainer">
+                <a class="btn" (click)="insertProduct()" [ngClass]="{'disabledButton': !isFormValid()}">{{'SPREMI' |
+                    translate}}</a>
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<app-toast-messages></app-toast-messages>

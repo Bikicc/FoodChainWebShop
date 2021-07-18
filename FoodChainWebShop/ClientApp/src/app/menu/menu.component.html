@@ -9,6 +9,7 @@
           (onChange)="filterProductsBasedOnCategory()">
         </p-dropdown>
       </span>
+      <a *ngIf="userData?.roleId === globalVar.userRoles.vlasnik" (click)="navigateToAddNewProduct()" class="btn addRestaurantBtn">{{'DODAJ_PRODUKT' | translate}}</a>
     </div>
   </div>
 
@@ -17,24 +18,23 @@
     <div class="ui-g ui-fluid w-100">
       <div *ngFor="let product of selectedCategory.products"
         class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
-        <div class="productImage" (click)="navigateToProduct(product.productId, product.name)">
-          <!-- <img src="assets/images/products/{{product.imageName}}" style="width: 100px"> -->
+        <div class="productImage" [ngClass]="{'cursot-pnt': userData?.roleId !== globalVar.userRoles.admin}"
+          (click)="navigateToProduct(product.productId, product.name)">
           <img [src]=product.imageToShow style="width: 100px" />
         </div>
-        <div class="productName" (click)="navigateToProduct(product.productId, product.name)">
+        <div class="productName" [ngClass]="{'cursot-pnt': userData?.roleId !== globalVar.userRoles.admin}"
+          (click)="navigateToProduct(product.productId, product.name)">
           {{product.name}}
         </div>
-        <div class="productPrice" (click)="navigateToProduct(product.productId, product.name)">
+        <div class="productPrice" [ngClass]="{'cursot-pnt': userData?.roleId !== globalVar.userRoles.admin}"
+          (click)="navigateToProduct(product.productId, product.name)">
           {{product.price}}kn
         </div>
-        <div class="flex jc-c buttonContainer">
+        <div *ngIf="!userData || userData?.roleId === globalVar.userRoles.korisnik" class="flex jc-c buttonContainer">
           <a class="btn" (click)="increaseProductInABasketNumber(); addProductToBasket(product)">{{'DODAJ_U_KOSARICU' |
             translate}}</a>
         </div>
       </div>
-      <button (click)="test()">
-        TESTIRAJ ME BIKEEE KO VOLA U KUPUSU
-      </button>
     </div>
   </div>
 
@@ -45,7 +45,7 @@
       <h2 class="coverHeaderContent">{{'REVIEWS_HEADER' | translate}}</h2>
     </div>
   </div>
-  
+
   <!-- REVIEWS SECTION-->
   <div *ngIf="reviews.length > 0; else noReviews" class="reviewsSection">
     <span class="userRatingsText">{{'KORISNICKE_RECENZIJE' | translate}} ({{ numberOfReviews }})</span>

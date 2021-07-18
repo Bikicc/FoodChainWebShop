@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 import { ProductService } from '../services/ProductService';
 import { GeneralService } from '../services/GeneralService';
+import { GlobalVar } from '../globalVar';
 
 @Component({
   selector: 'app-product-info',
@@ -33,7 +34,8 @@ export class ProductInfoComponent implements OnInit {
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
     private translate: TranslateService,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    public globalVar: GlobalVar
   ) { }
 
   ngOnInit() {
@@ -46,7 +48,7 @@ export class ProductInfoComponent implements OnInit {
       console.log(err);
     }));
 
-    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = this.generalService.getUserDataLocale();
     this.selectedLang = this.translate.currentLang;
     this.subscription.push(this.translate.onLangChange.subscribe(() => this.selectedLang = this.translate.currentLang));
   }

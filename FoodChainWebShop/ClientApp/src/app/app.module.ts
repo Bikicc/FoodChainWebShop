@@ -23,6 +23,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { PanelModule } from 'primeng/panel';
 import { CalendarModule } from 'primeng/calendar';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -68,6 +69,8 @@ import { AddNewRestaurantComponent } from './restaurants/add-new-restaurant/add-
 import { addNewUserResolverService } from './services/addNewUserResolverService';
 import { RestaurantInfoResolverService } from './services/RestaurantInfoResolverService';
 import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-restaurant.component';
+import { AddNewProductComponent } from './menu/add-new-product/add-new-product.component';
+import { CategoryResolverService } from './services/CategoryResolverService';
 
 @NgModule({
   declarations: [
@@ -91,7 +94,8 @@ import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-rest
     RestaurantsComponent,
     NoDataComponent,
     AddNewRestaurantComponent,
-    EditRestaurantComponent
+    EditRestaurantComponent,
+    AddNewProductComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -106,6 +110,7 @@ import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-rest
     SelectButtonModule,
     PanelModule,
     CalendarModule,
+    KeyFilterModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -114,6 +119,7 @@ import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-rest
       { path: 'aboutUs', component: AboutUsComponent },
       { path: 'contactUs', component: ContactUsComponent },
       { path: 'menu/:restaurantId', component: MenuComponent, resolve: { categories: MenuResolverService, reviews: RestaurantReviewResolverService, restaurantInfo: RestaurantInfoResolverService } },
+      { path: 'addNewProduct/:restaurantId', component: AddNewProductComponent, resolve: { categories: CategoryResolverService, restaurantInfo: RestaurantInfoResolverService } },
       { path: 'favourites', component: FavouritesComponent, resolve: { favourites: FavouritesResolverService } },
       { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },
@@ -122,7 +128,6 @@ import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-rest
       { path: 'restaurants', component: RestaurantsComponent, resolve: { restaurants: RestaurantsResloverService, restaurantTypes: RestaurantTypeResolverService } },
       { path: 'addNewRestaurant', component: AddNewRestaurantComponent, resolve: { owners: addNewUserResolverService, restaurantTypes: RestaurantTypeResolverService } },
       { path: 'editRestaurant/:restaurantId', component: EditRestaurantComponent, resolve: { owners: addNewUserResolverService, restaurantTypes: RestaurantTypeResolverService, restaurantInfo: RestaurantInfoResolverService } },
-
       { path: '**', component: PageNotFoundComponent }
     ]),
     I18nModule,

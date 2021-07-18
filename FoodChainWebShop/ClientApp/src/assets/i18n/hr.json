@@ -121,11 +121,9 @@
     "NEAKTIVNI": "Neaktivni",
     "TRENUTNA_SLIKA": "Trenutna slika",
     "DATUM_OD": "Datum od:",
-    "DATUM_DO": "Datum do:"
-
-
-
-
-
-
+    "DATUM_DO": "Datum do:",
+    "DODAJ_PRODUKT": "Dodaj proizvod",
+    "CIJENA": "Cijena",
+    "UNESITE_OPIS_PROIZVODA_EN": "Unesite opis proizvoda (EN)...",
+    "UNESITE_OPIS_PROIZVODA_HR": "Unesite opis proizvoda (HR)..."
 }

@@ -108,11 +108,13 @@ export class AddNewRestaurantComponent implements OnInit {
   insertRestaurant() {
     if (this.isFormValid()) {
       for (var key in this.restaurantModel) {
-        this.formData.append(key, this.restaurantModel[key]);
+        if (this.restaurantModel[key] !== null) {
+          this.formData.append(key, this.restaurantModel[key]);
+        }
       }
 
       this.restaurantService.insertRestaurant(this.formData).subscribe(() => {
-        this.resetFormModel();
+        this.setRestaurantModelDefault();
         this.resetFormFields();
         this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno dodan!') : this.toastMessages.saveChangesSuccess('Restaurant has been successfully added!');
 
@@ -130,7 +132,7 @@ export class AddNewRestaurantComponent implements OnInit {
     this.fileUploader.clear();
   }
 
-  private resetFormModel() {
+  private setRestaurantModelDefault() {
     this.restaurantModel = {
       name: '',
       mobileNumber: '',

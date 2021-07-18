@@ -55,6 +55,7 @@ export class MenuComponent implements OnInit {
   }
   loading: boolean = false;
   restaurantInfo: Restaurant = null;
+
   constructor(
     private dataFromAnotherComponent: ComponentCommunicationService,
     private router: Router,
@@ -73,7 +74,7 @@ export class MenuComponent implements OnInit {
       this.reviews = data.reviews;
       this.restaurantInfo = data.restaurantInfo.result;
 
-      this.setUserData();
+      this.userData = this.generalService.getUserDataLocale();
 
       this.setMyReview(this.userData);
 
@@ -128,14 +129,9 @@ export class MenuComponent implements OnInit {
   }
 
   navigateToProduct(productId: number, productName: string) {
+    if (this.userData && this.userData.roleId === this.globalVar.userRoles.admin) return;
     productName = productName.split(' ').join('-');
     this.router.navigate(["product/" + productId + "/" + productName]);
-  }
-
-  test() {
-    const pr: Product = {} as Product;
-    pr.restaurantId = 2;
-    this.addProductToBasket(pr);
   }
 
   setReviewStats(reviews: RestaurantReview[]): void {
@@ -199,15 +195,6 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  setUserData(): void {
-    const user = JSON.parse(localStorage.getItem("user")) || null;
-    if (user) {
-      this.userData = user;
-    } else {
-      this.userData = null;
-    }
-  }
-
   getReviews(): void {
     this.restaurantReviewService.getRestaurantReviews(Number(this.route.snapshot.params.restaurantId)).subscribe((data: RestaurantReview[]) => {
       this.reviews = data;
@@ -263,5 +250,10 @@ export class MenuComponent implements OnInit {
       this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
       console.log(err);
     })
+  }
+
+  navigateToAddNewProduct() {
+    this.router.navigateByUrl("addNewProduct/" + this.restaurantInfo.restaurantId);
+
   }
 }

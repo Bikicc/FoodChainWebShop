@@ -6,6 +6,10 @@
 
 $rad: 8px;
 
+.coverHeaderContainer {
+  width: 100%;
+}
+
 .menuCover {
   background-image: url("../../assets/images/menuCover.jpg");
   background-size: cover;
@@ -232,6 +236,12 @@ $rad: 8px;
   font-size: 0.9em;
 }
 
+.addRestaurantBtn {
+  margin-top: 10px;
+  align-self: center;
+  width: 80%;
+}
+
 
 
 @media only screen and (max-width: 1024px) {
@@ -245,6 +255,7 @@ $rad: 8px;
 
       .starStats {
         margin-bottom: 0;
+
         .ratingStats {
           .rGraph {
             width: 100px;

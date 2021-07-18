@@ -16,16 +16,20 @@
       </div>
       <div class="descriptionTextContent">
         <span *ngIf="selectedLang === 'hr'">
-          {{productInfo.description_Hr}}
+          <span *ngIf="productInfo.description_Hr; else noInfo">
+            {{productInfo.description_Hr}}
+          </span>
         </span>
         <span *ngIf="selectedLang === 'en'">
-          {{productInfo.description_En}}
+          <span *ngIf="productInfo.description_En; else noInfo">
+            {{productInfo.description_En}}
+          </span>
         </span>
       </div>
-      <div class="flex jc-c buttonContainer">
+      <div *ngIf="user.roleId === globalVar.userRoles.korisnik" class="flex jc-c buttonContainer">
         <a class="btn" (click)="addToBasket()">{{'DODAJ_U_KOSARICU' | translate}}</a>
       </div>
-      <div class="flex jc-c buttonContainer">
+      <div *ngIf="user.roleId === globalVar.userRoles.korisnik" class="flex jc-c buttonContainer">
         <a *ngIf="!isFavourite" class="btn" (click)="addToFavourites()">{{'DODAJ_U_FAVORITE' | translate}}</a>
         <a *ngIf="isFavourite" class="btn" [ngClass]="{'btnRemove': isFavourite}"
           (click)="removeFromFavourites()">{{'UKLONI_IZ_FAVORITE' | translate}}</a>
@@ -48,7 +52,7 @@
             {{'INFORMACIJE_O_PRODUKTU_03' | translate}}
           </div>
           <div class="contentValue">
-            {{productInfo.calories}}kcal
+            <span *ngIf="productInfo.calories || productInfo.calories === 0; else noInfo">{{productInfo.calories}} kcal</span> 
           </div>
         </div>
         <div class="nutritionValuesContent">
@@ -56,7 +60,7 @@
             {{'INFORMACIJE_O_PRODUKTU_04' | translate}}
           </div>
           <div class="contentValue">
-            {{productInfo.carbs}}g
+            <span *ngIf="productInfo.carbs || productInfo.carbs === 0; else noInfo">{{productInfo.carbs}} g</span> 
           </div>
         </div>
         <div class="nutritionValuesContent">
@@ -64,7 +68,7 @@
             {{'INFORMACIJE_O_PRODUKTU_05' | translate}}
           </div>
           <div class="contentValue">
-            {{productInfo.sugar}}g
+            <span *ngIf="productInfo.sugar || productInfo.sugar === 0; else noInfo">{{productInfo.sugar}} g</span> 
           </div>
         </div>
         <div class="nutritionValuesContent">
@@ -72,7 +76,7 @@
             {{'INFORMACIJE_O_PRODUKTU_06' | translate}}
           </div>
           <div class="contentValue">
-            {{productInfo.proteins}}
+            <span *ngIf="productInfo.proteins || productInfo.proteins === 0; else noInfo">{{productInfo.proteins}} g</span> 
           </div>
         </div>
         <div class="nutritionValuesContent">
@@ -80,7 +84,7 @@
             {{'INFORMACIJE_O_PRODUKTU_07' | translate}}
           </div>
           <div class="contentValue">
-            {{productInfo.fat}}g
+            <span *ngIf="productInfo.fat || productInfo.fat === 0; else noInfo">{{productInfo.fat}} g</span> 
           </div>
         </div>
       </div>
@@ -92,3 +96,8 @@
   <app-no-data noDataText="{{'NEMA_PODATAKA' | translate}}">
   </app-no-data>
 </ng-template>
+
+<ng-template #noInfo>
+  <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+</ng-template>
+
