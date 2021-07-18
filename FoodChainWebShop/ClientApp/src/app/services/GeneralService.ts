@@ -28,15 +28,30 @@ export class GeneralService {
     public groupArrOfObjectByKey(arrOfObj: any[], keyGetter: Function) {
         const map = new Map();
         arrOfObj.forEach((item) => {
-             const key = keyGetter(item);
-             const collection = map.get(key);
-             if (!collection) {
-                 map.set(key, [item]);
-             } else {
-                 collection.push(item);
-             }
+            const key = keyGetter(item);
+            const collection = map.get(key);
+            if (!collection) {
+                map.set(key, [item]);
+            } else {
+                collection.push(item);
+            }
         });
         return map;
+    }
+
+    convertBase64ToBlob(base64String: string): Blob {
+        const byteCharacters = atob(base64String);
+
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+
+        const blob = new Blob([byteArray], { type: 'contentType' });
+
+        return blob;
     }
 
 

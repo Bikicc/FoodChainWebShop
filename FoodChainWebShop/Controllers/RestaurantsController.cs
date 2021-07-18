@@ -42,7 +42,6 @@ namespace FoodChainWebShop.Controllers {
 
         [HttpPost]
         [Authorize ("admin")]
-
         public async Task<IActionResult> PostRestaurant ([FromForm] Restaurant rest) {
 
             if (!ModelState.IsValid) {

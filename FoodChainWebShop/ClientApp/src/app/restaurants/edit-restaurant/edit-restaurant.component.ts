@@ -17,18 +17,9 @@ import { GeneralService } from 'src/app/services/GeneralService';
   styleUrls: ['./edit-restaurant.component.scss']
 })
 export class EditRestaurantComponent implements OnInit {
-  @ViewChild('name', { static: false })
-  formName: NgModel;
-  @ViewChild('address', { static: false })
-  formAddress: NgModel;
-  @ViewChild('phone', { static: false })
-  formPhone: NgModel;
-  @ViewChild('minOrder', { static: false })
-  formMinOrder: NgModel;
   @ViewChild(ToastMessagesComponent, { static: false })
   toastMessages: ToastMessagesComponent;
-  @ViewChild('fileUploader', { static: false })
-  fileUploader: any;
+
 
   restaurantModel: Restaurant = null;
 
@@ -54,7 +45,7 @@ export class EditRestaurantComponent implements OnInit {
       this.owners = data.owners;
       this.restaurantModel = this.setRestaurantImageToShow(data.restaurantInfo.result);
       this.restaurantModel.userId = data.owners[0].userId;
-      this.restaurantModel.image && this.formData.append("imageFile", this.convertBase64ToBlob(this.restaurantModel.image as string));
+      this.restaurantModel.image && this.formData.append("imageFile", this.generalService.convertBase64ToBlob(this.restaurantModel.image as string));
 
       this.setDropDownOwners(data.owners);
       this.restarauntTypes = data.restaurantTypes;
@@ -123,21 +114,6 @@ export class EditRestaurantComponent implements OnInit {
   private setRestaurantImageToShow(restaurant: Restaurant): Restaurant {
     restaurant.imageToShow = this.generalService.setBase64ImageToShow(restaurant.image as string);
     return restaurant;
-  }
-
-  convertBase64ToBlob(base64String: string): Blob {
-    const byteCharacters = atob(base64String);
-    
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-
-    const byteArray = new Uint8Array(byteNumbers);
-
-    const blob = new Blob([byteArray], {type: 'contentType'});
-
-    return blob;
   }
 
 }

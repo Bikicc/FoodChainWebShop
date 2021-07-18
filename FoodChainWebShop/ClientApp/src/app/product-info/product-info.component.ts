@@ -2,7 +2,7 @@ import { User } from './../interfaces/User';
 import { TranslateService } from '@ngx-translate/core';
 import { BasketService } from './../services/BasketService';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FavouritesService } from './../services/FavouritesService';
 import { Product } from '../interfaces/Product';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
@@ -35,7 +35,8 @@ export class ProductInfoComponent implements OnInit {
     private dataFromAnotherComponent: ComponentCommunicationService,
     private translate: TranslateService,
     private generalService: GeneralService,
-    public globalVar: GlobalVar
+    public globalVar: GlobalVar,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -106,6 +107,10 @@ export class ProductInfoComponent implements OnInit {
     } else {
       this.dataFromAnotherComponent.changeNumberOfProductsByOne(true);
     }
+  }
+
+  navigateToEditProduct() {
+    this.router.navigateByUrl("editProduct/" + this.productInfo.productId);
   }
 }
 

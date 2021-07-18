@@ -71,6 +71,7 @@ import { RestaurantInfoResolverService } from './services/RestaurantInfoResolver
 import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-restaurant.component';
 import { AddNewProductComponent } from './menu/add-new-product/add-new-product.component';
 import { CategoryResolverService } from './services/CategoryResolverService';
+import { EditProductComponent } from './menu/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { CategoryResolverService } from './services/CategoryResolverService';
     NoDataComponent,
     AddNewRestaurantComponent,
     EditRestaurantComponent,
-    AddNewProductComponent
+    AddNewProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -120,6 +122,7 @@ import { CategoryResolverService } from './services/CategoryResolverService';
       { path: 'contactUs', component: ContactUsComponent },
       { path: 'menu/:restaurantId', component: MenuComponent, resolve: { categories: MenuResolverService, reviews: RestaurantReviewResolverService, restaurantInfo: RestaurantInfoResolverService } },
       { path: 'addNewProduct/:restaurantId', component: AddNewProductComponent, resolve: { categories: CategoryResolverService, restaurantInfo: RestaurantInfoResolverService } },
+      { path: 'editProduct/:productId', component: EditProductComponent, resolve: { categories: CategoryResolverService, product: ProductInfoResolverService } },
       { path: 'favourites', component: FavouritesComponent, resolve: { favourites: FavouritesResolverService } },
       { path: 'product/:productId/:productName', component: ProductInfoComponent, resolve: { product: ProductInfoResolverService, favourites: FavouritesResolverService } },
       { path: 'basket', component: BasketComponent },

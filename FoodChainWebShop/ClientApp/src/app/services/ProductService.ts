@@ -32,4 +32,12 @@ export class ProductService {
                 retry(this.config.APIRetryCount),
                 catchError(this.errorHandler.errorHandler));
     }
+
+    editProduct(body: FormData) {
+        return this.http
+            .put(this.config.API_URL + 'product', body)
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
+    }
 }

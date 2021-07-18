@@ -32,5 +32,14 @@ namespace FoodChainWebShop.Repositories {
             }
 
         }
+
+        public async Task UpdateProduct (Product product) {
+            try {
+                _context.Products.Update (product);
+                await _context.SaveChangesAsync ();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
     }
 }

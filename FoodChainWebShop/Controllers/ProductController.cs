@@ -1,9 +1,11 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace FoodChainWebShop.Controllers {
     [ApiController]
     public class ProductController : ControllerBase {
@@ -33,6 +35,7 @@ namespace FoodChainWebShop.Controllers {
 
         [Route ("api/product")]
         [HttpPost]
+        [Authorize ("vlasnik")]
         public async Task<IActionResult> PostProduct ([FromForm] Product product) {
 
             if (!ModelState.IsValid) {
@@ -40,13 +43,10 @@ namespace FoodChainWebShop.Controllers {
             }
 
             try {
-                var productImage = product.ImageFile.Length;
-                var ms = new MemoryStream();
-                product.ImageFile.CopyTo(ms);
+                if (product.ImageFile != null) {
+                    product.Image = _productService.getByteArrForImage (product.ImageFile);
+                }
 
-                var fileBytes = ms.ToArray();
-                product.Image = fileBytes;
-                
                 await _productService.PostProduct (product);
                 return Ok ();
 
@@ -56,5 +56,31 @@ namespace FoodChainWebShop.Controllers {
             }
 
         }
+
+        [Route ("api/product")]
+        [HttpPut]
+        [Authorize ("vlasnik")]
+
+        public async Task<IActionResult> UpdateProduct ([FromForm] Product product) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest (ModelState);
+            }
+
+            try {
+                if (product.ImageFile != null) {
+                    product.Image = _productService.getByteArrForImage (product.ImageFile);
+                }
+
+                await _productService.UpdateProduct (product);
+                return Ok ();
+
+            } catch (Exception e) {
+                Console.WriteLine ($"Exception: {e}");
+                return BadRequest ();
+            }
+
+        }
     }
+
 }

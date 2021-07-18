@@ -3,6 +3,7 @@
     <div class="coverHeader">
       <div class="coverHeaderContainer">
         <h1 class="coverHeaderHeadline">{{productInfo.name}}</h1>
+        <a *ngIf="user?.roleId === globalVar.userRoles.vlasnik" (click)="navigateToEditProduct()" class="btn editProductBtn">{{'UREDI_PRODUKT' | translate}}</a>
       </div>
     </div>
     <!-- IMAGE SECTION -->
@@ -35,11 +36,6 @@
           (click)="removeFromFavourites()">{{'UKLONI_IZ_FAVORITE' | translate}}</a>
       </div>
     </div>
-
-    <!-- IMAGE SECTION -->
-    <!-- <div class="productImgWrapper">
-      <img class="productImg" [src]=productInfo.imageToShow>
-    </div> -->
 
     <!-- NUTRITION VALUES -->
     <div class="nutritionValuesWrapper">

@@ -43,14 +43,11 @@ export class AddNewProductComponent implements OnInit {
 
   ngOnInit() {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { categories: Category[], restaurantInfo: any }) => {
-      this.setProductModelDefault();
-
       this.restaurantInfo = data.restaurantInfo.result;
-      this.setRestaurantId(data.restaurantInfo.result);
-
       this.categories = data.categories;
+
+      this.setProductModelDefault();
       this.setDropDownCategories(data.categories);
-      this.setCategoryId(data.categories[0].categoryId);
     }, err => {
       console.log(err);
     }));
@@ -72,8 +69,8 @@ export class AddNewProductComponent implements OnInit {
       carbs: null,
       sugar: null,
       fat: null,
-      categoryId: null,
-      restaurantId: null,
+      categoryId: this.categories[0].categoryId,
+      restaurantId: this.restaurantInfo.restaurantId,
     };
   }
 
@@ -84,10 +81,6 @@ export class AddNewProductComponent implements OnInit {
         value: cat.categoryId
       }
     })
-  }
-
-  private setRestaurantId(restInfo: Restaurant) {
-    this.productModel.restaurantId = restInfo.restaurantId;
   }
 
   public myUploader(event: any) {
@@ -127,10 +120,6 @@ export class AddNewProductComponent implements OnInit {
     this.formName.reset();
     this.formPrice.reset();
     this.fileUploader.clear();
-  }
-
-  private setCategoryId(id: number) {
-    this.productModel.categoryId = id;
   }
 
 }

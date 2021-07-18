@@ -2,6 +2,12 @@
 @import '../../assets/css/button.scss';
 @import '../../assets/css/coverHeader.scss';
 
+.coverHeaderContainer {
+  width: 100%;
+}
+
+
+
 .productNameContainer {
   height: 100px;
   display: flex;
@@ -56,6 +62,12 @@
 
 .btn {
   width: 100%;
+}
+
+.editProductBtn {
+  margin-top: 10px;
+  align-self: center;
+  width: 80%;
 }
 
 .nutritionValuesWrapper {

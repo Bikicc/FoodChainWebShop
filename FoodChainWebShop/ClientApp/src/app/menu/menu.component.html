@@ -9,7 +9,7 @@
           (onChange)="filterProductsBasedOnCategory()">
         </p-dropdown>
       </span>
-      <a *ngIf="userData?.roleId === globalVar.userRoles.vlasnik" (click)="navigateToAddNewProduct()" class="btn addRestaurantBtn">{{'DODAJ_PRODUKT' | translate}}</a>
+      <a *ngIf="userData?.roleId === globalVar.userRoles.vlasnik" (click)="navigateToAddNewProduct()" class="btn addProductBtn">{{'DODAJ_PRODUKT' | translate}}</a>
     </div>
   </div>
 

@@ -1,10 +1,10 @@
-<div *ngIf="productModel" class="mainWrapper">
+<div *ngIf="productInfo && productModel" class="mainWrapper">
     <div class="FormWrapper">
         <section class="signupHeader">
             <span class="headerText">
-                {{'DODAJ_PRODUKT' | translate}}
+                {{'UREDI_PRODUKT' | translate}}
                 <span class="dot">•</span>
-                {{restaurantInfo.name}}
+                {{productInfo.name}}
             </span>
         </section>
         <section class="signupContent">
