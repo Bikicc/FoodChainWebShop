@@ -14,6 +14,9 @@ import { RestaurantReviewService } from '../services/RestaurantReviewService';
 import { GlobalVar } from '../globalVar';
 import { Restaurant } from '../interfaces/Restaurant';
 import { Observable } from 'rxjs';
+import { CategoryService } from '../services/CategoryService';
+import { ProductService } from '../services/ProductService';
+import { ConfirmationService } from 'primeng/api';
 
 interface StarPrecentage {
   one: string,
@@ -65,7 +68,10 @@ export class MenuComponent implements OnInit {
     private generalService: GeneralService,
     private route: ActivatedRoute,
     private restaurantReviewService: RestaurantReviewService,
-    public globalVar: GlobalVar
+    public globalVar: GlobalVar,
+    private categoryService: CategoryService,
+    private productService: ProductService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -82,10 +88,7 @@ export class MenuComponent implements OnInit {
       this.numberOfReviews = this.getNumberOfReviews(this.reviews);
       this.setReviewStats(this.reviews);
 
-      this.categories = this.categories.map(cat => {
-        cat.products.forEach(prod => prod.imageToShow = this.generalService.setBase64ImageToShow(prod.image as string));
-        return cat;
-      });
+      this.categories = this.setImgToShowOnAllProducts(this.categories);
 
       this.setDropdownCategories();
       this.translate.onLangChange.subscribe(() => this.setDropdownCategories());
@@ -255,5 +258,40 @@ export class MenuComponent implements OnInit {
   navigateToAddNewProduct() {
     this.router.navigateByUrl("addNewProduct/" + this.restaurantInfo.restaurantId);
 
+  }
+
+  deleteProduct(productId: number): void {
+    this.productService.deleteProduct(productId).subscribe(data => {
+      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Produkt uspješno izbrisan!') : this.toastMessages.saveChangesSuccess('Product has been deleted successfully!');
+      this.getProducts();
+    }, err => {
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
+    })
+  }
+
+  getProducts(): void {
+    this.categoryService.category_SelectAllWithProducts(this.restaurantInfo.restaurantId).subscribe((data: Category[]) => {
+      this.categories = data;
+      this.categories = this.setImgToShowOnAllProducts(this.categories);
+      this.filterProductsBasedOnCategory();
+    }, err => {
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
+    })
+  }
+
+  private setImgToShowOnAllProducts(cat: Category[]): Category[] {
+    return cat.map(cat => {
+      cat.products.forEach(prod => prod.imageToShow = this.generalService.setBase64ImageToShow(prod.image as string));
+      return cat;
+    });
+  }
+
+  confirmDeletion(productId: number) {
+    this.confirmationService.confirm({
+      message: this.translate.instant("POTVRDA_BRISANJA_CONTENT"),
+      accept: () => {
+          this.deleteProduct(productId);
+      }
+  });
   }
 }

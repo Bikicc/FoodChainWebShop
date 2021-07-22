@@ -38,6 +38,14 @@ namespace FoodChainWebShop.Services {
             }
         }
 
+        public async Task DeleteProduct (int productId) {
+            try {
+                await _productRepo.DeleteProduct (productId);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
         public byte[] getByteArrForImage (IFormFile imageFile) {
             var image = imageFile.Length;
             var ms = new MemoryStream ();

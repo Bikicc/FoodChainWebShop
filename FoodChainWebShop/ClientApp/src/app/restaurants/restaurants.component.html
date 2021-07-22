@@ -11,6 +11,7 @@
             style="margin-top: 10px; align-self: center;">{{'DODAJ_RESTORAN' | translate}}</a>
     </div>
 </div>
+
 <div *ngIf="roleId !== globalVar.userRoles.admin; else adminView">
     <div *ngIf="filteredRestaurants.length > 0; else noData" class="ui-g ui-fluid w-100" style="position: relative;">
         <div *ngFor="let item of filteredRestaurants" class="ui-g-12 ui-xl-3 ui-lg-4 ui-md-6 ui-sm-12"

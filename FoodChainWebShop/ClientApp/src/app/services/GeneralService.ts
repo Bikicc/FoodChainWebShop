@@ -12,17 +12,29 @@ export class GeneralService {
     }
 
     public getUserRoleId(): number {
-        let user: User = JSON.parse(localStorage.getItem("user") || null);
-        if (user) {
-            return user.roleId;
+        const userToken = JSON.parse(localStorage.getItem("userToken") || null);
+        const userData = userToken ? JSON.parse(window.atob(userToken.split('.')[1])) : null;
+
+        if (userData) {
+            return parseInt(userData.roleId);
         } else {
             return null;
         }
     }
 
     public getUserDataLocale(): User {
-        let user: User = JSON.parse(localStorage.getItem("user") || null);
-        return user;
+        const userToken = JSON.parse(localStorage.getItem("userToken") || null);
+        const userData = userToken ? JSON.parse(window.atob(userToken.split('.')[1])) : null;
+        if (userData) {
+            userData.roleId = parseInt(userData.roleId);
+            userData.userId = parseInt(userData.userId);
+        }
+        return userData;
+    }
+
+    public getUserToken(): string {
+        const token = JSON.parse(localStorage.getItem("userToken") || null);
+        return token;
     }
 
     public groupArrOfObjectByKey(arrOfObj: any[], keyGetter: Function) {

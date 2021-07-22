@@ -61,7 +61,8 @@
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
                     </div>
                     <div class="inputWrapper">
-                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_03' | translate}} (kcal)"
+                        <input pKeyFilter="pint" type="text"
+                            placeholder="{{'INFORMACIJE_O_PRODUKTU_03' | translate}} (kcal)"
                             [(ngModel)]="productModel.calories">
                     </div>
                 </div>
@@ -72,7 +73,8 @@
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
                     </div>
                     <div class="inputWrapper">
-                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_04' | translate}} (g)"
+                        <input pKeyFilter="pint" type="text"
+                            placeholder="{{'INFORMACIJE_O_PRODUKTU_04' | translate}} (g)"
                             [(ngModel)]="productModel.carbs">
                     </div>
                 </div>
@@ -83,7 +85,8 @@
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
                     </div>
                     <div class="inputWrapper">
-                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_05' | translate}} (g)"
+                        <input pKeyFilter="pint" type="text"
+                            placeholder="{{'INFORMACIJE_O_PRODUKTU_05' | translate}} (g)"
                             [(ngModel)]="productModel.sugar">
                     </div>
                 </div>
@@ -94,7 +97,8 @@
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
                     </div>
                     <div class="inputWrapper">
-                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_06' | translate}} (g)"
+                        <input pKeyFilter="pint" type="text"
+                            placeholder="{{'INFORMACIJE_O_PRODUKTU_06' | translate}} (g)"
                             [(ngModel)]="productModel.proteins">
                     </div>
                 </div>
@@ -105,7 +109,8 @@
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
                     </div>
                     <div class="inputWrapper">
-                        <input pKeyFilter="pint" type="text" placeholder="{{'INFORMACIJE_O_PRODUKTU_07' | translate}} (g)"
+                        <input pKeyFilter="pint" type="text"
+                            placeholder="{{'INFORMACIJE_O_PRODUKTU_07' | translate}} (g)"
                             [(ngModel)]="productModel.fat">
                     </div>
                 </div>
@@ -131,8 +136,16 @@
                     </div>
                 </div>
             </div>
+            <div class="dataInput">
+                <div class="dataInputContainer">
+                    <div class="inputWrapper" style="align-items: center;">
+                        <span class="currImageText">{{'TRENUTNA_SLIKA' | translate}}</span>
+                        <img [src]=productModel.imageToShow>
+                    </div>
+                </div>
+            </div>
             <div class="flex jc-c buttonContainer">
-                <a class="btn" (click)="insertProduct()" [ngClass]="{'disabledButton': !isFormValid()}">{{'SPREMI' |
+                <a class="btn" (click)="editProduct()" [ngClass]="{'disabledButton': !isFormValid()}">{{'SPREMI' |
                     translate}}</a>
             </div>
         </section>

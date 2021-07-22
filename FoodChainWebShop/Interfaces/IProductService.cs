@@ -10,6 +10,7 @@ namespace FoodChainWebShop.Interfaces {
         Task PostProduct (Product product);
         byte[] getByteArrForImage (IFormFile imageFile);
         Task UpdateProduct (Product product);
+        Task DeleteProduct (int productId);
 
     }
 }

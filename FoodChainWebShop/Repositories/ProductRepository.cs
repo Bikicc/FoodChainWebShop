@@ -15,7 +15,7 @@ namespace FoodChainWebShop.Repositories {
 
         public async Task<ICollection<Product>> GetProducts (int restaurantId) {
             return await _context.Products
-                .Where (p => p.RestaurantId == restaurantId)
+                .Where (p => p.RestaurantId == restaurantId && p.Deleted == false)
                 .ToListAsync ();
         }
 
@@ -36,6 +36,16 @@ namespace FoodChainWebShop.Repositories {
         public async Task UpdateProduct (Product product) {
             try {
                 _context.Products.Update (product);
+                await _context.SaveChangesAsync ();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        public async Task DeleteProduct (int productId) {
+            try {
+                var prod = await _context.Products.SingleOrDefaultAsync (p => p.ProductId == productId);
+                prod.Deleted = true;
                 await _context.SaveChangesAsync ();
             } catch (Exception e) {
                 throw e;

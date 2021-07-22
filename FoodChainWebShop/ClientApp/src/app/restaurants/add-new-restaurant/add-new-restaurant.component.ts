@@ -119,7 +119,7 @@ export class AddNewRestaurantComponent implements OnInit {
         this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno dodan!') : this.toastMessages.saveChangesSuccess('Restaurant has been successfully added!');
 
       }, err => {
-        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+        this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
       })
     }
   }

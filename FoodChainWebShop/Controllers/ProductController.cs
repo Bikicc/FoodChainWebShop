@@ -60,7 +60,6 @@ namespace FoodChainWebShop.Controllers {
         [Route ("api/product")]
         [HttpPut]
         [Authorize ("vlasnik")]
-
         public async Task<IActionResult> UpdateProduct ([FromForm] Product product) {
 
             if (!ModelState.IsValid) {
@@ -73,6 +72,20 @@ namespace FoodChainWebShop.Controllers {
                 }
 
                 await _productService.UpdateProduct (product);
+                return Ok ();
+
+            } catch (Exception e) {
+                Console.WriteLine ($"Exception: {e}");
+                return BadRequest ();
+            }
+
+        }
+
+        [HttpDelete ("api/product/{productId}")]
+        [Authorize ("vlasnik")]
+        public async Task<IActionResult> DeleteProduct (int productId) {
+            try {
+                await _productService.DeleteProduct (productId);
                 return Ok ();
 
             } catch (Exception e) {

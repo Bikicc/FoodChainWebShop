@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
+import { GlobalVar } from '../globalVar';
+import { GeneralService } from '../services/GeneralService';
 
 @Component({
   selector: 'app-login',
@@ -29,10 +31,12 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translate : TranslateService,
-    private dataFromAnotherComponent: ComponentCommunicationService ) { }
+    private dataFromAnotherComponent: ComponentCommunicationService,
+    private globalVar: GlobalVar,
+    private generalService: GeneralService ) { }
 
   ngOnInit() { 
-    if (JSON.parse(localStorage.getItem("user") || null)) {
+    if (this.generalService.getUserDataLocale()) {
       this.router.navigate(["homepage"]);
     }
   }
@@ -51,9 +55,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    this.subscription.push(this.userService.loginUser(this.userCredentials).subscribe((data) => {
+    this.subscription.push(this.userService.loginUser(this.userCredentials).subscribe((data: any) => {
       this.wrongCredentials = false;
-      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('userToken', JSON.stringify(data.token));
       this.redirectAfterLogin(data);
       this.dataFromAnotherComponent.userLoginStatus(true);
     }, err => this.wrongCredentials = true));
@@ -64,7 +68,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirectAfterLogin(user) {
-    if (user.roleId === 1 || user.roleId === 2) {
+    if (user.roleId === this.globalVar.userRoles.admin || user.roleId === this.globalVar.userRoles.vlasnik) {
       this.router.navigate(["restaurants"]);
     } else {
       this.router.navigate(["homepage"]);

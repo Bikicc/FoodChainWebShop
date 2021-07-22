@@ -22,6 +22,9 @@ namespace FoodChainWebShop.Models {
         public byte[] Image { get; set; }
 
         [Required]
+        public bool Deleted { get; set; }
+
+        [Required]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 

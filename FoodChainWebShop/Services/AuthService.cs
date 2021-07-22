@@ -26,7 +26,12 @@ namespace FoodChainWebShop.authService {
             var tokenHandler = new JwtSecurityTokenHandler ();
             var key = Encoding.ASCII.GetBytes (_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor {
-                Subject = new ClaimsIdentity (new [] { new Claim ("id", user.UserId.ToString ()), new Claim("roleId", user.RoleId.ToString()) }),
+                Subject = new ClaimsIdentity (new [] { 
+                    new Claim("userId", user.UserId.ToString ()), 
+                    new Claim("roleId", user.RoleId.ToString()), 
+                    new Claim("address", user.Address), 
+                    new Claim("mobileNumber", user.mobileNumber),
+                    new Claim("email", user.Email) }),
                 Expires = DateTime.UtcNow.AddDays (7),
                 SigningCredentials = new SigningCredentials (new SymmetricSecurityKey (key), SecurityAlgorithms.HmacSha256Signature)
             };

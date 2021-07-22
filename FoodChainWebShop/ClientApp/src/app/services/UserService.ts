@@ -6,6 +6,7 @@ import { ErrorHandlerService } from "./errorHandlerService";
 import { Config } from "../config";
 import { ComponentCommunicationService } from './ComponentCommunicationService';
 import { User } from 'oidc-client';
+import { GeneralService } from './GeneralService';
 
 @Injectable({
 
@@ -21,7 +22,8 @@ export class UserService {
         private http: HttpClient,
         private errorHandler: ErrorHandlerService,
         private router: Router,
-        private dataFromAnotherComponent: ComponentCommunicationService
+        private dataFromAnotherComponent: ComponentCommunicationService,
+        private generalService: GeneralService
         ) {
         this.headersOption = new HttpHeaders({ 'Content-Type': 'application/json' });
     }
@@ -54,8 +56,8 @@ export class UserService {
     }
 
     logOutUser() {
-        if (JSON.parse(localStorage.getItem("user")) || null) {
-            localStorage.removeItem("user");
+        if (this.generalService.getUserDataLocale()) {
+            localStorage.removeItem("userToken");
             this.router.navigate(["/"]);
             this.dataFromAnotherComponent.userLoginStatus(false);
         }

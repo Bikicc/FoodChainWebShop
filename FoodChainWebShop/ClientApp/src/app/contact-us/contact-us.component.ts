@@ -5,6 +5,7 @@ import { Email } from './../interfaces/Email';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { GeneralService } from '../services/GeneralService';
 
 @Component({
   selector: 'app-contact-us',
@@ -32,12 +33,13 @@ export class ContactUsComponent implements OnInit {
 
   constructor(
     private emailService: EmailService,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private generalService: GeneralService) { }
 
   ngOnInit() {
     this.ourEmailAdress = 'fastfoodchain123@gmail.com';
-    if (JSON.parse(localStorage.getItem("user")) || null) {
-      this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = this.generalService.getUserDataLocale();
+    if (this.user) {
       this.emailData.from = this.user.email;
     }
 
@@ -51,8 +53,7 @@ export class ContactUsComponent implements OnInit {
     if (!this.buttonDisabled) {
       this.loading = true;
      this.subscription.push(this.emailService.sendEmail(this.emailData).subscribe(() => {
-      if (JSON.parse(localStorage.getItem("user")) || null) {
-        this.user = JSON.parse(localStorage.getItem("user"));
+      if (this.user) {
         this.emailData = {
           from: this.user.email,
           subject: '',

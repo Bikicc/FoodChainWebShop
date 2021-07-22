@@ -95,7 +95,7 @@
     "NO_ORDERS": "NEMATE NARUDŽBI!",
     "ADD_TO_BASKET_ERR": "Vaša košarica sadrži produkte iz drugih restorana!",
     "NARUDZBA_ZAPRIMLJENA": "Narudžba je zaprimljena!",
-    "DOSLO_DO_POGRESKE": "Došlo je do pogreške! Pokušajte ponovno.",
+    "DOSLO_DO_POGRESKE": "Došlo je do pogreške! Molimo Pokušajte ponovno.",
     "OSVJEZAVANJE_PODATAKA_NEUSPJEH": "Podatci se nisu uspješno osvježili!",
     "RESTORANI": "Restorani",
     "REVIEWS_HEADER": "Saznajte što korisnici misle o našim uslugama",
@@ -126,5 +126,16 @@
     "UREDI_PRODUKT": "Uredite proizvod",
     "CIJENA": "Cijena",
     "UNESITE_OPIS_PROIZVODA_EN": "Unesite opis proizvoda (EN)...",
-    "UNESITE_OPIS_PROIZVODA_HR": "Unesite opis proizvoda (HR)..."
+    "UNESITE_OPIS_PROIZVODA_HR": "Unesite opis proizvoda (HR)...",
+    "BROJ_NARUDZBI": "Broj narudžbi",
+    "PRODUKT_IZBRISAN_ERR": "Narudžba se ne može ponoviti jer je jedan ili više produkata trenutno nedostupno!",
+    "IZBRISI": "Delete",
+    "POTVRDA_BRISANJA_CONTENT": "Ova akcija je nepovratna! Da li st sigurni da želite nastaviti?",
+    "POTVRDA_BRISANJA_HEADER": "Potvrda brisanja",
+    "DA": "Da",
+    "NE": "Ne"
+
+
+
+
 }

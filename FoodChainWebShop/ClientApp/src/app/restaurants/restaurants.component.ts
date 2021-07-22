@@ -109,7 +109,7 @@ export class RestaurantsComponent implements OnInit {
       this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno deaktiviran!') : this.toastMessages.saveChangesSuccess('Restaurant has been deactivated successfully!');
       this.getRestaurantsAfterActivationDeletion();
     }, err => {
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
     });
   }
 
@@ -120,7 +120,7 @@ export class RestaurantsComponent implements OnInit {
       this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Restoran uspješno aktiviran!') : this.toastMessages.saveChangesSuccess('Restaurant has been activated successfully!');
       this.getRestaurantsAfterActivationDeletion();
     }, err => {
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
     });
   }
 
@@ -136,7 +136,7 @@ export class RestaurantsComponent implements OnInit {
       this.setAdminRestaurantsView(this.restaurants);
       this.filterRestaurantsBasedOnType();
     }, err => {
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Molimo pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
     });
   }
 

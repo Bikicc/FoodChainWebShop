@@ -14,9 +14,9 @@ export class NewComponentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const token = user.token;
-    let decodedJWT = JSON.parse(window.atob(token.split('.')[1]));
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    // const token = user.token;
+    let decodedJWT = JSON.parse(window.atob(userToken.split('.')[1]));
     console.log(decodedJWT)
   }
 

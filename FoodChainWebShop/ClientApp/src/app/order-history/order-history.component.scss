@@ -101,12 +101,45 @@ a {
   flex-wrap: wrap;
 }
 
+.recapContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-family: initial;
+  background-color: #086c83;
+
+  .totalContainer {
+    margin-right: 2.5rem;
+  }
+
+  .totalLabel,
+  .nmbOfOrdersLabel {
+    font-weight: 700;
+    color: #bdaeae;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+}
+
 @media only screen and (max-width: 650px) {
   img {
     width: 40%;
   }
 
+  .orderText {
+    font-size: 0.8rem;
+  }
+
   .noOrdersText {
     font-size: 30px;
+  }
+
+  .recapContainer {
+    font-size: 0.8rem;
+
+    .totalContainer {
+      margin-right: 2rem;
+    }
   }
 }

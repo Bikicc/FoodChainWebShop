@@ -41,7 +41,7 @@ export class FavouritesComponent implements OnInit {
     }, err => {
       console.log(err);
     }));
-    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = this.generalService.getUserDataLocale();
   }
 
   ngOnDestroy(): void {

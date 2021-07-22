@@ -72,6 +72,8 @@ import { EditRestaurantComponent } from './restaurants/edit-restaurant/edit-rest
 import { AddNewProductComponent } from './menu/add-new-product/add-new-product.component';
 import { CategoryResolverService } from './services/CategoryResolverService';
 import { EditProductComponent } from './menu/edit-product/edit-product.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,7 @@ import { EditProductComponent } from './menu/edit-product/edit-product.component
     PanelModule,
     CalendarModule,
     KeyFilterModule,
+    ConfirmDialogModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -158,6 +161,7 @@ import { EditProductComponent } from './menu/edit-product/edit-product.component
     RestaurantTypeService,
     GeneralService,
     RestaurantReviewService,
+    ConfirmationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

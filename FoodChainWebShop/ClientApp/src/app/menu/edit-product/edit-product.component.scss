@@ -93,8 +93,22 @@ textarea:focus-visible {
   outline: 0;
 }
 
+.currImageText {
+  font-size: 1.5em;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+img {
+  height: 150px;
+}
+
 @media only screen and (max-width: 850px) {
   .dataInputContainer {
     width: 100%;
+  }
+
+  img {
+    height: 200px;
   }
 }

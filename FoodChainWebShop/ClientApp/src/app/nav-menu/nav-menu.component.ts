@@ -72,7 +72,7 @@ export class NavMenuComponent {
           this.roleId = this.generalService.getUserRoleId();
         }));
 
-    if (JSON.parse(localStorage.getItem("user")) || null) {
+    if (this.generalService.getUserDataLocale()) {
       this.userLoginStatus = true;
     }
 

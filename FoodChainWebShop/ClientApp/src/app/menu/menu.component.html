@@ -9,7 +9,8 @@
           (onChange)="filterProductsBasedOnCategory()">
         </p-dropdown>
       </span>
-      <a *ngIf="userData?.roleId === globalVar.userRoles.vlasnik" (click)="navigateToAddNewProduct()" class="btn addProductBtn">{{'DODAJ_PRODUKT' | translate}}</a>
+      <a *ngIf="userData?.roleId === globalVar.userRoles.vlasnik" (click)="navigateToAddNewProduct()"
+        class="btn addProductBtn">{{'DODAJ_PRODUKT' | translate}}</a>
     </div>
   </div>
 
@@ -32,6 +33,11 @@
         </div>
         <div *ngIf="!userData || userData?.roleId === globalVar.userRoles.korisnik" class="flex jc-c buttonContainer">
           <a class="btn" (click)="increaseProductInABasketNumber(); addProductToBasket(product)">{{'DODAJ_U_KOSARICU' |
+            translate}}</a>
+        </div>
+        <div *ngIf="userData && userData.roleId === globalVar.userRoles.vlasnik" class="flex jc-c buttonContainer"
+          style="width: 80%;">
+          <a class="btn btnRemove" (click)="confirmDeletion(product.productId)">{{'IZBRISI' |
             translate}}</a>
         </div>
       </div>
@@ -155,3 +161,10 @@
 </ng-template>
 
 <app-toast-messages></app-toast-messages>
+
+<p-confirmDialog #cd header="{{'POTVRDA_BRISANJA_HEADER' | translate}}" icon="pi pi-exclamation-triangle">
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check"  class="ui-button-danger" label="{{'DA' | translate}}" (click)="cd.accept()"></button>
+    <button type="button" pButton icon="pi pi-times"  label="{{'NE' | translate}}" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>

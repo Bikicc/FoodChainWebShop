@@ -110,7 +110,7 @@ export class BasketComponent implements OnInit {
 
     if (addressValid) {
       this.orderDetails.price = this.totalAmountToPay;
-      let user: User = JSON.parse(localStorage.getItem("user") || null);
+      const user: User = this.generalService.getUserDataLocale(); 
       if (user) {
         this.orderDetails.userId = user.userId;
         this.loading = true;

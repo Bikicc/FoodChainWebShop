@@ -40,7 +40,7 @@ namespace FoodChainWebShop.HelperClasses {
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken) validatedToken;
-                var userId = int.Parse (jwtToken.Claims.First (x => x.Type == "id").Value);
+                var userId = int.Parse (jwtToken.Claims.First (x => x.Type == "userId").Value);
 
                 context.Items["User"] = await userService.getById (userId);
             } catch(Exception e) {

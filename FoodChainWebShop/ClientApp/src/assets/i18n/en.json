@@ -126,6 +126,17 @@
     "UREDI_PRODUKT": "Edit product",
     "CIJENA": "Price",
     "UNESITE_OPIS_PROIZVODA_EN": "Enter product description (EN)...",
-    "UNESITE_OPIS_PROIZVODA_HR": "Enter product description (HR)..."
+    "UNESITE_OPIS_PROIZVODA_HR": "Enter product description (HR)...",
+    "BROJ_NARUDZBI": "Number of orders",
+    "PRODUKT_IZBRISAN_ERR": "Order cannot be placed because one or more products are currently unavailable!",
+    "IZBRISI": "Delete",
+    "POTVRDA_BRISANJA_CONTENT": "This action is irreversible! Are you sure you want to continue?",
+    "POTVRDA_BRISANJA_HEADER": "Confirm deletion",
+    "DA": "Yes",
+    "NE": "No"
+
+
+
+
 
 }

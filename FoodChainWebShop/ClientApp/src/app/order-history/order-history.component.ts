@@ -37,6 +37,8 @@ export class OrderHistoryComponent implements OnInit {
     datumOd: (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))),
     datumDo: (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000)))
   };
+  recap: any = {};
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -54,6 +56,7 @@ export class OrderHistoryComponent implements OnInit {
       this.setImageToShow(this.orders);
       if (this.generalService.getUserRoleId() === this.globalVar.userRoles.admin || this.generalService.getUserRoleId() === this.globalVar.userRoles.vlasnik) {
         this.ordersGroupByRestaurant = data.orders.length > 0 ? this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId) : null;
+        this.setRecap(this.ordersGroupByRestaurant);
       }
       this.subscription.push(this.translate.onLangChange.subscribe(() => this.formatDate()));
     }, err => {
@@ -90,14 +93,20 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   repeatOrder(order: any) {
-    //Ukoliko se ijedna od cijena promjenila obavjestavamo korisnika o promjenama
-    if (order.orderProduct.some((op: any) => op.productPriceATM !== op.product.price)) {
-      this.getPriceTotal(order);
-      this.selectedOrderToRepeat.priceChanged = true;
-      this.selectedOrderToRepeat.orderId = order.orderId;
+    //Ukoliko je ijedan produkt izbrisan ATM ponovna narudzba se ne moze uciniti i o tome obavjestavamo korisnika
+    if (this.isAnyOfProductsDeleted(order.orderProduct)) {
+      this.toastMessages.saveChangesFailed(this.translate.instant("PRODUKT_IZBRISAN_ERR"));
+
     } else {
-      this.getPriceTotal(order);
-      this.confirmOrder(order)
+      //Ukoliko se ijedna od cijena promjenila obavjestavamo korisnika o promjenama
+      if (order.orderProduct.some((op: any) => op.productPriceATM !== op.product.price)) {
+        this.getPriceTotal(order);
+        this.selectedOrderToRepeat.priceChanged = true;
+        this.selectedOrderToRepeat.orderId = order.orderId;
+      } else {
+        this.getPriceTotal(order);
+        this.confirmOrder(order)
+      }
     }
   }
 
@@ -105,6 +114,15 @@ export class OrderHistoryComponent implements OnInit {
     this.selectedOrderToRepeat.repeatOrderPriceTotal = order.orderProduct.reduce((accumulator, currentValue) => {
       return accumulator + (currentValue.product.price * currentValue.quantity);
     }, 0)
+  }
+
+  isAnyOfProductsDeleted(orderProduct: any[]): boolean {
+    const len = orderProduct.length;
+    
+    for (let i = 0; i < len; i++) {
+      if (orderProduct[i].product.deleted) return true
+    }
+    return false;
   }
 
   rejectOrder() {
@@ -190,10 +208,24 @@ export class OrderHistoryComponent implements OnInit {
       this.formatDate();
       this.setImageToShow(this.orders);
       this.ordersGroupByRestaurant = data.length > 0 ? this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId) : null;
+      this.setRecap(this.ordersGroupByRestaurant);
     }, err => {
       this.loading = false;
       this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
     });
+  }
+
+  private setRecap(ordersGroupByRestaurant: Map<number, any>): void {
+    if (ordersGroupByRestaurant) {
+      ordersGroupByRestaurant.forEach((value, key) => {
+        this.recap[key] = {
+          totalAmount: value.reduce((a,b) => ({price: a.price + b.price})).price,
+          numberOfOrders: value.length
+        } 
+      })
+    } else {
+      this.recap = {};
+    }
   }
 
 }

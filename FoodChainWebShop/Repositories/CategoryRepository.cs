@@ -20,7 +20,7 @@ namespace FoodChainWebShop.Repositories {
         }
         public async Task<ICollection<Category>> getCategories (int restaurantId) {
             return await _context.Categories
-                .IncludeFilter (i => i.Products.Where (p => p.RestaurantId == restaurantId))
+                .IncludeFilter (i => i.Products.Where (p => p.RestaurantId == restaurantId && p.Deleted == false))
                 .ToListAsync ();
         }
 

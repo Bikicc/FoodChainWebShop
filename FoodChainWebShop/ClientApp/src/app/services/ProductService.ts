@@ -40,4 +40,13 @@ export class ProductService {
                 retry(this.config.APIRetryCount),
                 catchError(this.errorHandler.errorHandler));
     }
+
+
+    deleteProduct(productId: number) {
+        return this.http
+            .delete(this.config.API_URL + 'product/' + productId)
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
+    }
 }

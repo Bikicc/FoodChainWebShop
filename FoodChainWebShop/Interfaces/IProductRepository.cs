@@ -8,5 +8,6 @@ namespace FoodChainWebShop.Interfaces {
         Task<Product> GetProduct (int id);
         Task InsertProduct (Product product);
         Task UpdateProduct (Product product);
+        Task DeleteProduct (int productId);
     }
 }
