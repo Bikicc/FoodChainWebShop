@@ -2,7 +2,7 @@ using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FoodChainWebShop.HelperClasses;
+using System.Linq;
 
 namespace FoodChainWebShop.Services {
     public class FavouritesService : IFavouritesService {
@@ -12,7 +12,8 @@ namespace FoodChainWebShop.Services {
         }
 
         public async Task<ICollection<Favourite>> getFavourites (int userId) {
-            return await _favouritesRepo.getFavourites(userId);
+            var fav = await _favouritesRepo.getFavourites(userId);
+            return fav.Where(f => f.Product.Deleted == false).ToList();
         }
 
         public async Task postFavourite (Favourite favourite) {

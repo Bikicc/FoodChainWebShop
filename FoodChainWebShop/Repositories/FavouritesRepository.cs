@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FoodChainWebShop.Data;
-using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,7 @@ namespace FoodChainWebShop.Repositories {
                 .Include (f => f.Product)
                     .ThenInclude (fp => fp.Restaurant)
                 .Where (fp => fp.UserId == userId)
-                .ToListAsync ();
+                .ToListAsync();
         }
 
         public async Task postFavourite (Favourite favourite) {
