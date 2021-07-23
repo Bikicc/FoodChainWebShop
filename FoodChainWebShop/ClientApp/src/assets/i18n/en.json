@@ -86,8 +86,8 @@
     "STRANICA_NIJE_PRONADENA": "PAGE NOT FOUND",
     "DODAJ_U_FAVORITE": "Add to favourites",
     "UKLONI_IZ_FAVORITE": "Remove from favourites",
-    "USERNAME_ERROR": "Username must contain at least 4 characters!",
-    "PASSWORD_ERROR": "Password must contain at least 4 characters!",
+    "USERNAME_ERROR": "Must contain at least 4 characters!",
+    "PASSWORD_ERROR": "Must contain at least 4 characters!",
     "MOBILE_ERROR": "Incorrect number format!",
     "IMAM_RACUN_REGISTRACIJA": "I already have an account!",
     "ODJAVA": "LOGOUT",
@@ -133,7 +133,10 @@
     "POTVRDA_BRISANJA_CONTENT": "This action is irreversible! Are you sure you want to continue?",
     "POTVRDA_BRISANJA_HEADER": "Confirm deletion",
     "DA": "Yes",
-    "NE": "No"
+    "NE": "No",
+    "CIJENE_PROMJENILE": "Price for some products have been changed! Confirm order.",
+    "POTVRDA_PONOVNE_NARUDZBE_HEADER": "Repeat order confirmation",
+    "POTVRDA_PONOVNE_NARUDZBE_CONTENT": "Are you sure you want to repeat selected order?"
 
 
 

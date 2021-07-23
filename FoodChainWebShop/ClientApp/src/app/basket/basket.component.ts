@@ -6,11 +6,10 @@ import { BasketService } from './../services/BasketService';
 import { Product } from './../interfaces/Product';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentCommunicationService } from '../services/ComponentCommunicationService';
-import { HttpClient } from '@angular/common/http';
-import { ApiKey } from '../../apiKey';
 import { forkJoin, Subscription } from 'rxjs';
 import { ToastMessagesComponent } from './../toast-messages/toast-messages.component';
 import { GeneralService } from '../services/GeneralService';
+import { GlobalVar } from '../globalVar';
 
 
 @Component({
@@ -24,27 +23,25 @@ export class BasketComponent implements OnInit {
 
   basketItems: Product[] = [];
   totalAmountToPay: number = 0;
-  options = {
-    componentRestrictions: {
-      country: ['HR']
-    }
-  }
+
   orderDetails: Order = {} as Order;
   addressError: boolean = false;
   loading: boolean = false;
   subscription: Subscription[] = [];
-
+  user: User = null;
 
   constructor(
     private basketService: BasketService,
     private dataFromAnotherComponent: ComponentCommunicationService,
-    private http: HttpClient,
-    private key: ApiKey,
     private orderService: OrderService,
     private translate: TranslateService,
-    private generalService: GeneralService) { }
+    private generalService: GeneralService,
+    public globalVar: GlobalVar) { }
 
   ngOnInit() {
+    this.user = this.generalService.getUserDataLocale();
+
+    this.orderDetails.address = this.user && this.user.address;
     this.basketItems = this.basketService.getProductsFromBasket();
     this.basketItems.forEach(item => {
       item.imageToShow = this.generalService.setBase64ImageToShow(item.image as string);
@@ -90,29 +87,23 @@ export class BasketComponent implements OnInit {
     }
   }
 
-  getLocation(): Promise<any> {
-    const address = this.orderDetails.address;
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + this.key.apiKey)
-      .toPromise()
-      .catch((error) => console.log(error));
+  handleAddressChange(address: any) {
+    this.orderDetails.address = address.name + ', ' + address.vicinity;
   }
 
-  handleAddressChange(address: any) {
-    this.orderDetails.address = address.formatted_address;
-    this.addressError = false;
+  isFormValid() {
+    if (this.orderDetails.address && this.orderDetails.address.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   async makeAnOrder() {
-    let addressValid: boolean;
-    await this.getLocation().then(response => {
-      addressValid = response.status === "OK" ? true : false;
-    });
-
-    if (addressValid) {
+    if (this.isFormValid()) {
       this.orderDetails.price = this.totalAmountToPay;
-      const user: User = this.generalService.getUserDataLocale(); 
-      if (user) {
-        this.orderDetails.userId = user.userId;
+      if (this.user) {
+        this.orderDetails.userId = this.user.userId;
         this.loading = true;
       }
       this.orderDetails.orderTime = (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))).toISOString().slice(0, -1);
@@ -131,17 +122,14 @@ export class BasketComponent implements OnInit {
           this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Narudžba je zaprimljena!') : this.toastMessages.saveChangesSuccess('Order has been received!');
         }, err => {
           this.loading = false;
-          this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
-          console.log(err);
+          this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
         }));
       }, err => {
         this.loading = false;
-        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+        this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
         console.log(err);
       }));
-    } else {
-      this.addressError = true;
-    }
+    } 
 
   }
 }

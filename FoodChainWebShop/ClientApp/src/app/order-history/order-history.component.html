@@ -38,9 +38,6 @@
             {{order.note}}
           </div>
           <div class="orderText">
-            {{order.price}} Kn
-          </div>
-          <div class="orderText">
             <div
               *ngIf="!selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== order.orderId; else changedPriceTotal"
               style="display: flex; flex-direction: column;">
@@ -51,7 +48,7 @@
             </div>
 
             <ng-template #changedPriceTotal>
-              <div class="priceChangeWarnText">Neke cijene su se promjenile! Potvrdite narudžbu.</div>
+              <div class="priceChangeWarnText">{{'CIJENE_PROMJENILE' | translate}}</div>
               <div class="ta-c">
                 <span class="red"> {{order.price}} kn
                 </span> <i class="fa fa-arrow-right" aria-hidden="true" style="margin: 5px 10px;"></i>
@@ -167,5 +164,13 @@
   <app-no-data noDataText="{{'NO_ORDERS' | translate}}">
   </app-no-data>
 </ng-template>
+
+<p-confirmDialog #cd header="{{'POTVRDA_PONOVNE_NARUDZBE_HEADER' | translate}}" icon="pi pi-exclamation-triangle">
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" class="ui-button-danger" label="{{'DA' | translate}}"
+      (click)="cd.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="{{'NE' | translate}}" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
 
 <app-toast-messages></app-toast-messages>

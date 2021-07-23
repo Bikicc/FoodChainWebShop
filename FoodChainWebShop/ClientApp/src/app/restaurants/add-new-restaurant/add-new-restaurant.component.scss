@@ -29,6 +29,14 @@
 
 .errorInput {
   border-bottom: 1px solid red;
+  ::ng-deep {
+    .ui-inputtext,
+    .ui-inputtext:focus,
+    .ui-inputtext:hover {
+      border-bottom: 0 !important;
+     
+    }
+  }
 }
 
 input[type=number] {
@@ -64,19 +72,21 @@ input[type=number] {
     display: none;
   }
 
-}
-.disabledButton {
-  cursor: default;
-  background-color: #80808078;
-}
+  .ui-inputtext {
+    border: none;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--goldenColor);
+  }
 
-.disabledButton:hover {
-  box-shadow: unset;
-  color: #6f6868 !important;
-}
+  .ui-inputtext:focus {
+    border: unset !important;
+    border-bottom: 1px solid var(--goldenColor) !important;
+  }
 
-.disabledButton::before {
-  background: unset;
+  .ui-inputtext:hover {
+    border-bottom: 1px solid var(--goldenColor) !important;
+  }
 }
 
 @media only screen and (max-width: 850px) {

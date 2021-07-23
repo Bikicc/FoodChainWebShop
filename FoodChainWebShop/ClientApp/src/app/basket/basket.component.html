@@ -62,11 +62,11 @@
             {{'ADRESA' | translate}}
           </div>
           <div class="contentValue">
-            <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
+            <input ngx-google-places-autocomplete id="address" name="address" [options]='globalVar.googleAutocompleteOptions' #placesRef="ngx-places"
               (onAddressChange)="handleAddressChange($event)" [(ngModel)]="orderDetails.address"
-              [ngClass]="{'errorInput': addressError}" (focusout)="addressError = false" />
+              [ngClass]="{'errorInput': address.invalid && (address.dirty || address.touched)}" #address="ngModel" required>
           </div>
-          <span *ngIf="addressError" class="errorMessage">{{'ADRESA_ERROR' | translate}}</span>
+          <!-- <span *ngIf="addressError" class="errorMessage">{{'ADRESA_ERROR' | translate}}</span> -->
         </div>
         <div class="ui-g-12 ui-lg-3 ui-md-12 ui-sm-12 flex ai-c fd-c">
           <div class="contentHeader">
@@ -90,10 +90,10 @@
           </div>
           <div class="contentValue fd-c">
             <div class="flex jc-c visibleBtn">
-              <a class="btn" style="margin-bottom: 5px;" (click)="makeAnOrder()">{{'NARUCI' | translate}}</a>
+              <a class="btn" style="margin-bottom: 5px;" (click)="makeAnOrder()" [ngClass]="{'disabledButton': !isFormValid()}">{{'NARUCI' | translate}}</a>
             </div>
             <div class="flex jc-c visibleBtn">
-              <a class="btn btnRemove" (click)="removeAllProductsFromBasket()">{{'UKLONITE_SVE' | translate}}</a>
+              <a class="btn btnRemove" (click)="removeAllProductsFromBasket()" >{{'UKLONITE_SVE' | translate}}</a>
             </div>
           </div>
         </div>

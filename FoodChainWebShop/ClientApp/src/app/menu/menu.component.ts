@@ -208,7 +208,7 @@ export class MenuComponent implements OnInit {
       this.setReviewStats(this.reviews);
     }, err => {
       this.loading = false;
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
       console.log(err);
     })
   }
@@ -229,7 +229,7 @@ export class MenuComponent implements OnInit {
       this.getReviews();
     }, err => {
       this.loading = false;
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
       console.log(err);
     })
   }
@@ -250,7 +250,7 @@ export class MenuComponent implements OnInit {
       this.getReviews();
     }, err => {
       this.loading = false;
-      this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesFailed('Error has occured! Please try again.');
+      this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
       console.log(err);
     })
   }

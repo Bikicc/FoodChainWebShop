@@ -1,3 +1,3 @@
 export class ApiKey {
-    apiKey: string = "AIzaSyA_bO8P0wyGbCoqm4P_3yScdd7mVhVBoqc"
+    apiKey: string = "AIzaSyBhLao8zlYYBmgtlHDsATnHbL6uCJ0SrHw"
 }

@@ -5,14 +5,14 @@
         {{'DODAJ_RESTORAN' | translate}}
       </span>
     </section>
-    <section class="signupContent">   
+    <section class="signupContent">
       <div class="dataInput">
         <div class="dataInputContainer">
           <div class="flex ai-c mh-40">
             <i class="fa fa-address-book-o" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input  type="text" id="name" name="name" placeholder="{{'NAZIV' | translate}}" 
+            <input type="text" id="name" name="name" placeholder="{{'NAZIV' | translate}}"
               [ngClass]="{'errorInput': name.invalid && (name.dirty || name.touched)}" required
               [(ngModel)]="restaurantModel.name" #name="ngModel">
           </div>
@@ -24,8 +24,10 @@
             <i class="fa fa-address-card-o" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input  type="text" id="address" name="address" placeholder="{{'ADRESA' | translate}}"
-              [ngClass]="{'errorInput': address.invalid && (address.dirty || address.touched)}" 
+            <input ngx-google-places-autocomplete type="text" id="address" name="address"
+              [options]='globalVar.googleAutocompleteOptions' placeholder="{{'ADRESA' | translate}}"
+              #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+              [ngClass]="{'errorInput': address.invalid && (address.dirty || address.touched)}"
               [(ngModel)]="restaurantModel.address" #address="ngModel" required>
           </div>
         </div>
@@ -36,11 +38,12 @@
             <i class="fa fa-phone" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input type="tel" id="phone" name="phone" pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$" 
-            placeholder="{{'BROJ_MOBITELA' | translate}}" 
-            [ngClass]="{'errorInput': phone.invalid && (phone.dirty || phone.touched)}"
-            [(ngModel)]="restaurantModel.mobileNumber" #phone="ngModel" required>
-            <span *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="errorMessage">{{'MOBILE_ERROR' | translate}}</span>
+            <p-inputMask type="tel" id="phone" name="phone" pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$"
+              placeholder="{{'BROJ_MOBITELA' | translate}}" mask="999-999-9999"
+              [ngClass]="{'errorInput': (phone.invalid && (phone.dirty || phone.touched)) || mobileNumberError}"
+              [(ngModel)]="restaurantModel.mobileNumber" #phone="ngModel" (keyup)="checkMobileNumberFormat()" required ></p-inputMask>
+            <span *ngIf="(phone.invalid && (phone.dirty || phone.touched)) || mobileNumberError" class="errorMessage">{{'MOBILE_ERROR' |
+              translate}}</span>
           </div>
         </div>
       </div>
@@ -50,7 +53,7 @@
             <i class="fa fa-money" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input type="number" id="minOrder" name="minOrder" placeholder="{{'MIN_NARUDZBA' | translate}}" 
+            <input type="number" id="minOrder" name="minOrder" placeholder="{{'MIN_NARUDZBA' | translate}}"
               [ngClass]="{'errorInput': minOrder.invalid && (minOrder.dirty || minOrder.touched)}" required
               [(ngModel)]="restaurantModel.minOrderPrice" #minOrder="ngModel">
           </div>
@@ -58,30 +61,32 @@
       </div>
       <div class="dataInput">
         <div class="dataInputContainer">
-          <div class="flex ai-c mh-40" >
+          <div class="flex ai-c mh-40">
             <i class="fa fa-user-o" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <p-dropdown [options]="restaurantTypeDropdown" [(ngModel)]="restaurantModel.RestaurantTypeId"  appendTo="body">
+            <p-dropdown [options]="restaurantTypeDropdown" [(ngModel)]="restaurantModel.RestaurantTypeId"
+              appendTo="body">
             </p-dropdown>
           </div>
         </div>
       </div>
       <div class="dataInput">
         <div class="dataInputContainer">
-          <div class="flex ai-c mh-40" >
+          <div class="flex ai-c mh-40">
             <i class="fa fa-user-o" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <p-dropdown [options]="ownersDropDown" [(ngModel)]="restaurantModel.UserId"  appendTo="body">
+            <p-dropdown [options]="ownersDropDown" [(ngModel)]="restaurantModel.UserId" appendTo="body">
             </p-dropdown>
           </div>
         </div>
       </div>
-       <div class="dataInput">
+      <div class="dataInput">
         <div class="dataInputContainer">
           <div class="inputWrapper">
-            <p-fileUpload #fileUploader name="myfile" customUpload="true" (uploadHandler)="myUploader($event)" accept="image/*" maxFileSize="2e6" [auto]="true"></p-fileUpload>
+            <p-fileUpload #fileUploader name="myfile" customUpload="true" (uploadHandler)="myUploader($event)"
+              accept="image/*" maxFileSize="2e6" [auto]="true"></p-fileUpload>
           </div>
         </div>
       </div>

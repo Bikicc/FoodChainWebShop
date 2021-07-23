@@ -7,16 +7,17 @@
     </section>
     <section class="signupContent">
       <div class="rolePickerContainer">
-        <p-selectButton *ngIf="roleId === globalVar.userRoles.admin" [options]="roles" [(ngModel)]="selectedRole"></p-selectButton>
+        <p-selectButton *ngIf="roleId === globalVar.userRoles.admin" [options]="roles" [(ngModel)]="selectedRole">
+        </p-selectButton>
       </div>
       <div class="dataInput">
-        <div class="flex">
+        <div class="flex formInputContainer">
           <div class="flex ai-c mh-40">
             <i class="fa fa-user" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input   type="text" placeholder="{{'KORISNICKO_IME' | translate}}"
-              [(ngModel)]="userToRegister.username" [ngClass]="{'errorInput': errors.usernameError}"
+            <input type="text" placeholder="{{'KORISNICKO_IME' | translate}}" [(ngModel)]="userToRegister.username"
+              [ngClass]="{'errorInput': errors.usernameError}"
               (focusout)="checkUsername(); checkButton(); checkUsernameTaken()">
             <span *ngIf="errors.usernameError" class="errorMessage">{{'USERNAME_ERROR' | translate}}</span>
             <span *ngIf="usernameTaken.length > 0" class="errorMessage">{{usernameTaken}} <a
@@ -25,12 +26,12 @@
         </div>
       </div>
       <div class="dataInput">
-        <div class="flex">
+        <div class="flex formInputContainer">
           <div class="flex ai-c mh-40">
             <i class="fa fa-envelope" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input  type="text" placeholder="E-mail" [(ngModel)]="userToRegister.email"
+            <input type="text" placeholder="E-mail" [(ngModel)]="userToRegister.email"
               [ngClass]="{'errorInput': errors.emailError}" (focusout)="checkEmail(); checkButton(); checkEmailTaken()">
             <span *ngIf="errors.emailError" class="errorMessage">{{'EMAIL_ERROR' | translate}}</span>
             <span *ngIf="emailTaken.length > 0" class="errorMessage">{{emailTaken}} <a routerLink="/login">{{'PRIJAVA' |
@@ -39,12 +40,12 @@
         </div>
       </div>
       <div class="dataInput">
-        <div class="flex">
+        <div class="flex formInputContainer">
           <div class="flex ai-c mh-40">
             <i class="fa fa-key" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input  type="password" placeholder="{{'LOZINKA' | translate}}"
+            <input type="password" placeholder="{{'LOZINKA' | translate}}"
               [ngClass]="{'errorInput': errors.passwordError}" [(ngModel)]="userToRegister.PasswordPlain"
               (focusout)="checkPassword(); checkButton()">
             <span *ngIf="errors.passwordError" class="errorMessage">{{'PASSWORD_ERROR' | translate}}</span>
@@ -52,27 +53,31 @@
         </div>
       </div>
       <div class="dataInput">
-        <div class="flex">
+        <div class="flex formInputContainer">
           <div class="flex ai-c mh-40">
             <i class="fa fa-address-card-o" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input  type="text" placeholder="{{'ADRESA' | translate}}"
-              [ngClass]="{'errorInput': errors.addressError}" [(ngModel)]="userToRegister.address"
-              (focusout)="checkAddress(); checkButton()">
+            <input ngx-google-places-autocomplete type="text" 
+              [options]='globalVar.googleAutocompleteOptions' placeholder="{{'ADRESA' | translate}}"
+              #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+              [ngClass]="{'errorInput': errors.addressError}"  (focusout)="checkAddress(); checkButton()"
+              [(ngModel)]="userToRegister.address" required>
           </div>
         </div>
       </div>
       <div class="dataInput">
-        <div class="flex">
+        <div class="flex formInputContainer">
           <div class="flex ai-c mh-40">
             <i class="fa fa-mobile" aria-hidden="true"></i>
           </div>
           <div class="inputWrapper">
-            <input type="tel" id="phone" name="phone" placeholder="{{'BROJ_MOBITELA' | translate}}"
-              [ngClass]="{'errorInput': errors.mobileError}" [(ngModel)]="userToRegister.mobileNumber"
-              (focusout)="checkMobileNumber(); checkButton()">
-              <span *ngIf="errors.mobileError" class="errorMessage">{{'MOBILE_ERROR' | translate}}</span>
+            <p-inputMask type="tel" id="phone" name="phone" pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$"
+              placeholder="{{'BROJ_MOBITELA' | translate}}" mask="999-999-9999"
+              [ngClass]="{'errorInput': errors.mobileError}"
+              [(ngModel)]="userToRegister.mobileNumber" (keyup)="checkMobileNumber(); checkButton()" ></p-inputMask>
+
+            <span *ngIf="errors.mobileError" class="errorMessage">{{'MOBILE_ERROR' | translate}}</span>
           </div>
         </div>
       </div>

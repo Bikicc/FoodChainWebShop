@@ -70,7 +70,7 @@ export class ContactUsComponent implements OnInit {
         this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Vaš E-mail je poslan!') : this.toastMessages.saveChangesSuccess('Your E-mail has been sent!');
       }, (err: string) => {
         this.loading = false;
-        this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesFailed('Došlo je do pogreške! Pokušajte ponovno.') : this.toastMessages.saveChangesSuccess('Error has occured! Please try again.');
+        this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
         console.log(err);
       }));
     }

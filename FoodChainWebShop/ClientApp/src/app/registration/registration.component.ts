@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class RegistrationComponent implements OnInit {
   @ViewChild(ToastMessagesComponent, { static: false })
   toastMessages: ToastMessagesComponent;
-  
+
   readonly roles: SelectItem[] = [
     { label: 'Vlasnik', value: 2, icon: 'fa fa-handshake-o' },
     { label: 'Admin', value: 1, icon: 'fa fa-lock' }];
@@ -100,22 +100,31 @@ export class RegistrationComponent implements OnInit {
   submitForm() {
     let registrationApi = null;
     if (!this.buttonDisabled) {
+      //Registraciju mogu vršiti anonimni korisnici i administrator, ako je anoniman roleId je null
       if (this.roleId === this.globalVar.userRoles.admin) {
         this.userToRegister.roleId = this.selectedRole;
-        // registrationApi = this.userService.registerUser(this.userToRegister);
         registrationApi = this.userService.registerUserAdmin(this.userToRegister);
 
       } else {
         this.userToRegister.roleId = this.globalVar.userRoles.korisnik;
-        registrationApi = this.userService.registerUserAdmin(this.userToRegister);
+        registrationApi = this.userService.registerUser(this.userToRegister);
 
       }
       this.loading = true;
       this.subscription.push(registrationApi.subscribe(() => {
         this.loading = false;
-        //Registraciju mogu vršiti anonimni korisnici i administrator, ako je anoniman roleId je null
+        this.usernameTaken = '';
+        this.emailTaken = '';
+        this.userToRegister = {
+          username: '',
+          email: '',
+          PasswordPlain: '',
+          address: '',
+          roleId: null,
+          mobileNumber: ''
+        };
         if (this.roleId) {
-          this.toastMessages.saveChangesSuccess(this.translate.instant("KORISNIK_USPJESNO_DODAN"))
+          this.toastMessages.saveChangesSuccess(this.translate.instant("KORISNIK_USPJESNO_DODAN"));
         } else {
           this.router.navigate(["login"], { queryParams: { fromRegistration: true } });
         }
@@ -150,7 +159,13 @@ export class RegistrationComponent implements OnInit {
   checkAddress() {
     if (this.userToRegister.address.length === 0) {
       this.errors.addressError = true;
+    } else {
+      this.errors.addressError = false;
     }
+  }
+
+  handleAddressChange(address: any) {
+    this.userToRegister.address = address.name + ', ' + address.vicinity;
   }
 
   checkMobileNumber(): boolean {
@@ -163,8 +178,14 @@ export class RegistrationComponent implements OnInit {
         this.errors.mobileError = true;
         return this.errors.mobileError;
       } else {
-        this.errors.mobileError = false;
-        return this.errors.mobileError;
+        if (['095', '098', '091', '092', '099'].includes(this.userToRegister.mobileNumber.split('-')[0])) {
+          this.errors.mobileError = false;
+          return this.errors.mobileError;
+        } else {
+          this.errors.mobileError = true;
+          return this.errors.mobileError;
+        }
+
       }
     }
   }

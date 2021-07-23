@@ -24,6 +24,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { PanelModule } from 'primeng/panel';
 import { CalendarModule } from 'primeng/calendar';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputMaskModule } from 'primeng/inputmask';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -116,6 +117,7 @@ import { ConfirmationService } from 'primeng/api';
     CalendarModule,
     KeyFilterModule,
     ConfirmDialogModule,
+    InputMaskModule,
     RouterModule.forRoot([
       { path: 'homepage', component: HomeComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },

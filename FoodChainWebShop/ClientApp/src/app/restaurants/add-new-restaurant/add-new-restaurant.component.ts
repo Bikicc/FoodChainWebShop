@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { GlobalVar } from 'src/app/globalVar';
 import { Restaurant } from 'src/app/interfaces/Restaurant';
 import { RestaurantType } from 'src/app/interfaces/RestaurantType';
 import { User } from 'src/app/interfaces/User';
@@ -35,8 +36,8 @@ export class AddNewRestaurantComponent implements OnInit {
     minOrderPrice: null,
     RestaurantTypeId: null,
     active: true,
-    restaurantId: null, 
-    restaurantTypeId: null, 
+    restaurantId: null,
+    restaurantTypeId: null,
     userId: null
   };
 
@@ -48,11 +49,12 @@ export class AddNewRestaurantComponent implements OnInit {
 
   subscription: Subscription[] = [];
   readonly formData: FormData = new FormData();
-  
+  mobileNumberError: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private restaurantService: RestaurantsService,
     private translate: TranslateService,
+    public globalVar: GlobalVar
   ) { }
 
   ngOnInit() {
@@ -99,8 +101,9 @@ export class AddNewRestaurantComponent implements OnInit {
     return !(
       !this.restaurantModel.name ||
       !this.restaurantModel.address ||
-      !this.restaurantModel.minOrderPrice  ||
+      !this.restaurantModel.minOrderPrice ||
       !this.restaurantModel.mobileNumber.match(/^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$/) ||
+      this.checkMobileNumberFormat() ||
       !this.restaurantModel.userId
     );
   }
@@ -140,10 +143,19 @@ export class AddNewRestaurantComponent implements OnInit {
       minOrderPrice: null,
       RestaurantTypeId: null,
       active: true,
-      restaurantId: null, 
-      restaurantTypeId: null, 
+      restaurantId: null,
+      restaurantTypeId: null,
       userId: null
     };
+  }
+
+  handleAddressChange(address: any) {
+    this.restaurantModel.address = address.name + ', ' + address.vicinity;
+  }
+
+  checkMobileNumberFormat(): boolean {
+    this.mobileNumberError = !['095', '098', '091', '092', '099'].includes(this.restaurantModel.mobileNumber.split('-')[0]);
+    return this.mobileNumberError;
   }
 
 }

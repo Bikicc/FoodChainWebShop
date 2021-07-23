@@ -1,0 +1,22 @@
+:host::ng-deep {
+    .ui-dialog {
+    
+      .ui-dialog-titlebar,
+      .ui-dialog-content,
+      .ui-dialog-footer {
+        color: white;
+        background-color: black;
+    
+        .ui-button {
+          background-color: transparent;
+          border: white;
+          outline: none !important;
+        }
+    
+        .ui-button:hover {
+          background-color: #40494f;
+        }
+      }
+    }
+  
+  }

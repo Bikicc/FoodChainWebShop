@@ -11,4 +11,10 @@ export class GlobalVar {
     }
 
     readonly todaysDate = (new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000))).toISOString().slice(0, -1);
+
+    readonly googleAutocompleteOptions = {
+        componentRestrictions: {
+            country: ['HR']
+        }
+    }
 }

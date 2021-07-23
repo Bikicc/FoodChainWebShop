@@ -86,8 +86,8 @@
     "STRANICA_NIJE_PRONADENA": "STRANICA NIJE PRONAĐENA",
     "DODAJ_U_FAVORITE": "Dodaj u favorite",
     "UKLONI_IZ_FAVORITE": "Ukloni iz favorita",
-    "USERNAME_ERROR": "Korisničko ime mora sadržavati barem 4 karaktera!",
-    "PASSWORD_ERROR": "Lozinka mora sadržavati barem 4 karaktera!",
+    "USERNAME_ERROR": "Mora sadržavati barem 4 karaktera!",
+    "PASSWORD_ERROR": "Mora sadržavati barem 4 karaktera!",
     "MOBILE_ERROR": "Format broja neispravan!",
     "IMAM_RACUN_REGISTRACIJA": "Imam korisnički račun!",
     "ODJAVA": "ODJAVA",
@@ -130,10 +130,15 @@
     "BROJ_NARUDZBI": "Broj narudžbi",
     "PRODUKT_IZBRISAN_ERR": "Narudžba se ne može ponoviti jer je jedan ili više produkata trenutno nedostupno!",
     "IZBRISI": "Delete",
-    "POTVRDA_BRISANJA_CONTENT": "Ova akcija je nepovratna! Da li st sigurni da želite nastaviti?",
+    "POTVRDA_BRISANJA_CONTENT": "Ova akcija je nepovratna! Da li ste sigurni da želite nastaviti?",
     "POTVRDA_BRISANJA_HEADER": "Potvrda brisanja",
     "DA": "Da",
-    "NE": "Ne"
+    "NE": "Ne",
+    "CIJENE_PROMJENILE": "Neke cijene su se promjenile! Potvrdite narudžbu.",
+    "POTVRDA_PONOVNE_NARUDZBE_HEADER": "Potvrda ponavljanja narudžbe",
+    "POTVRDA_PONOVNE_NARUDZBE_CONTENT": "Da li ste sigurni da želite potvrditi narudžbu?"
+
+
 
 
 

@@ -67,20 +67,6 @@ input[type=number] {
 
 }
 
-.disabledButton {
-  cursor: default;
-  background-color: #80808078;
-}
-
-.disabledButton:hover {
-  box-shadow: unset;
-  color: #6f6868 !important;
-}
-
-.disabledButton::before {
-  background: unset;
-}
-
 textarea {
     background: transparent;
     border: none;

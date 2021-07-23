@@ -3,6 +3,7 @@
 @import '../../assets/css/coverHeader.scss';
 @import '../../assets/css/dropdown.scss';
 @import '../../assets/css/products.scss';
+@import '../../assets/css/confirmationDialog.scss';
 
 $rad: 8px;
 
@@ -220,25 +221,6 @@ $rad: 8px;
 
     .ui-widget:disabled:hover {
       cursor: default !important;
-    }
-
-    .ui-dialog {
-      .ui-dialog-titlebar,
-      .ui-dialog-content,
-      .ui-dialog-footer {
-        color: white;
-        background-color: black;
-
-        .ui-button {
-          background-color: transparent;
-          border: white;
-          outline: none !important;
-        }
-
-        .ui-button:hover {
-          background-color: #40494f;
-        }
-      }
     }
   }
 }

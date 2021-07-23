@@ -177,18 +177,6 @@ a:hover {
   transform: unset;
 }
 
-.disabledButton {
-  cursor: default;
-  background-color: #80808078;
-}
-
-.disabledButton:hover {
-  box-shadow: unset;
-}
-
-.disabledButton::before {
-  background: unset;
-}
 
 @media only screen and (max-width: 970px) {
   .flex {
