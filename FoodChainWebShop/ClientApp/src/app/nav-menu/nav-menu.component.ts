@@ -34,6 +34,7 @@ export class NavMenuComponent {
   message: string;
   userLoginStatus: boolean = false;
   roleId: number = null;
+  
   ngOnInit(): void {
     this.selectedLang = this.translate.currentLang;
     this.setDropDownLangs();

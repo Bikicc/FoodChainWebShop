@@ -136,7 +136,11 @@
     "NE": "No",
     "CIJENE_PROMJENILE": "Price for some products have been changed! Confirm order.",
     "POTVRDA_PONOVNE_NARUDZBE_HEADER": "Repeat order confirmation",
-    "POTVRDA_PONOVNE_NARUDZBE_CONTENT": "Are you sure you want to repeat selected order?"
+    "POTVRDA_PONOVNE_NARUDZBE_CONTENT": "Are you sure you want to repeat selected order?",
+    "OSOBNI_PODATCI": "Personal data",
+    "UREDI": "Edit"
+
+
 
 
 

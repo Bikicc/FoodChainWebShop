@@ -29,6 +29,7 @@ namespace FoodChainWebShop.authService {
                 Subject = new ClaimsIdentity (new [] { 
                     new Claim("userId", user.UserId.ToString ()), 
                     new Claim("roleId", user.RoleId.ToString()), 
+                    new Claim("username", user.Username),
                     new Claim("address", user.Address), 
                     new Claim("mobileNumber", user.mobileNumber),
                     new Claim("email", user.Email) }),

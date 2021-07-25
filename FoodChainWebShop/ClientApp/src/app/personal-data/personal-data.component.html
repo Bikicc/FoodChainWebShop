@@ -1,0 +1,84 @@
+<div class="mainWrapper">
+    <div class="FormWrapper">
+      <section class="signupHeader">
+        <span class="headerText">
+          {{'OSOBNI_PODATCI' | translate}}
+        </span>
+      </section>
+      <section class="signupContent">
+        <div class="dataInput">
+          <div class="flex formInputContainer">
+            <div class="flex ai-c mh-40">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </div>
+            <div class="inputWrapper">
+              <input type="text" placeholder="{{'KORISNICKO_IME' | translate}}" [(ngModel)]="userData.username" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="dataInput">
+          <div class="flex formInputContainer">
+            <div class="flex ai-c mh-40">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </div>
+            <div class="inputWrapper">
+              <input type="text" placeholder="E-mail" [(ngModel)]="userData.email"
+                [ngClass]="{'errorInput': errors.emailError}" (focusout)="checkEmail(); checkButton(); checkEmailTaken()">
+              <span *ngIf="errors.emailError" class="errorMessage">{{'EMAIL_ERROR' | translate}}</span>
+              <span *ngIf="emailTaken.length > 0" class="errorMessage">{{emailTaken}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="dataInput">
+          <div class="flex formInputContainer">
+            <div class="flex ai-c mh-40">
+              <i class="fa fa-address-card-o" aria-hidden="true"></i>
+            </div>
+            <div class="inputWrapper">
+              <input ngx-google-places-autocomplete type="text" 
+                [options]='globalVar.googleAutocompleteOptions' placeholder="{{'ADRESA' | translate}}"
+                #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+                [ngClass]="{'errorInput': errors.addressError}"  (focusout)="checkAddress(); checkButton()"
+                [(ngModel)]="userData.address" required>
+            </div>
+          </div>
+        </div>
+        <div class="dataInput">
+          <div class="flex formInputContainer">
+            <div class="flex ai-c mh-40">
+              <i class="fa fa-mobile" aria-hidden="true"></i>
+            </div>
+            <div class="inputWrapper">
+              <p-inputMask type="tel" id="phone" name="phone" pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$"
+                placeholder="{{'BROJ_MOBITELA' | translate}}" mask="999-999-9999"
+                [ngClass]="{'errorInput': errors.mobileError}"
+                [(ngModel)]="userData.mobileNumber" (keyup)="checkMobileNumber(); checkButton()" ></p-inputMask>
+  
+              <span *ngIf="errors.mobileError" class="errorMessage">{{'MOBILE_ERROR' | translate}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex jc-c buttonContainer">
+          <a class="btn" (click)="updateUserData()" [ngClass]="{'disabledButton': buttonDisabled}">{{'UREDI' |
+            translate}}</a>
+        </div>
+      </section>
+    </div>
+   
+    <!-- Loader -->
+    <div class="center-page" *ngIf="loading">
+      <div class="sk-cube-grid">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+        <div class="sk-cube sk-cube3"></div>
+        <div class="sk-cube sk-cube4"></div>
+        <div class="sk-cube sk-cube5"></div>
+        <div class="sk-cube sk-cube6"></div>
+        <div class="sk-cube sk-cube7"></div>
+        <div class="sk-cube sk-cube8"></div>
+        <div class="sk-cube sk-cube9"></div>
+      </div>
+    </div>
+  </div>
+  
+  <app-toast-messages></app-toast-messages>

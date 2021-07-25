@@ -75,6 +75,7 @@ import { CategoryResolverService } from './services/CategoryResolverService';
 import { EditProductComponent } from './menu/edit-product/edit-product.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { PersonalDataComponent } from './personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { ConfirmationService } from 'primeng/api';
     AddNewRestaurantComponent,
     EditRestaurantComponent,
     AddNewProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    PersonalDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -136,6 +138,7 @@ import { ConfirmationService } from 'primeng/api';
       { path: 'restaurants', component: RestaurantsComponent, resolve: { restaurants: RestaurantsResloverService, restaurantTypes: RestaurantTypeResolverService } },
       { path: 'addNewRestaurant', component: AddNewRestaurantComponent, resolve: { owners: addNewUserResolverService, restaurantTypes: RestaurantTypeResolverService } },
       { path: 'editRestaurant/:restaurantId', component: EditRestaurantComponent, resolve: { owners: addNewUserResolverService, restaurantTypes: RestaurantTypeResolverService, restaurantInfo: RestaurantInfoResolverService } },
+      { path: 'personalData', component: PersonalDataComponent },
       { path: '**', component: PageNotFoundComponent }
     ]),
     I18nModule,

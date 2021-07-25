@@ -24,7 +24,7 @@ export class UserService {
         private router: Router,
         private dataFromAnotherComponent: ComponentCommunicationService,
         private generalService: GeneralService
-        ) {
+    ) {
         this.headersOption = new HttpHeaders({ 'Content-Type': 'application/json' });
     }
 
@@ -37,13 +37,13 @@ export class UserService {
             );
     }
 
-    registerUserAdmin(body : any) {
+    registerUserAdmin(body: any) {
         return this.http
-        .post(this.config.API_URL + 'auth/admin/createUser', body, { headers: this.headersOption })
-        .pipe(
-            retry(this.config.APIRetryCount),
-            catchError(this.errorHandler.errorHandler)
-        );
+            .post(this.config.API_URL + 'auth/admin/createUser', body, { headers: this.headersOption })
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler)
+            );
     }
 
     loginUser(body: any) {
@@ -65,9 +65,17 @@ export class UserService {
 
     getOwners() {
         return this.http
-        .get<User[]>(this.config.API_URL + 'owners')
-        .pipe(
-            retry(this.config.APIRetryCount),
-            catchError(this.errorHandler.errorHandler));
+            .get<User[]>(this.config.API_URL + 'owners')
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
+    }
+
+    updateUserData(userData: any) {
+        return this.http
+            .put(this.config.API_URL + 'user', userData, { headers: this.headersOption })
+            .pipe(
+                retry(this.config.APIRetryCount),
+                catchError(this.errorHandler.errorHandler));
     }
 }

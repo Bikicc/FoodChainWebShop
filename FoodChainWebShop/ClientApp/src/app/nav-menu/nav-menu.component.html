@@ -25,6 +25,7 @@
           <a routerLink="/contactUs">{{'KONTAKTIRAJTE_NAS' | translate}}</a>
           <a routerLink="/favourites">{{'FAVORITI' | translate}}</a>
           <a routerLink="/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+          <a *ngIf="roleId" routerLink="/personalData">{{'OSOBNI_PODATCI' | translate}}</a>
         </li>
         <li *ngIf="roleId && roleId === globalVar.userRoles.admin" class="linksContainer jc-c">
           <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
@@ -87,6 +88,7 @@
     <a routerLink="/contactUs">{{'KONTAKTIRAJTE_NAS' | translate}}</a>
     <a routerLink="/favourites">{{'FAVORITI' | translate}}</a>
     <a routerLink="/orderHistory">{{'POVIJEST_NARUDZBI' | translate}}</a>
+    <a *ngIf="roleId" routerLink="/personalData">{{'OSOBNI_PODATCI' | translate}}</a>
   </div>
   <div *ngIf="roleId && roleId === globalVar.userRoles.admin" class="overlayNavContent">
     <a routerLink="/restaurants">{{'RESTORANI' | translate}}</a>
