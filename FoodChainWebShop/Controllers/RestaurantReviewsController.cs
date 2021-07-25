@@ -1,8 +1,9 @@
+using System;
 using System.Threading.Tasks;
+using FoodChainWebShop.HelperClasses;
 using FoodChainWebShop.Interfaces;
 using FoodChainWebShop.Models;
 using Microsoft.AspNetCore.Mvc;
-using FoodChainWebShop.HelperClasses;
 
 namespace FoodChainWebShop.Controllers {
 
@@ -20,19 +21,31 @@ namespace FoodChainWebShop.Controllers {
         }
 
         [HttpPost]
-        [Authorize("korisnik")]
+        [Authorize ("korisnik")]
 
         public async Task<IActionResult> PostRestaurantReview ([FromBody] RestaurantReview review) {
-            await _restaurantReviewsService.InsertReview (review);
-            return Ok ();
+            try {
+                await _restaurantReviewsService.InsertReview (review);
+                return Ok ();
+            } catch (Exception e) {
+                Console.WriteLine ($"Exception: {e}");
+                return BadRequest ();
+            }
+
         }
 
         [HttpPut]
-        [Authorize("korisnik")]
+        [Authorize ("korisnik")]
 
         public async Task<IActionResult> UpdateRestaurantReview ([FromBody] RestaurantReview review) {
-            await _restaurantReviewsService.UpdateReview (review);
-            return Ok ();
+            try {
+                await _restaurantReviewsService.UpdateReview (review);
+                return Ok ();
+            } catch (Exception e) {
+                Console.WriteLine ($"Exception: {e}");
+                return BadRequest ();
+            }
+
         }
     }
 }

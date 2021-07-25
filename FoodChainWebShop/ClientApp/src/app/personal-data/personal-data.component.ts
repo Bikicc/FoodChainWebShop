@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { ConfirmationService } from 'primeng/api';
 import { GlobalVar } from '../globalVar';
 import { User } from '../interfaces/User';
 import { GeneralService } from '../services/GeneralService';
+import { UserService } from '../services/UserService';
+import { ToastMessagesComponent } from '../toast-messages/toast-messages.component';
 
 @Component({
   selector: 'app-personal-data',
@@ -9,6 +14,9 @@ import { GeneralService } from '../services/GeneralService';
   styleUrls: ['./personal-data.component.scss']
 })
 export class PersonalDataComponent implements OnInit {
+  @ViewChild(ToastMessagesComponent, { static: false })
+  toastMessages: ToastMessagesComponent;
+
   userData: User = null;
   errors = {
     emailError: false,
@@ -17,10 +25,14 @@ export class PersonalDataComponent implements OnInit {
   }
   buttonDisabled: boolean = false;
   emailTaken: string = '';
+  loading: boolean = false;
 
   constructor(
     private generalService: GeneralService,
-    public globalVar: GlobalVar
+    public globalVar: GlobalVar,
+    private userService: UserService,
+    private translate: TranslateService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -91,8 +103,34 @@ export class PersonalDataComponent implements OnInit {
   updateUserData(): void {
     if (!this.buttonDisabled) {
       const dataToUpdate = (({ address, email, mobileNumber, userId }) => ({ address, email, mobileNumber, userId }))(this.userData);
-      console.log(dataToUpdate);
-    } 
+      this.loading = true;
+
+      this.userService.updateUserData(dataToUpdate).subscribe(() => {
+        this.loading = false;
+
+        this.emailTaken = '';
+        this.toastMessages.saveChangesSuccess(this.translate.instant("PODATCI_USPJESNO_UREDENI"));
+        this.userService.logOutUser();
+      }, (err: HttpErrorResponse) => {
+        this.loading = false;
+
+        if (err.error.errorId === 2) {
+          this.emailTaken = err.error.message;
+          return;
+        } else {
+          this.toastMessages.saveChangesFailed(this.translate.instant("DOSLO_DO_POGRESKE"));
+        }
+      })
+    }
+  }
+
+  confirmChanges() {
+    this.confirmationService.confirm({
+      message: this.translate.instant("POTVRDA_PROMJENE_OSOBNIH_PODATAKA"),
+      accept: () => {
+        this.updateUserData();
+      }
+    });
   }
 
 }

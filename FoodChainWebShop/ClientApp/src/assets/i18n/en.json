@@ -138,7 +138,11 @@
     "POTVRDA_PONOVNE_NARUDZBE_HEADER": "Repeat order confirmation",
     "POTVRDA_PONOVNE_NARUDZBE_CONTENT": "Are you sure you want to repeat selected order?",
     "OSOBNI_PODATCI": "Personal data",
-    "UREDI": "Edit"
+    "UREDI": "Edit",
+    "PODATCI_USPJESNO_UREDENI":"Your personal data has been successfully updated!",
+    "POTVRDITE_PROMJENE": "Confirm changes",
+    "POTVRDA_PROMJENE_OSOBNIH_PODATAKA": "Changing personal data requires re-login to the application! Are you sure you want to edit your personal data?"
+
 
 
 
