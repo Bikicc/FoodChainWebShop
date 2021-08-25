@@ -54,8 +54,8 @@ export class OrderHistoryComponent implements OnInit {
     this.subscription.push(this.activatedRoute.data.subscribe((data: { orders: Order[] }) => {
       this.userData = this.generalService.getUserDataLocale();
       this.ordersUnformatted = this.sortByDate(data.orders);
-      this.setImageToShow(this.ordersUnformatted);
       this.formatDate();
+      this.setImageToShow(this.orders);
       if (this.generalService.getUserRoleId() === this.globalVar.userRoles.admin || this.generalService.getUserRoleId() === this.globalVar.userRoles.vlasnik) {
         this.ordersGroupByRestaurant = data.orders.length > 0 ? this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId) : null;
         this.setRecap(this.ordersGroupByRestaurant);
@@ -177,8 +177,8 @@ export class OrderHistoryComponent implements OnInit {
   getOrdersForUser() {
     this.subscription.push(this.orderService.getOrders().subscribe((orders: Order[]) => {
       this.ordersUnformatted = this.sortByDate(orders);
-      this.setImageToShow(this.ordersUnformatted);
       this.formatDate();
+      this.setImageToShow(this.orders);
       this.loading = false;
     }, err => {
       this.loading = false;
@@ -198,7 +198,9 @@ export class OrderHistoryComponent implements OnInit {
 
   private setImageToShow(orders: Order[]): void {
     orders.forEach((order: Order) => {
-      order.orderProduct.forEach((product: Product) => product.imageToShow = this.generalService.setBase64ImageToShow(product.image as string));
+      order.orderProduct.forEach((op: any) => {
+        op.imageToShow = this.generalService.setBase64ImageToShow(op.product.image as string);
+      });
     });
   }
 
@@ -212,8 +214,8 @@ export class OrderHistoryComponent implements OnInit {
     this.orderService.getOrders(dates).subscribe((data: any[]) => {
       this.loading = false;
       this.ordersUnformatted = this.sortByDate(data);
-      this.setImageToShow(this.ordersUnformatted);
       this.formatDate();
+      this.setImageToShow(this.orders);
       this.ordersGroupByRestaurant = data.length > 0 ? this.generalService.groupArrOfObjectByKey(this.orders, o => o.orderProduct[0].product.restaurant.restaurantId) : null;
       this.setRecap(this.ordersGroupByRestaurant);
     }, err => {

@@ -155,10 +155,14 @@ export class MenuComponent implements OnInit {
   }
 
   calcTotalRating(rw: RestaurantReview[]): number {
-    const numberOfReviews: number = rw.length;
-    const accumulativeScore: number = rw.reduce((acc, curr) => { return acc + curr.rating }, 0);
+    if (rw.length === 0) {
+      return 0;
+    } else {
+      const numberOfReviews: number = rw.length;
+      const accumulativeScore: number = rw.reduce((acc, curr) => { return acc + curr.rating }, 0);
 
-    return Math.round(accumulativeScore / numberOfReviews * 100) / 100;
+      return Math.round(accumulativeScore / numberOfReviews * 100) / 100;
+    }
   }
 
   getNumberOfReviews(rw: RestaurantReview[]) {
@@ -167,18 +171,28 @@ export class MenuComponent implements OnInit {
 
   calcRatingPrecentage(rw: RestaurantReview[]): StarPrecentage {
     const totalNumberOfReviews = rw.length;
-    const numberOfOneStar = rw.filter(rw => rw.rating === 1).length;
-    const numberOfTwoStar = rw.filter(rw => rw.rating === 2).length;
-    const numberOfThreeStar = rw.filter(rw => rw.rating === 3).length;
-    const numberOfFourStar = rw.filter(rw => rw.rating === 4).length;
-    const numberOfFiveStar = rw.filter(rw => rw.rating === 5).length;
+    if (totalNumberOfReviews === 0) {
+      return {
+        one: '0',
+        two: '0',
+        three: '0',
+        four: '0',
+        five: '0' 
+      }
+    } else {
+      const numberOfOneStar = rw.filter(rw => rw.rating === 1).length;
+      const numberOfTwoStar = rw.filter(rw => rw.rating === 2).length;
+      const numberOfThreeStar = rw.filter(rw => rw.rating === 3).length;
+      const numberOfFourStar = rw.filter(rw => rw.rating === 4).length;
+      const numberOfFiveStar = rw.filter(rw => rw.rating === 5).length;
 
-    return {
-      one: ((numberOfOneStar / totalNumberOfReviews) * 100).toFixed(2),
-      two: ((numberOfTwoStar / totalNumberOfReviews) * 100).toFixed(2),
-      three: ((numberOfThreeStar / totalNumberOfReviews) * 100).toFixed(2),
-      four: ((numberOfFourStar / totalNumberOfReviews) * 100).toFixed(2),
-      five: ((numberOfFiveStar / totalNumberOfReviews) * 100).toFixed(2)
+      return {
+        one: ((numberOfOneStar / totalNumberOfReviews) * 100).toFixed(2),
+        two: ((numberOfTwoStar / totalNumberOfReviews) * 100).toFixed(2),
+        three: ((numberOfThreeStar / totalNumberOfReviews) * 100).toFixed(2),
+        four: ((numberOfFourStar / totalNumberOfReviews) * 100).toFixed(2),
+        five: ((numberOfFiveStar / totalNumberOfReviews) * 100).toFixed(2)
+      }
     }
 
   }
@@ -220,9 +234,9 @@ export class MenuComponent implements OnInit {
       rating: this.myReview.rating,
       userId: this.userData.userId
     };
-    
+
     this.loading = true;
-    
+
     this.restaurantReviewService.insertRestaurantReview(reviewData).subscribe(() => {
       this.loading = false;
       this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Hvala na ostavljenoj recenziji!') : this.toastMessages.saveChangesSuccess('Thank you for your review!');
@@ -241,9 +255,9 @@ export class MenuComponent implements OnInit {
       rating: this.myReview.rating,
       userId: this.userData.userId
     };
-    
+
     this.loading = true;
-    
+
     this.restaurantReviewService.updateRestaurantReview(reviewData).subscribe(() => {
       this.loading = false;
       this.translate.currentLang === 'hr' ? this.toastMessages.saveChangesSuccess('Hvala na ostavljenoj recenziji!') : this.toastMessages.saveChangesSuccess('Thank you for your review!');
@@ -290,8 +304,8 @@ export class MenuComponent implements OnInit {
     this.confirmationService.confirm({
       message: this.translate.instant("POTVRDA_BRISANJA_CONTENT"),
       accept: () => {
-          this.deleteProduct(productId);
+        this.deleteProduct(productId);
       }
-  });
+    });
   }
 }

@@ -33,7 +33,7 @@ export class AddNewRestaurantComponent implements OnInit {
     name: '',
     mobileNumber: '',
     address: '',
-    minOrderPrice: null,
+    minOrderPrice: 30,
     RestaurantTypeId: null,
     active: true,
     restaurantId: null,

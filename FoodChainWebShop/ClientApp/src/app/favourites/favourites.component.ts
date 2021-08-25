@@ -92,9 +92,9 @@ export class FavouritesComponent implements OnInit {
 
   private setFavourites(data: any[]): void {
     this.favourites = data;
-  
+
     this.favourites.forEach((fav) => {
-      fav.product.imageToShow = this.generalService.setBase64ImageToShow(fav.image as string);
+      fav.product.imageToShow = this.generalService.setBase64ImageToShow(fav.product.image as string);
     });
     
     if (this.favourites && this.favourites.length > 0) this.favouritesGroupedByRestaurant = this.groupByRestaurant(this.favourites);

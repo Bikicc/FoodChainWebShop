@@ -64,14 +64,14 @@
         <div class="ui-g ui-fluid w-100">
           <div *ngFor="let item of order.orderProduct" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper"
             (click)="navigateToProduct(item.product.name, item.product.productId)">
-            <span class="cursot-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}X</span>
-            <div class="cursot-pnt productImage">
+            <span class="cursor-pnt w-100 ta-c" style="font-size: 1.3rem;">{{item.quantity}}X</span>
+            <div class="cursor-pnt productImage">
               <img [src]=item.imageToShow style="width: 100px">
             </div>
-            <div class="cursot-pnt productName">
+            <div class="cursor-pnt productName">
               {{item.product.name}}
             </div>
-            <div class="cursot-pnt productPrice">
+            <div class="cursor-pnt productPrice">
               <span
                 *ngIf="item.productPriceATM === item.product.price || !selectedOrderToRepeat.priceChanged || selectedOrderToRepeat.orderId !== item.orderId; else changedPrice">
                 {{item.productPriceATM}} kn
@@ -140,7 +140,7 @@
         </div>
         <div class="ui-g ui-fluid w-100">
           <div *ngFor="let item of order.orderProduct" class="ui-g-12 ui-xl-2 ui-lg-3 ui-md-6 ui-sm-12 productWrapper">
-            <span class="cursot-pnt w-100 ta-c defCursor" style="font-size: 1.3rem;">{{item.quantity}}X</span>
+            <span class="cursor-pnt w-100 ta-c defCursor" style="font-size: 1.3rem;">{{item.quantity}}X</span>
             <div class="productImage defCursor">
               <img [src]=item.imageToShow style="width: 100px">
             </div>
